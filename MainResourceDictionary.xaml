@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:LastIRead">
+
+    <DataTemplate x:Key="itemTemplate">
+        <StackPanel>
+            <TextBlock Text="{Binding Title}" />
+            <TextBlock Text="{Binding LastRead}"/>
+            <TextBlock Text="{Binding Priority}"/>
+            <Button x:Name="IncrementButton" Content="+1" Command="{Binding IncrementProgress}"/>
+        </StackPanel>
+    </DataTemplate>
+
+
+</ResourceDictionary>

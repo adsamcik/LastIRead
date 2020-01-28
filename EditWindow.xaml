@@ -1,0 +1,28 @@
+﻿<Window x:Class="LastIRead.EditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LastIRead"
+        mc:Ignorable="d"
+        Title="EditWindow" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Content="Title" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <TextBox x:Name="TitleInput" Margin="10,36,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <Label x:Name="CurrentProgress" Content="Current progress" HorizontalAlignment="Left" Margin="10,61,0,0" Grid.RowSpan="2" Height="26" VerticalAlignment="Top"/>
+        <TextBox x:Name="CurrenProgressInput" Margin="10,87,150,0" TextWrapping="Wrap" VerticalAlignment="Top" PreviewTextInput="TextBox_PreviewTextInput" Grid.RowSpan="2"/>
+        <Label Content="Previous chapter" HorizontalAlignment="Right" Margin="0,61,10,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <Label x:Name="LastChapterLabel" Content="999" HorizontalAlignment="Right" Margin="0,87,10,0" VerticalAlignment="Top" Height="18" Padding="0,0,0,0" Width="135" HorizontalContentAlignment="Right" Grid.RowSpan="2"/>
+        <Button x:Name="CancelButton" Content="Cancel" Margin="0,0,10,10" Click="CancelButton_Click" Grid.RowSpan="2" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="60"/>
+        <Button x:Name="OkButton" Content="OK" Margin="0,0,75,10" Click="OkButton_Click" Grid.RowSpan="2" HorizontalAlignment="Right" Width="58" Height="23" VerticalAlignment="Bottom"/>
+        <Label Content="Max progress" HorizontalAlignment="Left" Margin="10,107,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <TextBox x:Name="MaxProgressInput" Margin="10,133,150,0" TextWrapping="Wrap" VerticalAlignment="Top" PreviewTextInput="TextBox_PreviewTextInput" Grid.Row="1"/>
+        <CheckBox x:Name="AbandonedCheckbox" Content="Abandoned" Margin="10,156,0,0" Grid.Row="1" HorizontalAlignment="Left" Width="120" Height="18" VerticalAlignment="Top"/>
+        <CheckBox x:Name="OngoingCheckbox" Content="Ongoing" HorizontalAlignment="Left" Margin="10,179,0,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
