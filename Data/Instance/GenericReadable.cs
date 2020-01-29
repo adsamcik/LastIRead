@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CsvHelper.Configuration.Attributes;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,27 +11,39 @@ namespace LastIRead.Data.Instance {
     /// Generic readable implementation for most reading materials.
     /// </summary>
     class GenericReadable : IReadable {
+
         public string Title { get; set; }
 
-        public int MaxProgress { get; set; }
+        [Optional]
+        public double MaxProgress { get; set; }
 
+        [Optional]
         public bool Ongoing { get; set; }
 
+        [Optional]
+        public bool Abandoned { get; set; }
+
+        [Ignore]
         public DateTime LastRead => LastProgress.Date;
 
-        public int Progress => LastProgress.Value;
+        [Optional]
+        public double Progress {
+            get => LastProgress.Value;
+            set => LogProgress(value);
+        }
 
+        [Ignore]
         public IProgress LastProgress => (History.Count > 0) ? History.Last() : new GenericProgress(DateTime.MinValue, 0);
 
 
+        [Optional]
         public IList<IProgress> History { get; } = new List<IProgress>();
-        public bool Abandoned { get; set; }
 
         public void IncrementProgress() {
             LogProgress(Progress + 1);
         }
 
-        public void LogProgress(int progress) {
+        public void LogProgress(double progress) {
             if (!Ongoing && MaxProgress > 0) {
                 progress = Math.Min(MaxProgress, progress);
             }

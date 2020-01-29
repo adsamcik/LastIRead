@@ -1,0 +1,84 @@
+﻿using LastIRead.Data.Instance;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Threading.Tasks;
+
+namespace LastIRead.Import.Implementation {
+    class JSONDataHandler : IDataImporter, IDataExporter {
+        public string[] ImportExtensions => new string[] { "json" };
+
+        public string[] ExportExtensions => ImportExtensions;
+
+        private JsonSerializer Serializer => new JsonSerializer {
+            
+        };
+
+        public async Task Export(IList<IReadable> readables, FileInfo file) {
+            using StreamWriter writer = File.CreateText(file.FullName);
+
+            Serializer.Serialize(writer, readables);
+        }
+
+        public async Task<IList<IReadable>> Import(FileInfo file) {
+            using StreamReader reader = new StreamReader(file.FullName);
+
+            var serialize = Serializer;
+
+            serialize.Converters.Add(new ProgressConverter());
+            serialize.Converters.Add(new ProgressArrayConverter());
+            var list = (List<GenericReadable>)serialize.Deserialize(reader, typeof(List<GenericReadable>));
+            return list.Cast<IReadable>().ToList();
+        }
+
+        /// <summary>
+        /// Progress converter.
+        /// For now converts any progress to GenericProgress on serialization.
+        /// </summary>
+        class ProgressConverter : JsonConverter {
+            public override bool CanConvert(Type objectType) {
+                return objectType == typeof(IProgress);
+            }
+
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) {
+                return serializer.Deserialize<GenericProgress>(reader);
+            }
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) {
+                serializer.Serialize(writer, value);
+            }
+        }
+
+        /// <summary>
+        /// Progress array converter.
+        /// Required for proper progress list serialization.
+        /// </summary>
+        class ProgressArrayConverter : JsonConverter {
+            public override bool CanConvert(Type objectType) {
+                return (objectType == typeof(List<IProgress>));
+            }
+
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) {
+                var array = JArray.Load(reader);
+                var list = new List<IProgress>();
+                foreach (var item in array) {
+                    list.Add(item.ToObject<IProgress>(serializer));
+                }
+                return list;
+            }
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) {
+                serializer.Serialize(writer, value);
+            }
+
+            public override bool CanWrite {
+                get { return true; }
+            }
+        }
+    }
+}

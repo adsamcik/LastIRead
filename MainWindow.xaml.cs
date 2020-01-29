@@ -7,12 +7,16 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using Microsoft.Win32;
 using LastIRead.Import;
+using System.Linq;
+using System.Threading.Tasks;
+using LastIRead.Import.Implementation;
 
 namespace LastIRead {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
+        private string databasePath = $"{AppDomain.CurrentDomain.BaseDirectory}{Path.DirectorySeparatorChar}reading-list.json";
         private List<IReadable> readableList = new List<IReadable>();
 
         public MainWindow() {
@@ -22,6 +26,8 @@ namespace LastIRead {
 
             var view = (CollectionView)CollectionViewSource.GetDefaultView(readableList);
             view.Filter = ListFilter;
+
+            Load();
         }
 
         private bool ListFilter(object item) {
@@ -74,7 +80,25 @@ namespace LastIRead {
             return new EditWindow(readable).ShowDialog() == true;
         }
 
-        private void Save() {
+        private async void Save() {
+            Refresh();
+
+            await new JSONDataHandler().Export(readableList, new FileInfo(databasePath));
+        }
+
+        private async void Load() {
+            try {
+                readableList.Clear();
+                var loadedList = await new JSONDataHandler().Import(new FileInfo(databasePath));
+                readableList.AddRange(loadedList);
+
+                Refresh();
+            } catch (Exception) {
+                //Ignore for now
+            }
+        }
+
+        private void Refresh() {
             ReadList.Items.Refresh();
             CollectionViewSource.GetDefaultView(readableList).Refresh();
         }
@@ -83,27 +107,54 @@ namespace LastIRead {
             CollectionViewSource.GetDefaultView(readableList).Refresh();
         }
 
-        private void ImportButton_Click(object sender, RoutedEventArgs e) {
-            var dialog = new OpenFileDialog();
-            dialog.Multiselect = false;
-            dialog.Filter = "*.json|*.csv";
+        private async void ImportButton_Click(object sender, RoutedEventArgs e) {
+            var importers = GetImplementors<IDataImporter>();
+            var extensions = importers.SelectMany(x => x.ImportExtensions).Distinct();
+            var filterMap = extensions.Select(x => $"{x.ToUpper()}|*.{x.ToLower()}");
+            var allExtensions = string.Join(';', extensions.Select(x => $"*.{x.ToLower()}"));
+
+            var dialog = new OpenFileDialog {
+                Multiselect = false,
+                Filter = $"All|{allExtensions}|{string.Join('|', filterMap)}"
+            };
             if (dialog.ShowDialog() == true) {
                 var path = dialog.FileName;
                 var extension = Path.GetExtension(path);
 
-                if (extension == ".json") {
-
-                } else if (extension == ".csv") {
-                    var file = new FileInfo(dialog.FileName);
-                    try {
-                        var list = new CSVImport().Import(file);
-                        readableList.AddRange(list);
-                        Save();
-                    } catch (Exception exception) {
-                        MessageBox.Show($"Import of file {dialog.FileName} failed. {exception.Message}.", "Import failed.", MessageBoxButton.OK);
-                    }
+                var importer = importers.First(importer => importer.ImportExtensions.Any(e => extension.Contains(e, StringComparison.InvariantCultureIgnoreCase)));
+                try {
+                    var list = await importer.Import(new FileInfo(path));
+                    readableList.AddRange(list);
+                    Save();
+                } catch (Exception exception) {
+                    MessageBox.Show($"Import of file {dialog.FileName} failed. {exception.Message}.", "Import failed.", MessageBoxButton.OK);
+                    Console.WriteLine(exception.StackTrace);
                 }
             }
+        }
+
+        private void ExportButton_Click(object sender, RoutedEventArgs e) {
+            var exporters = GetImplementors<IDataExporter>();
+            var filterMap = exporters.SelectMany(x => x.ExportExtensions).Select(x => $"{x.ToUpper()}|*.{x.ToLower()}");
+
+            var dialog = new SaveFileDialog() {
+                Filter = string.Join('|', filterMap)
+            };
+            if (dialog.ShowDialog() == true) {
+                var path = dialog.FileName;
+                var exporter = exporters[dialog.FilterIndex - 1];
+                exporter.Export(readableList, new FileInfo(dialog.FileName));
+            }
+        }
+
+        private List<T> GetImplementors<T>() {
+            var type = typeof(T);
+            return AppDomain.CurrentDomain
+                .GetAssemblies()
+                .SelectMany(x => x.GetTypes())
+                 .Where(x => type.IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
+                 .Select(x => (T)Activator.CreateInstance(x))
+                 .ToList();
         }
     }
 }

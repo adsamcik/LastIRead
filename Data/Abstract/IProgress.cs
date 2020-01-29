@@ -4,6 +4,6 @@ namespace LastIRead {
     public interface IProgress {
         DateTime Date { get; }
 
-        int Value { get; }
+        double Value { get; }
     }
 }

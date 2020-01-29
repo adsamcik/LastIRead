@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CsvHelper.Configuration.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,7 +13,7 @@ namespace LastIRead {
         /// <summary>
         /// Max progress indicates how long the reading material is.
         /// </summary>
-        int MaxProgress { get; set; }
+        double MaxProgress { get; set; }
 
         /// <summary>
         /// Indicates whether the reading material is still being added to.
@@ -33,7 +34,7 @@ namespace LastIRead {
         /// <summary>
         /// Latest progress data.
         /// </summary>
-        int Progress { get; }
+        double Progress { get; }
 
         /// <summary>
         /// Complete progress history of reading.
@@ -50,6 +51,6 @@ namespace LastIRead {
         /// Updates reading progress with given progress value.
         /// </summary>
         /// <param name="progress">Progress value</param>
-        void LogProgress(int progress);
+        void LogProgress(double progress);
     }
 }

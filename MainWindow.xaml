@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LastIRead"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Last I Read" Height="450" Width="800">
     <Grid>
         <ListView x:Name="ReadList" Margin="0,33,0,50" MouseDoubleClick="ReadList_MouseDoubleClick">
             <ListView.View>
@@ -30,6 +30,7 @@
         <Button x:Name="RemoveButton" Content="Remove" Margin="0,0,115,7" Click="RemoveButton_Click" HorizontalAlignment="Right" Width="100" Height="38" VerticalAlignment="Bottom"/>
         <TextBox x:Name="SearchBox" TextWrapping="Wrap" Margin="10,10,10,0" TextChanged="SearchBox_TextChanged" Height="18" VerticalAlignment="Top"/>
         <Button x:Name="ImportButton" Content="Import" Margin="10,0,0,7" Height="38" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Click="ImportButton_Click"/>
+        <Button x:Name="ExportButton" Content="Export" Margin="115,0,0,7" Height="38" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Click="ExportButton_Click"/>
 
     </Grid>
 </Window>

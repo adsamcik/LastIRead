@@ -5,9 +5,9 @@ namespace LastIRead.Data.Instance {
 
         public DateTime Date { get; }
 
-        public int Value { get; private set; }
+        public double Value { get; private set; }
 
-        public GenericProgress(DateTime date, int progress) {
+        public GenericProgress(DateTime date, double progress) {
             Date = date;
             Value = progress;
         }
