@@ -44,13 +44,13 @@ namespace LastIRead {
         private void UpdateFromFields() {
             readable.Ongoing = OngoingCheckbox.IsChecked == true;
             readable.Abandoned = AbandonedCheckbox.IsChecked == true;
-            
-            if(!string.IsNullOrEmpty(CurrenProgressInput.Text)) {
-                var progressValue = int.Parse(CurrenProgressInput.Text);
-                readable.LogProgress(progressValue);
+
+            var progressValue = CurrenProgressInput.Value;
+            if (progressValue != null) {
+                readable.LogProgress((double)progressValue);
             }
 
-            readable.MaxProgress = int.Parse(MaxProgressInput.Text);
+            readable.MaxProgress = MaxProgressInput.Value ?? 0;
             readable.Title = TitleInput.Text;
         }
 
@@ -68,7 +68,7 @@ namespace LastIRead {
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e) {
-            e.Handled = Regex.IsMatch(e.Text, "[^0-9]+");
+            e.Handled = Regex.IsMatch(e.Text, "[^0-9,.-]+");
         }
     }
 }
