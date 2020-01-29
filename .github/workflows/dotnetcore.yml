@@ -14,8 +14,8 @@ jobs:
       with:
         dotnet-version: 3.1.101
     - name: Build with dotnet
-      run: dotnet build --configuration Release
+      run: dotnet build --configuration Release 
     - uses: actions/upload-artifact@v1
       with:
-        name: Build
+        name: LastIRead-Build
         path: bin/Release/netcoreapp3.0
