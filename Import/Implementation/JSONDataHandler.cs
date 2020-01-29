@@ -19,6 +19,8 @@ namespace LastIRead.Import.Implementation {
             
         };
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+
         public async Task Export(IList<IReadable> readables, FileInfo file) {
             using StreamWriter writer = File.CreateText(file.FullName);
 
@@ -35,6 +37,8 @@ namespace LastIRead.Import.Implementation {
             var list = (List<GenericReadable>)serialize.Deserialize(reader, typeof(List<GenericReadable>));
             return list.Cast<IReadable>().ToList();
         }
+
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 
         /// <summary>
         /// Progress converter.
