@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:LastIRead"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <ResourceDictionary Source="MainResourceDictionary.xaml" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="MainResourceDictionary.xaml" />
+                <!--  FluentWPF Controls  -->
+                <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Controls.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

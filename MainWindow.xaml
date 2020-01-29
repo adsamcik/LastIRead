@@ -3,11 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         xmlns:local="clr-namespace:LastIRead"
         mc:Ignorable="d"
+        fw:AcrylicWindow.AcrylicWindowStyle="NoIcon"
+        fw:AcrylicWindow.Enabled="True"
         Title="Last I Read" Height="450" Width="800">
     <Grid>
-        <ListView x:Name="ReadList" Margin="0,33,0,50" MouseDoubleClick="ReadList_MouseDoubleClick">
+        <ListView x:Name="ReadList" Margin="10,50,10,54" MouseDoubleClick="ReadList_MouseDoubleClick" Background="White" BorderThickness="0">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Title}" />
@@ -26,11 +29,11 @@
             </ListView.View>
 
         </ListView>
-        <Button x:Name="AddButton" Content="Add" HorizontalAlignment="Right" Margin="0,0,10,7" Width="100" Click="AddButton_Click" Height="38" VerticalAlignment="Bottom"/>
-        <Button x:Name="RemoveButton" Content="Remove" Margin="0,0,115,7" Click="RemoveButton_Click" HorizontalAlignment="Right" Width="100" Height="38" VerticalAlignment="Bottom"/>
-        <TextBox x:Name="SearchBox" TextWrapping="Wrap" Margin="10,10,10,0" TextChanged="SearchBox_TextChanged" Height="18" VerticalAlignment="Top"/>
-        <Button x:Name="ImportButton" Content="Import" Margin="10,0,0,7" Height="38" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Click="ImportButton_Click"/>
-        <Button x:Name="ExportButton" Content="Export" Margin="115,0,0,7" Height="38" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Click="ExportButton_Click"/>
+        <Button Style="{StaticResource ButtonRevealStyle}" x:Name="AddButton" Content="Add" HorizontalAlignment="Right" Margin="0,0,10,7" Width="100" Click="AddButton_Click" Height="38" VerticalAlignment="Bottom"/>
+        <Button Style="{StaticResource ButtonRevealStyle}" x:Name="RemoveButton" Content="Remove" Margin="0,0,115,7" Click="RemoveButton_Click" HorizontalAlignment="Right" Width="100" Height="38" VerticalAlignment="Bottom"/>
+        <TextBox Style="{StaticResource TextBoxRevealStyle}" x:Name="SearchBox" TextWrapping="Wrap" Margin="10,10,10,0" TextChanged="SearchBox_TextChanged" Height="32" VerticalAlignment="Top"/>
+        <Button Style="{StaticResource ButtonRevealStyle}" x:Name="ImportButton" Content="Import" Margin="10,0,0,7" Height="38" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Click="ImportButton_Click"/>
+        <Button Style="{StaticResource ButtonRevealStyle}" x:Name="ExportButton" Content="Export" Margin="115,0,0,7" Height="38" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Click="ExportButton_Click"/>
 
     </Grid>
 </Window>
