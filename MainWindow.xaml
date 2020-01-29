@@ -10,7 +10,7 @@
         fw:AcrylicWindow.Enabled="True"
         Title="Last I Read" Height="450" Width="800">
     <Grid>
-        <ListView x:Name="ReadList" Margin="10,50,10,54" MouseDoubleClick="ReadList_MouseDoubleClick" Background="White" BorderThickness="0">
+        <ListView x:Name="ReadList" Margin="10,50,10,54" MouseDoubleClick="ReadList_MouseDoubleClick" Background="{DynamicResource SystemAltHighColorBrush}" BorderThickness="0" Foreground="{DynamicResource SystemBaseHighColorBrush}" BorderBrush="{DynamicResource SytemAltMediumColorBrush}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Title}" />
