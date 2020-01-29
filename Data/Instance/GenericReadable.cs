@@ -23,16 +23,25 @@ namespace LastIRead.Data.Instance {
         [Optional]
         public bool Abandoned { get; set; }
 
+        /// <summary>
+        /// Last date this was read.
+        /// </summary>
         [Ignore]
+        [JsonIgnore]
         public DateTime LastRead => LastProgress.Date;
 
         [Optional]
+        [JsonIgnore]
         public double Progress {
             get => LastProgress.Value;
             set => LogProgress(value);
         }
 
+        /// <summary>
+        /// Last progress
+        /// </summary>
         [Ignore]
+        [JsonIgnore]
         public IProgress LastProgress => (History.Count > 0) ? History.Last() : new GenericProgress(DateTime.MinValue, 0);
 
 
