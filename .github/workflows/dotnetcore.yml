@@ -18,4 +18,4 @@ jobs:
     - uses: actions/upload-artifact@v1
       with:
         name: LastIRead-Build
-        path: bin/Release/netcoreapp3.0
+        path: bin/Release/netcoreapp3.1
