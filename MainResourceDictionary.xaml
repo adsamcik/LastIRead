@@ -55,7 +55,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
                     <Border BorderBrush="{DynamicResource SystemAltMediumColorBrush}" Background="Transparent">
-                        <TextBlock Padding="5" Text="{TemplateBinding Content}" TextAlignment="Center" Foreground="{DynamicResource SystemBaseMediumHighColorBrush}" />
+                        <TextBlock Padding="5" Text="{TemplateBinding Content}" TextAlignment="Left" Foreground="{DynamicResource SystemBaseMediumHighColorBrush}" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
