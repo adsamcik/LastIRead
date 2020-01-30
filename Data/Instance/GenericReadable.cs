@@ -10,7 +10,6 @@ namespace LastIRead.Data.Instance {
     /// Generic readable implementation for most reading materials.
     /// </summary>
     class GenericReadable : IReadable {
-
         public string Title { get; set; }
 
         [Optional]
@@ -45,7 +44,8 @@ namespace LastIRead.Data.Instance {
 
 
         [Optional]
-        public IList<IProgress> History { get; } = new List<IProgress>();
+        [JsonProperty]
+        public IList<IProgress> History { get; private set; } = new List<IProgress>();
 
         public void IncrementProgress() {
             LogProgress(Progress + 1);
