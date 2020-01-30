@@ -12,7 +12,7 @@
         Height="450" 
         Width="600"
         MinHeight="200"
-        MinWidth="450">
+        MinWidth="450" KeyDown="Window_KeyDown">
     <Grid>
         <ListView x:Name="ReadList" Margin="10,50,10,54" MouseDoubleClick="ReadList_MouseDoubleClick" Background="{DynamicResource BackgroundBrush}" BorderThickness="0" Foreground="{DynamicResource SystemBaseHighColorBrush}" BorderBrush="{DynamicResource SytemAltMediumColorBrush}" ItemContainerStyle="{StaticResource ListViewContainerStyle}">
             <ListView.View>

@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LastIRead.Import.Implementation;
 using System.Windows.Media;
+using System.Windows.Input;
 
 namespace LastIRead {
     /// <summary>
@@ -30,7 +31,7 @@ namespace LastIRead {
 
             Load();
 
-            
+            UpdateBrushes();
         }
 
         private void UpdateBrushes() {
@@ -164,6 +165,15 @@ namespace LastIRead {
                  .Where(x => type.IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
                  .Select(x => (T)Activator.CreateInstance(x))
                  .ToList();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e) {
+            if (SearchBox.IsFocused) return;
+
+            var character = e.Key.ToChar();
+            if (!char.IsControl(character)) {
+                SearchBox.Focus();
+            }
         }
     }
 }
