@@ -171,7 +171,7 @@ namespace LastIRead {
             if (SearchBox.IsFocused) return;
 
             var character = e.Key.ToChar();
-            if (!char.IsControl(character)) {
+            if (!char.IsControl(character) || e.Key == Key.Back) {
                 SearchBox.Focus();
             }
         }
