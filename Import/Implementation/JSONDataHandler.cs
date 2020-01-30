@@ -1,15 +1,16 @@
 ﻿using LastIRead.Data.Instance;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 namespace LastIRead.Import.Implementation {
+    /// <summary>
+    /// JSON data handler providing JSON import and export for IReadables.
+    /// </summary>
     class JSONDataHandler : IDataImporter, IDataExporter {
         public string[] ImportExtensions => new string[] { "json" };
 

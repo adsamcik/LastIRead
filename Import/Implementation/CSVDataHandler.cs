@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using static System.Linq.AsyncEnumerable;
 
 namespace LastIRead.Import {
+    /// <summary>
+    /// CSV Data handler providing CSV import and export for IReadables.
+    /// </summary>
     public class CSVDataHandler : IDataImporter, IDataExporter {
         public string[] ImportExtensions { get; } = new string[] { "csv" };
 

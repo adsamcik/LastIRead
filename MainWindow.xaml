@@ -15,9 +15,9 @@
         MinWidth="450" 
         KeyDown="Window_KeyDown">
     <Grid>
-        <ListView x:Name="ReadList" Margin="10,50,10,54" MouseDoubleClick="ReadList_MouseDoubleClick" Background="{DynamicResource BackgroundBrush}" BorderThickness="0" Foreground="{DynamicResource SystemBaseHighColorBrush}" BorderBrush="{DynamicResource SytemAltMediumColorBrush}" ItemContainerStyle="{StaticResource ListViewContainerStyle}">
+        <ListView x:Name="ReadList" Margin="10,50,10,54" MouseDoubleClick="ReadList_MouseDoubleClick" Background="{DynamicResource BackgroundBrush}" BorderThickness="0" Foreground="{DynamicResource SystemBaseHighColorBrush}" BorderBrush="{DynamicResource SytemAltMediumColorBrush}" ItemContainerStyle="{DynamicResource ListViewContainerStyle}">
             <ListView.View>
-                <GridView ColumnHeaderContainerStyle="{StaticResource ListViewHeaderStyle}">
+                <GridView ColumnHeaderContainerStyle="{DynamicResource ListViewHeaderStyle}">
                     <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Title}" />
                     <GridViewColumn Header="Progress" Width="60" DisplayMemberBinding="{Binding Progress}" />
                     <GridViewColumn Header="Abandoned" Width="70" DisplayMemberBinding="{Binding Abandoned}" />
