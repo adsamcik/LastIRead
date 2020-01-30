@@ -8,7 +8,11 @@
         mc:Ignorable="d"
         fw:AcrylicWindow.AcrylicWindowStyle="NoIcon"
         fw:AcrylicWindow.Enabled="True"
-        Title="Last I Read" Height="450" Width="800">
+        Title="Last I Read" 
+        Height="450" 
+        Width="600"
+        MinHeight="200"
+        MinWidth="450">
     <Grid>
         <ListView x:Name="ReadList" Margin="10,50,10,54" MouseDoubleClick="ReadList_MouseDoubleClick" Background="{DynamicResource BackgroundBrush}" BorderThickness="0" Foreground="{DynamicResource SystemBaseHighColorBrush}" BorderBrush="{DynamicResource SytemAltMediumColorBrush}" ItemContainerStyle="{StaticResource ListViewContainerStyle}">
             <ListView.View>
