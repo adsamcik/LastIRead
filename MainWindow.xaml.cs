@@ -1,17 +1,17 @@
 ﻿using LastIRead.Data.Instance;
+using LastIRead.Extensions;
+using LastIRead.Import;
+using LastIRead.Import.Implementation;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using Microsoft.Win32;
-using LastIRead.Import;
-using System.Linq;
-using System.Threading.Tasks;
-using LastIRead.Import.Implementation;
-using System.Windows.Media;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace LastIRead {
     /// <summary>
