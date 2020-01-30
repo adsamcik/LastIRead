@@ -26,7 +26,7 @@
                     <GridViewColumn Header="Increment" x:Name="IncrementColumn" Width="60">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="IncrementButton" Content="+1" Click="IncrementButton_Click" HorizontalAlignment="Center"/>
+                                <Button x:Name="IncrementButton" Height="30" Width="30" Content="+1" Click="IncrementButton_Click" HorizontalAlignment="Center" Style="{StaticResource ButtonRevealStyle}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
