@@ -10,6 +10,7 @@ using LastIRead.Import;
 using System.Linq;
 using System.Threading.Tasks;
 using LastIRead.Import.Implementation;
+using System.Windows.Media;
 
 namespace LastIRead {
     /// <summary>
@@ -28,6 +29,14 @@ namespace LastIRead {
             view.Filter = ListFilter;
 
             Load();
+
+            
+        }
+
+        private void UpdateBrushes() {
+            var brush = (SolidColorBrush)Application.Current.Resources["SystemAltHighColorBrush"];
+            brush.Opacity = 0.3;
+            Application.Current.Resources["BackgroundBrush"] = brush;
         }
 
         private bool ListFilter(object item) {
