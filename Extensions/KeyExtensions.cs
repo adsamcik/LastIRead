@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Input;
 
-namespace LastIRead {
+namespace LastIRead.Extensions {
     /// <summary>
     /// Extension methods for Key enum.
     /// </summary>
