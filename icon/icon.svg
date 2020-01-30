@@ -20,9 +20,9 @@
    id="svg4"
    sodipodi:docname="icon.svg"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   inkscape:export-filename="D:\Github\LastIRead\icons\icon_16.png"
-   inkscape:export-xdpi="64"
-   inkscape:export-ydpi="64">
+   inkscape:export-filename="D:\Github\LastIRead\icons\icon_48.png"
+   inkscape:export-xdpi="209.45454"
+   inkscape:export-ydpi="209.45454">
   <metadata
      id="metadata10">
     <rdf:RDF>
@@ -65,10 +65,12 @@
      x="1.0000005"
      y="0.99999988"
      rx="4.9447618"
-     ry="4.9447618" />
+     ry="4.9447618"
+     inkscape:label="background" />
   <path
      d="M 17,18.608347 12,14.989791 6.9999999,18.608347 V 7.0289687 A 1.4285714,1.4474223 0 0 1 8.4285712,5.5815463 H 15.571428 A 1.4285714,1.4474223 0 0 1 17,7.0289687 Z"
      id="path2"
      inkscape:connector-curvature="0"
-     style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.99999988;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+     style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.99999988;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     inkscape:label="bookmark" />
 </svg>
