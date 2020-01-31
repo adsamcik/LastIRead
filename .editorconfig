@@ -21,6 +21,7 @@ resharper_align_multiline_calls_chain=true
 resharper_align_multiline_extends_list=true
 resharper_align_multiline_parameter=true
 resharper_align_tuple_components=true
+resharper_braces_redundant=true
 resharper_csharp_indent_style=tab
 resharper_csharp_wrap_arguments_style=chop_if_long
 resharper_csharp_wrap_extends_list_style=chop_if_long
@@ -36,6 +37,7 @@ resharper_wrap_before_invocation_rpar=true
 resharper_wrap_chained_binary_expressions=chop_if_long
 resharper_wrap_chained_method_calls=chop_if_long
 resharper_wrap_verbatim_interpolated_strings=chop_if_long
+resharper_xmldoc_indent_style=tab
 resharper_xml_indent_style=tab
 resharper_xml_insert_final_newline=true
 resharper_xml_pi_attribute_style=on_single_line
@@ -46,6 +48,7 @@ csharp_new_line_before_catch=false
 csharp_new_line_before_else=false
 csharp_new_line_before_finally=false
 csharp_new_line_before_open_brace=none
+csharp_prefer_braces=true:none
 
 [*.json]
 indent_size=2
