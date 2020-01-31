@@ -58,10 +58,8 @@ namespace LastIRead.Import.Implementation {
 				JsonSerializer serializer
 			) {
 				var array = JArray.Load(reader);
-				var list = new List<IProgress>();
-				foreach (var item in array) list.Add(item.ToObject<IProgress>(serializer));
 
-				return list;
+				return array.Select(item => item.ToObject<IProgress>(serializer)).ToList();
 			}
 
 			public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) {
@@ -71,21 +69,20 @@ namespace LastIRead.Import.Implementation {
 
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 
-		public async Task Export(IList<IReadable> readables, FileInfo file) {
+		public async Task Export(IEnumerable<IReadable> readables, FileInfo file) {
 			await using var writer = File.CreateText(file.FullName);
 
 			Serializer.Serialize(writer, readables);
 		}
 
-		public async Task<IList<IReadable>> Import(FileInfo file) {
+		public async Task<IEnumerable<IReadable>> Import(FileInfo file) {
 			using var reader = new StreamReader(file.FullName);
 
 			var serialize = Serializer;
 
 			serialize.Converters.Add(new ProgressConverter());
 			serialize.Converters.Add(new ProgressArrayConverter());
-			var list = (List<GenericReadable>) serialize.Deserialize(reader, typeof(List<GenericReadable>));
-			return list.Cast<IReadable>().ToList();
+			return (List<GenericReadable>) serialize.Deserialize(reader, typeof(List<GenericReadable>));
 		}
 
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously

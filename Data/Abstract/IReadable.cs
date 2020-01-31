@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using LiteDB;
 
 namespace LastIRead {
 	public interface IReadable {
+		/// <summary>
+		/// Database id
+		/// </summary>
+		ObjectId Id { get; set; }
+
 		/// <summary>
 		///     Title of the reading material
 		/// </summary>
@@ -27,6 +33,7 @@ namespace LastIRead {
 		/// <summary>
 		///     Date of last progress change.
 		/// </summary>
+		[BsonIgnore]
 		DateTime LastRead { get; }
 
 		/// <summary>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CsvHelper.Configuration.Attributes;
+using LiteDB;
 using Newtonsoft.Json;
 
 namespace LastIRead.Data.Instance {
@@ -14,9 +15,11 @@ namespace LastIRead.Data.Instance {
 		/// </summary>
 		[Ignore]
 		[JsonIgnore]
+		[BsonIgnore]
 		public IProgress LastProgress =>
 			History.Count > 0 ? History.Last() : new GenericProgress(DateTime.MinValue, 0);
 
+		public ObjectId Id { get; set; }
 		public string Title { get; set; }
 
 		[Optional] public double MaxProgress { get; set; }
@@ -30,10 +33,12 @@ namespace LastIRead.Data.Instance {
 		/// </summary>
 		[Ignore]
 		[JsonIgnore]
+		[BsonIgnore]
 		public DateTime LastRead => LastProgress.Date;
 
 		[Optional]
 		[JsonIgnore]
+		[BsonIgnore]
 		public double Progress {
 			get => LastProgress.Value;
 			set => LogProgress(value);

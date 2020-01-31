@@ -17,6 +17,6 @@ namespace LastIRead.Import {
 		/// </summary>
 		/// <param name="readables"></param>
 		/// <param name="file"></param>
-		Task Export(IList<IReadable> readables, FileInfo file);
+		Task Export(IEnumerable<IReadable> readables, FileInfo file);
 	}
 }

@@ -13,6 +13,7 @@ using LastIRead.Data.Instance;
 using LastIRead.Extensions;
 using LastIRead.Import;
 using LastIRead.Import.Implementation;
+using LiteDB;
 using Microsoft.Win32;
 
 namespace LastIRead {
@@ -20,8 +21,6 @@ namespace LastIRead {
 	///     Interaction logic for MainWindow.xaml
 	/// </summary>
 	public partial class MainWindow {
-		private readonly List<IReadable> _readableList = new List<IReadable>();
-
 		private readonly string _databasePath =
 			$"{AppDomain.CurrentDomain.BaseDirectory}{Path.DirectorySeparatorChar}reading-list.json";
 
@@ -29,29 +28,21 @@ namespace LastIRead {
 
 		public MainWindow() {
 			InitializeComponent();
-
-			ReadList.ItemsSource = _readableList;
-
-			var view = (CollectionView) CollectionViewSource.GetDefaultView(_readableList);
-			view.Filter = ListFilter;
-
-			Load();
-
+			Refresh();
 			UpdateBrushes();
 		}
 
-		private void UpdateBrushes() {
+		private static void UpdateBrushes() {
 			var brush = (SolidColorBrush) Application.Current.Resources["SystemAltHighColorBrush"];
 			brush.Opacity = 0.3;
 			Application.Current.Resources["BackgroundBrush"] = brush;
 		}
 
-		private bool ListFilter(object item) {
+		private bool ListFilter(IReadable readable) {
 			if (string.IsNullOrEmpty(_strippedSearchString)) {
 				return true;
 			}
 
-			var readable = item as IReadable;
 			Debug.Assert(readable != null, nameof(readable) + " != null");
 
 			var title = readable.Title;
@@ -75,7 +66,7 @@ namespace LastIRead {
 			e.Handled = true;
 			var data = (IReadable) ((Button) sender).DataContext;
 			data.IncrementProgress();
-			Save();
+			Update(data);
 		}
 
 		private void AddButton_Click(object sender, RoutedEventArgs e) {
@@ -85,25 +76,41 @@ namespace LastIRead {
 				return;
 			}
 
-			_readableList.Add(newReadable);
-			Save();
+			Insert(newReadable);
 		}
 
 		private void RemoveButton_Click(object sender, RoutedEventArgs e) {
-			if (ReadList.SelectedItems.Count != 1) return;
-
-			var data = (GenericReadable) ReadList.SelectedItem;
-			var result = MessageBox.Show(
-				$"Are you sure you want to delete {data.Title}?",
-				"Delete confirmation",
-				MessageBoxButton.YesNo
-			);
-			if (result != MessageBoxResult.Yes) {
-				return;
+			var count = ReadList.SelectedItems.Count;
+			MessageBoxResult result;
+			switch (count) {
+				case 0:
+					return;
+				case 1: {
+					var data = (GenericReadable) ReadList.SelectedItem;
+					result = MessageBox.Show(
+						$"Are you sure you want to delete {data.Title}?",
+						"Delete confirmation",
+						MessageBoxButton.YesNo
+					);
+					if (result != MessageBoxResult.Yes) {
+						return;
+					}
+					break;
+				}
+				default:
+					result = MessageBox.Show(
+						$"Are you sure you want to delete {count} records?",
+						"Mass delete confirmation",
+						MessageBoxButton.YesNo
+					);
+					if (result != MessageBoxResult.Yes) {
+						return;
+					}
+					break;
 			}
 
-			_readableList.Remove(data);
-			Save();
+			var selected = ReadList.SelectedItems.Cast<IReadable>();
+			Delete(selected);
 		}
 
 		private void ReadList_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
@@ -113,44 +120,54 @@ namespace LastIRead {
 
 			var readable = (IReadable) ReadList.SelectedItem;
 			if (EditItem(readable)) {
-				Save();
+				Update(readable);
 			}
 		}
 
-		private bool EditItem(IReadable readable) {
+		private void Update(IReadable item) {
+			using var db = AppDatabase.CreateDatabase();
+			db.GetReadablesCollection().Update(item);
+			Refresh(db);
+		}
+
+		private void Insert(IReadable item) {
+			using var db = AppDatabase.CreateDatabase();
+			db.GetReadablesCollection().Insert(item);
+			Refresh(db);
+		}
+
+		private void Insert(IEnumerable<IReadable> item) {
+			using var db = AppDatabase.CreateDatabase();
+			db.GetReadablesCollection().Insert(item);
+			Refresh(db);
+		}
+
+		private void Delete(IEnumerable<IReadable> items) {
+			using var db = AppDatabase.CreateDatabase();
+			var collection = db.GetReadablesCollection();
+			foreach (var readable in items) {
+				collection.Delete(readable.Id);
+			}
+
+			Refresh(db);
+		}
+
+		private static bool EditItem(IReadable readable) {
 			return new EditWindow(readable).ShowDialog() == true;
 		}
 
-		private async void Save() {
-			Refresh();
-
-			await new JsonDataHandler().Export(_readableList, new FileInfo(_databasePath)).ConfigureAwait(false);
-		}
-
-		private async void Load() {
-			try {
-				_readableList.Clear();
-				var loadedList = await new JsonDataHandler().Import(new FileInfo(_databasePath)).ConfigureAwait(true);
-				_readableList.AddRange(loadedList);
-
-				Refresh();
-			} catch (Exception) {
-				//Ignore for now
-			}
-		}
-
 		private void Refresh() {
-			ReadList.Items.Refresh();
-			Filter();
+			using var db = AppDatabase.CreateDatabase();
+			Refresh(db);
 		}
 
-		private void Filter() {
-			CollectionViewSource.GetDefaultView(_readableList).Refresh();
+		private void Refresh(LiteDatabase db) {
+			ReadList.ItemsSource = db.GetReadablesCollection().FindAll().Where(ListFilter);
 		}
 
 		private void SearchBox_TextChanged(object sender, TextChangedEventArgs e) {
 			_strippedSearchString = StripString(SearchBox.Text);
-			Filter();
+			Refresh();
 		}
 
 		private async void ImportButton_Click(object sender, RoutedEventArgs e) {
@@ -178,8 +195,7 @@ namespace LastIRead {
 			);
 			try {
 				var list = await importer.Import(new FileInfo(path)).ConfigureAwait(true);
-				_readableList.AddRange(list);
-				Save();
+				Insert(list);
 			} catch (Exception exception) {
 				MessageBox.Show(
 					$"Import of file {dialog.FileName} failed. {exception.Message}.",
@@ -203,8 +219,10 @@ namespace LastIRead {
 				return;
 			}
 
+			using var db = AppDatabase.CreateDatabase();
+			var list = db.GetReadablesCollection().FindAll();
 			var exporter = exporters[dialog.FilterIndex - 1];
-			exporter.Export(_readableList, new FileInfo(dialog.FileName));
+			exporter.Export(list, new FileInfo(dialog.FileName));
 		}
 
 		private static List<T> GetImplementors<T>() {
