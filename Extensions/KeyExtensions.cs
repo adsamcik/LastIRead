@@ -19,7 +19,7 @@ namespace LastIRead.Extensions {
 			uint wVirtKey,
 			uint wScanCode,
 			byte[] lpKeyState,
-			[Out, MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)]
+			[Out] [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 4)]
 			StringBuilder pwszBuff,
 			int cchBuff,
 			uint wFlags
@@ -38,16 +38,16 @@ namespace LastIRead.Extensions {
 		/// <param name="key">Pressed key</param>
 		/// <returns>Unicode character</returns>
 		public static char ToChar(this Key key) {
-			char ch = ' ';
+			var ch = ' ';
 
-			int virtualKey = KeyInterop.VirtualKeyFromKey(key);
-			byte[] keyboardState = new byte[256];
+			var virtualKey = KeyInterop.VirtualKeyFromKey(key);
+			var keyboardState = new byte[256];
 			GetKeyboardState(keyboardState);
 
-			uint scanCode = MapVirtualKey((uint) virtualKey, MapType.MAPVK_VK_TO_VSC);
-			StringBuilder stringBuilder = new StringBuilder(2);
+			var scanCode = MapVirtualKey((uint) virtualKey, MapType.MAPVK_VK_TO_VSC);
+			var stringBuilder = new StringBuilder(2);
 
-			int result = ToUnicode(
+			var result = ToUnicode(
 				(uint) virtualKey,
 				scanCode,
 				keyboardState,

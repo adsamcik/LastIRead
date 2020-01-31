@@ -2,73 +2,73 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
                     xmlns:local="clr-namespace:LastIRead">
-    <Style x:Key="ListViewContainerStyle" TargetType="{x:Type ListViewItem}">
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="Padding" Value="4" />
-        <Setter Property="Background" Value="{DynamicResource BackgroundBrush}" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ListViewItem}">
-                    <Border x:Name="Bd" Background="Transparent" VerticalAlignment="Center"
-                            Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true"
-                            HorizontalAlignment="Stretch">
-                        <GridViewRowPresenter />
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsMouseOver" Value="True" />
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="Bd"
-                                    Value="{DynamicResource SystemBaseLowColorBrush}" />
-                            <Setter Property="BorderBrush" TargetName="Bd"
-                                    Value="{DynamicResource SystemBaseMediumColorBrush}" />
-                        </MultiTrigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="Selector.IsSelectionActive" Value="False" />
-                                <Condition Property="IsSelected" Value="True" />
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="Bd"
-                                    Value="{Binding Path=(fw:AccentColors.ImmersiveSystemAccentBrush)}" />
-                            <Setter Property="BorderBrush" TargetName="Bd"
-                                    Value="{DynamicResource SystemBaseMediumHighColorBrush}" />
-                        </MultiTrigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="Selector.IsSelectionActive" Value="True" />
-                                <Condition Property="IsSelected" Value="True" />
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="Bd"
-                                    Value="{Binding Path=(fw:AccentColors.ImmersiveSystemAccentBrush)}" />
-                            <Setter Property="BorderBrush" TargetName="Bd"
-                                    Value="{DynamicResource SystemBaseMediumHighColorBrush}" />
-                        </MultiTrigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="TextElement.Foreground" TargetName="Bd"
-                                    Value="{DynamicResource SystemBaseMediumHighColorBrush}" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
+	<Style x:Key="ListViewContainerStyle" TargetType="{x:Type ListViewItem}">
+		<Setter Property="SnapsToDevicePixels" Value="True" />
+		<Setter Property="Padding" Value="4" />
+		<Setter Property="Background" Value="{DynamicResource BackgroundBrush}" />
+		<Setter Property="BorderBrush" Value="Transparent" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+		<Setter Property="BorderThickness" Value="0" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type ListViewItem}">
+					<Border x:Name="Bd" Background="Transparent" VerticalAlignment="Center"
+					        Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true"
+					        HorizontalAlignment="Stretch">
+						<GridViewRowPresenter />
+					</Border>
+					<ControlTemplate.Triggers>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsMouseOver" Value="True" />
+							</MultiTrigger.Conditions>
+							<Setter Property="Background" TargetName="Bd"
+							        Value="{DynamicResource SystemBaseLowColorBrush}" />
+							<Setter Property="BorderBrush" TargetName="Bd"
+							        Value="{DynamicResource SystemBaseMediumColorBrush}" />
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="Selector.IsSelectionActive" Value="False" />
+								<Condition Property="IsSelected" Value="True" />
+							</MultiTrigger.Conditions>
+							<Setter Property="Background" TargetName="Bd"
+							        Value="{Binding Path=(fw:AccentColors.ImmersiveSystemAccentBrush)}" />
+							<Setter Property="BorderBrush" TargetName="Bd"
+							        Value="{DynamicResource SystemBaseMediumHighColorBrush}" />
+						</MultiTrigger>
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="Selector.IsSelectionActive" Value="True" />
+								<Condition Property="IsSelected" Value="True" />
+							</MultiTrigger.Conditions>
+							<Setter Property="Background" TargetName="Bd"
+							        Value="{Binding Path=(fw:AccentColors.ImmersiveSystemAccentBrush)}" />
+							<Setter Property="BorderBrush" TargetName="Bd"
+							        Value="{DynamicResource SystemBaseMediumHighColorBrush}" />
+						</MultiTrigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="TextElement.Foreground" TargetName="Bd"
+							        Value="{DynamicResource SystemBaseMediumHighColorBrush}" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
 
-            </Setter.Value>
-        </Setter>
-    </Style>
+			</Setter.Value>
+		</Setter>
+	</Style>
 
-    <Style x:Key="ListViewHeaderStyle" TargetType="GridViewColumnHeader">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
-                    <Border BorderBrush="{DynamicResource SystemAltMediumColorBrush}" Background="Transparent">
-                        <TextBlock Padding="5" Text="{TemplateBinding Content}" TextAlignment="Left"
-                                   Foreground="{DynamicResource SystemBaseMediumHighColorBrush}" />
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+	<Style x:Key="ListViewHeaderStyle" TargetType="GridViewColumnHeader">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+					<Border BorderBrush="{DynamicResource SystemAltMediumColorBrush}" Background="Transparent">
+						<TextBlock Padding="5" Text="{TemplateBinding Content}" TextAlignment="Left"
+						           Foreground="{DynamicResource SystemBaseMediumHighColorBrush}" />
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
 
-    </Style>
+	</Style>
 </ResourceDictionary>

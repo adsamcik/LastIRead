@@ -5,7 +5,7 @@ namespace LastIRead.Data.Instance {
 	/// Generic implementation of progress.
 	/// Should represent most use cases.
 	/// </summary>
-	struct GenericProgress : IProgress {
+	internal struct GenericProgress : IProgress {
 		public DateTime Date { get; }
 
 		public double Value { get; private set; }

@@ -24,11 +24,10 @@ namespace LastIRead {
 			var culture = CultureInfo.CurrentUICulture;
 			TitleInput.Text = readable.Title;
 
-			if (string.IsNullOrEmpty(readable.Title)) {
+			if (string.IsNullOrEmpty(readable.Title))
 				Title = "New readable";
-			} else {
+			else
 				Title = readable.Title;
-			}
 
 			LastChapterLabel.Content = readable.Progress.ToString(culture.NumberFormat);
 			OngoingCheckbox.IsChecked = readable.Ongoing;
@@ -41,9 +40,7 @@ namespace LastIRead {
 			readable.Abandoned = AbandonedCheckbox.IsChecked == true;
 
 			var progressValue = CurrenProgressInput.Value;
-			if (progressValue != null) {
-				readable.LogProgress((double) progressValue);
-			}
+			if (progressValue != null) readable.LogProgress((double) progressValue);
 
 			readable.MaxProgress = MaxProgressInput.Value ?? 0;
 			readable.Title = TitleInput.Text;

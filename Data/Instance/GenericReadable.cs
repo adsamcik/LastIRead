@@ -8,7 +8,7 @@ namespace LastIRead.Data.Instance {
 	/// <summary>
 	/// Generic readable implementation for most reading materials.
 	/// </summary>
-	class GenericReadable : IReadable {
+	internal class GenericReadable : IReadable {
 		public string Title { get; set; }
 
 		[Optional] public double MaxProgress { get; set; }
@@ -37,7 +37,7 @@ namespace LastIRead.Data.Instance {
 		[Ignore]
 		[JsonIgnore]
 		public IProgress LastProgress =>
-			(History.Count > 0) ? History.Last() : new GenericProgress(DateTime.MinValue, 0);
+			History.Count > 0 ? History.Last() : new GenericProgress(DateTime.MinValue, 0);
 
 
 		[Optional] [JsonProperty] public IList<IProgress> History { get; private set; } = new List<IProgress>();
@@ -47,16 +47,13 @@ namespace LastIRead.Data.Instance {
 		}
 
 		public void LogProgress(double progress) {
-			if (!Ongoing && MaxProgress > 0) {
-				progress = Math.Min(MaxProgress, progress);
-			}
+			if (!Ongoing && MaxProgress > 0) progress = Math.Min(MaxProgress, progress);
 
 			var newProgress = new GenericProgress(DateTime.Today, progress);
-			if (LastRead != newProgress.Date) {
+			if (LastRead != newProgress.Date)
 				History.Add(newProgress);
-			} else {
+			else
 				History[History.Count - 1] = newProgress;
-			}
 		}
 	}
 }
