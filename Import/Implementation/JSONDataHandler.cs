@@ -16,9 +16,7 @@ namespace LastIRead.Import.Implementation {
 
         public string[] ExportExtensions => ImportExtensions;
 
-        private JsonSerializer Serializer => new JsonSerializer {
-
-        };
+        private JsonSerializer Serializer => new JsonSerializer();
 
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 

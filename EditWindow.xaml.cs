@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Diagnostics.Contracts;
+using System.Globalization;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 
@@ -10,6 +12,8 @@ namespace LastIRead {
         public IReadable readable { get; private set; }
 
         public EditWindow(IReadable readable) {
+            Contract.Requires(readable != null);
+
             InitializeComponent();
 
             this.readable = readable;
@@ -17,6 +21,7 @@ namespace LastIRead {
         }
 
         private void InitializeFields(IReadable readable) {
+            var culture = CultureInfo.CurrentUICulture;
             TitleInput.Text = readable.Title;
 
             if (string.IsNullOrEmpty(readable.Title)) {
@@ -25,10 +30,10 @@ namespace LastIRead {
                 Title = readable.Title;
             }
 
-            LastChapterLabel.Content = readable.Progress.ToString();
+            LastChapterLabel.Content = readable.Progress.ToString(culture.NumberFormat);
             OngoingCheckbox.IsChecked = readable.Ongoing;
             AbandonedCheckbox.IsChecked = readable.Abandoned;
-            MaxProgressInput.Text = readable.MaxProgress.ToString();
+            MaxProgressInput.Text = readable.MaxProgress.ToString(culture.NumberFormat);
         }
 
         private void UpdateFromFields() {
