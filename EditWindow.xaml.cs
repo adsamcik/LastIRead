@@ -6,11 +6,9 @@ using System.Windows.Input;
 
 namespace LastIRead {
 	/// <summary>
-	/// Interaction logic for EditWindow.xaml
+	///     Interaction logic for EditWindow.xaml
 	/// </summary>
 	public partial class EditWindow : Window {
-		public IReadable readable { get; private set; }
-
 		public EditWindow(IReadable readable) {
 			Contract.Requires(readable != null);
 
@@ -19,6 +17,8 @@ namespace LastIRead {
 			this.readable = readable;
 			InitializeFields(readable);
 		}
+
+		public IReadable readable { get; private set; }
 
 		private void InitializeFields(IReadable readable) {
 			var culture = CultureInfo.CurrentUICulture;

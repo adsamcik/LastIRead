@@ -1,14 +1,22 @@
-﻿using CsvHelper.Configuration.Attributes;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CsvHelper.Configuration.Attributes;
+using Newtonsoft.Json;
 
 namespace LastIRead.Data.Instance {
 	/// <summary>
-	/// Generic readable implementation for most reading materials.
+	///     Generic readable implementation for most reading materials.
 	/// </summary>
 	internal class GenericReadable : IReadable {
+		/// <summary>
+		///     Last progress
+		/// </summary>
+		[Ignore]
+		[JsonIgnore]
+		public IProgress LastProgress =>
+			History.Count > 0 ? History.Last() : new GenericProgress(DateTime.MinValue, 0);
+
 		public string Title { get; set; }
 
 		[Optional] public double MaxProgress { get; set; }
@@ -18,7 +26,7 @@ namespace LastIRead.Data.Instance {
 		[Optional] public bool Abandoned { get; set; }
 
 		/// <summary>
-		/// Last date this was read.
+		///     Last date this was read.
 		/// </summary>
 		[Ignore]
 		[JsonIgnore]
@@ -30,14 +38,6 @@ namespace LastIRead.Data.Instance {
 			get => LastProgress.Value;
 			set => LogProgress(value);
 		}
-
-		/// <summary>
-		/// Last progress
-		/// </summary>
-		[Ignore]
-		[JsonIgnore]
-		public IProgress LastProgress =>
-			History.Count > 0 ? History.Last() : new GenericProgress(DateTime.MinValue, 0);
 
 
 		[Optional] [JsonProperty] public IList<IProgress> History { get; private set; } = new List<IProgress>();

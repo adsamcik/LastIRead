@@ -8,36 +8,46 @@
         mc:Ignorable="d"
         fw:AcrylicWindow.Enabled="True"
         fw:AcrylicWindow.AcrylicWindowStyle="NoIcon"
-        Title="Last I Read" 
-        Height="450" 
+        Title="Last I Read"
+        Height="450"
         Width="600"
         MinHeight="200"
-        MinWidth="450" 
+        MinWidth="450"
         KeyDown="Window_KeyDown">
-    <Grid>
-        <ListView x:Name="ReadList" Margin="10,50,10,54" MouseDoubleClick="ReadList_MouseDoubleClick" Background="{DynamicResource BackgroundBrush}" BorderThickness="0" Foreground="{DynamicResource SystemBaseHighColorBrush}" BorderBrush="{DynamicResource SytemAltMediumColorBrush}" ItemContainerStyle="{DynamicResource ListViewContainerStyle}">
-            <ListView.View>
-                <GridView ColumnHeaderContainerStyle="{DynamicResource ListViewHeaderStyle}">
-                    <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Title}" />
-                    <GridViewColumn Header="Progress" Width="60" DisplayMemberBinding="{Binding Progress}" />
-                    <GridViewColumn Header="Abandoned" Width="70" DisplayMemberBinding="{Binding Abandoned}" />
-                    <GridViewColumn Header="Ongoing" Width="60" DisplayMemberBinding="{Binding Ongoing}" />
-                    <GridViewColumn Header="Last read" Width="70" DisplayMemberBinding="{Binding LastRead, StringFormat=d}" />
-                    <GridViewColumn Header="Increment" x:Name="IncrementColumn" Width="60">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button x:Name="IncrementButton" Height="30" Width="30" Content="+1" Click="IncrementButton_Click" HorizontalAlignment="Center" Style="{StaticResource ButtonRevealStyle}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button Style="{StaticResource ButtonRevealStyle}" x:Name="AddButton" Content="Add" HorizontalAlignment="Right" Margin="0,0,10,7" Width="100" Click="AddButton_Click" Height="38" VerticalAlignment="Bottom"/>
-        <Button Style="{StaticResource ButtonRevealStyle}" x:Name="RemoveButton" Content="Remove" Margin="0,0,115,7" Click="RemoveButton_Click" HorizontalAlignment="Right" Width="100" Height="38" VerticalAlignment="Bottom"/>
-        <TextBox Style="{StaticResource TextBoxRevealStyle}" x:Name="SearchBox" TextWrapping="Wrap" Margin="10,10,10,0" TextChanged="SearchBox_TextChanged" Height="32" VerticalAlignment="Top"/>
-        <Button Style="{StaticResource ButtonRevealStyle}" x:Name="ImportButton" Content="Import" Margin="10,0,0,7" Height="38" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Click="ImportButton_Click"/>
-        <Button Style="{StaticResource ButtonRevealStyle}" x:Name="ExportButton" Content="Export" Margin="115,0,0,7" Height="38" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Click="ExportButton_Click"/>
+	<Grid>
+		<ListView x:Name="ReadList" Margin="10,50,10,54" MouseDoubleClick="ReadList_MouseDoubleClick"
+		          Background="{DynamicResource BackgroundBrush}" BorderThickness="0"
+		          Foreground="{DynamicResource SystemBaseHighColorBrush}"
+		          BorderBrush="{DynamicResource SytemAltMediumColorBrush}"
+		          ItemContainerStyle="{DynamicResource ListViewContainerStyle}">
+			<ListView.View>
+				<GridView ColumnHeaderContainerStyle="{DynamicResource ListViewHeaderStyle}">
+					<GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Title}" />
+					<GridViewColumn Header="Progress" Width="60" DisplayMemberBinding="{Binding Progress}" />
+					<GridViewColumn Header="Abandoned" Width="70" DisplayMemberBinding="{Binding Abandoned}" />
+					<GridViewColumn Header="Ongoing" Width="60" DisplayMemberBinding="{Binding Ongoing}" />
+					<GridViewColumn Header="Last read" Width="70" DisplayMemberBinding="{Binding LastRead, StringFormat=d}" />
+					<GridViewColumn Header="Increment" x:Name="IncrementColumn" Width="60">
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Button x:Name="IncrementButton" Height="30" Width="30" Content="+1" Click="IncrementButton_Click"
+								        HorizontalAlignment="Center" Style="{StaticResource ButtonRevealStyle}" />
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+				</GridView>
+			</ListView.View>
+		</ListView>
+		<Button Style="{StaticResource ButtonRevealStyle}" x:Name="AddButton" Content="Add" HorizontalAlignment="Right"
+		        Margin="0,0,10,7" Width="100" Click="AddButton_Click" Height="38" VerticalAlignment="Bottom" />
+		<Button Style="{StaticResource ButtonRevealStyle}" x:Name="RemoveButton" Content="Remove" Margin="0,0,115,7"
+		        Click="RemoveButton_Click" HorizontalAlignment="Right" Width="100" Height="38" VerticalAlignment="Bottom" />
+		<TextBox Style="{StaticResource TextBoxRevealStyle}" x:Name="SearchBox" TextWrapping="Wrap" Margin="10,10,10,0"
+		         TextChanged="SearchBox_TextChanged" Height="32" VerticalAlignment="Top" />
+		<Button Style="{StaticResource ButtonRevealStyle}" x:Name="ImportButton" Content="Import" Margin="10,0,0,7"
+		        Height="38" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Click="ImportButton_Click" />
+		<Button Style="{StaticResource ButtonRevealStyle}" x:Name="ExportButton" Content="Export" Margin="115,0,0,7"
+		        Height="38" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Click="ExportButton_Click" />
 
-    </Grid>
+	</Grid>
 </Window>

@@ -4,16 +4,9 @@ using System.Windows.Input;
 
 namespace LastIRead.Extensions {
 	/// <summary>
-	/// Extension methods for Key enum.
+	///     Extension methods for Key enum.
 	/// </summary>
 	public static class KeyExtensions {
-		private enum MapType : uint {
-			MAPVK_VK_TO_VSC = 0x0,
-			MAPVK_VSC_TO_VK = 0x1,
-			MAPVK_VK_TO_CHAR = 0x2,
-			MAPVK_VSC_TO_VK_EX = 0x3,
-		}
-
 		[DllImport("user32.dll")]
 		private static extern int ToUnicode(
 			uint wVirtKey,
@@ -32,8 +25,8 @@ namespace LastIRead.Extensions {
 		private static extern uint MapVirtualKey(uint uCode, MapType uMapType);
 
 		/// <summary>
-		/// Converts enum Key to unicode char.
-		/// https://stackoverflow.com/a/5826175/2422905
+		///     Converts enum Key to unicode char.
+		///     https://stackoverflow.com/a/5826175/2422905
 		/// </summary>
 		/// <param name="key">Pressed key</param>
 		/// <returns>Unicode character</returns>
@@ -71,6 +64,13 @@ namespace LastIRead.Extensions {
 			}
 
 			return ch;
+		}
+
+		private enum MapType : uint {
+			MAPVK_VK_TO_VSC = 0x0,
+			MAPVK_VSC_TO_VK = 0x1,
+			MAPVK_VK_TO_CHAR = 0x2,
+			MAPVK_VSC_TO_VK_EX = 0x3
 		}
 	}
 }

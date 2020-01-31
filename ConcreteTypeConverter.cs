@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace LastIRead {
 	/// <summary>
-	/// Concrete type converter.
-	/// Based on https://stackoverflow.com/a/12202914/2422905.
+	///     Concrete type converter.
+	///     Based on https://stackoverflow.com/a/12202914/2422905.
 	/// </summary>
 	/// <typeparam name="TConcrete">Concrete type</typeparam>
 	public class ConcreteTypeConverter<TConcrete> : JsonConverter {

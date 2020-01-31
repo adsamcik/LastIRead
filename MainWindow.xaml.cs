@@ -1,9 +1,4 @@
-﻿using LastIRead.Data.Instance;
-using LastIRead.Extensions;
-using LastIRead.Import;
-using LastIRead.Import.Implementation;
-using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -14,193 +9,213 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using LastIRead.Data.Instance;
+using LastIRead.Extensions;
+using LastIRead.Import;
+using LastIRead.Import.Implementation;
+using Microsoft.Win32;
 
 namespace LastIRead {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window {
-        private string databasePath = $"{AppDomain.CurrentDomain.BaseDirectory}{Path.DirectorySeparatorChar}reading-list.json";
-        private readonly List<IReadable> readableList = new List<IReadable>();
+	/// <summary>
+	///     Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window {
+		private readonly List<IReadable> readableList = new List<IReadable>();
 
-        private string strippedSearchString = null;
+		private readonly string databasePath =
+			$"{AppDomain.CurrentDomain.BaseDirectory}{Path.DirectorySeparatorChar}reading-list.json";
 
-        public MainWindow() {
-            InitializeComponent();
+		private string strippedSearchString;
 
-            ReadList.ItemsSource = readableList;
+		public MainWindow() {
+			InitializeComponent();
 
-            var view = (CollectionView)CollectionViewSource.GetDefaultView(readableList);
-            view.Filter = ListFilter;
+			ReadList.ItemsSource = readableList;
 
-            Load();
+			var view = (CollectionView) CollectionViewSource.GetDefaultView(readableList);
+			view.Filter = ListFilter;
 
-            UpdateBrushes();
-        }
+			Load();
 
-        private void UpdateBrushes() {
-            var brush = (SolidColorBrush)Application.Current.Resources["SystemAltHighColorBrush"];
-            brush.Opacity = 0.3;
-            Application.Current.Resources["BackgroundBrush"] = brush;
-        }
+			UpdateBrushes();
+		}
 
-        private bool ListFilter(object item) {
-            if (string.IsNullOrEmpty(strippedSearchString)) {
-                return true;
-            } else {
-                var readable = item as IReadable;
-                var title = readable.Title;
-                var titleStripped = StripString(title);
-                return titleStripped.Contains(strippedSearchString, StringComparison.OrdinalIgnoreCase);
-            }
-        }
+		private void UpdateBrushes() {
+			var brush = (SolidColorBrush) Application.Current.Resources["SystemAltHighColorBrush"];
+			brush.Opacity = 0.3;
+			Application.Current.Resources["BackgroundBrush"] = brush;
+		}
 
-        private static string StripString(string text) {
-            var result = new StringBuilder(text.Length);
-            foreach (var character in text) {
-                if (char.IsPunctuation(character) ||
-                    char.IsWhiteSpace(character) ||
-                    char.IsSeparator(character)) {
-                    continue;
-                }
+		private bool ListFilter(object item) {
+			if (string.IsNullOrEmpty(strippedSearchString)) {
+				return true;
+			}
 
-                result.Append(character);
-            }
-            return result.ToString();
-        }
+			var readable = item as IReadable;
+			var title = readable.Title;
+			var titleStripped = StripString(title);
+			return titleStripped.Contains(strippedSearchString, StringComparison.OrdinalIgnoreCase);
+		}
 
-        private void IncrementButton_Click(object sender, RoutedEventArgs e) {
-            e.Handled = true;
-            var data = (IReadable)((Button)sender).DataContext;
-            data.IncrementProgress();
-            Save();
-        }
+		private static string StripString(string text) {
+			var result = new StringBuilder(text.Length);
+			foreach (var character in text) {
+				if (char.IsPunctuation(character) ||
+				    char.IsWhiteSpace(character) ||
+				    char.IsSeparator(character)) {
+					continue;
+				}
 
-        private void AddButton_Click(object sender, RoutedEventArgs e) {
-            var newReadable = new GenericReadable();
-            var result = EditItem(newReadable);
-            if (result) {
-                readableList.Add(newReadable);
-                Save();
-            }
-        }
+				result.Append(character);
+			}
 
-        private void RemoveButton_Click(object sender, RoutedEventArgs e) {
-            if (ReadList.SelectedItems.Count != 1) return;
+			return result.ToString();
+		}
 
-            var data = (GenericReadable)ReadList.SelectedItem;
-            var result = MessageBox.Show($"Are you sure you want to delete {data.Title}?", "Delete confirmation", MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.Yes) {
-                readableList.Remove(data);
-                Save();
-            }
+		private void IncrementButton_Click(object sender, RoutedEventArgs e) {
+			e.Handled = true;
+			var data = (IReadable) ((Button) sender).DataContext;
+			data.IncrementProgress();
+			Save();
+		}
 
-        }
+		private void AddButton_Click(object sender, RoutedEventArgs e) {
+			var newReadable = new GenericReadable();
+			var result = EditItem(newReadable);
+			if (result) {
+				readableList.Add(newReadable);
+				Save();
+			}
+		}
 
-        private void ReadList_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e) {
-            if (ReadList.SelectedItems.Count == 1) {
-                var readable = (IReadable)ReadList.SelectedItem;
-                if (EditItem(readable)) {
-                    Save();
-                }
-            }
-        }
+		private void RemoveButton_Click(object sender, RoutedEventArgs e) {
+			if (ReadList.SelectedItems.Count != 1) return;
 
-        private bool EditItem(IReadable readable) {
-            return new EditWindow(readable).ShowDialog() == true;
-        }
+			var data = (GenericReadable) ReadList.SelectedItem;
+			var result = MessageBox.Show(
+				$"Are you sure you want to delete {data.Title}?",
+				"Delete confirmation",
+				MessageBoxButton.YesNo
+			);
+			if (result == MessageBoxResult.Yes) {
+				readableList.Remove(data);
+				Save();
+			}
+		}
 
-        private async void Save() {
-            Refresh();
+		private void ReadList_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+			if (ReadList.SelectedItems.Count == 1) {
+				var readable = (IReadable) ReadList.SelectedItem;
+				if (EditItem(readable)) {
+					Save();
+				}
+			}
+		}
 
-            await new JSONDataHandler().Export(readableList, new FileInfo(databasePath)).ConfigureAwait(false);
-        }
+		private bool EditItem(IReadable readable) {
+			return new EditWindow(readable).ShowDialog() == true;
+		}
 
-        private async void Load() {
-            try {
-                readableList.Clear();
-                var loadedList = await new JSONDataHandler().Import(new FileInfo(databasePath)).ConfigureAwait(true);
-                readableList.AddRange(loadedList);
+		private async void Save() {
+			Refresh();
 
-                Refresh();
-            } catch (Exception) {
-                //Ignore for now
-            }
-        }
+			await new JSONDataHandler().Export(readableList, new FileInfo(databasePath)).ConfigureAwait(false);
+		}
 
-        private void Refresh() {
-            ReadList.Items.Refresh();
-            Filter();
-        }
+		private async void Load() {
+			try {
+				readableList.Clear();
+				var loadedList = await new JSONDataHandler().Import(new FileInfo(databasePath)).ConfigureAwait(true);
+				readableList.AddRange(loadedList);
 
-        private void Filter() {
-            CollectionViewSource.GetDefaultView(readableList).Refresh();
-        }
+				Refresh();
+			} catch (Exception) {
+				//Ignore for now
+			}
+		}
 
-        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e) {
-            strippedSearchString = StripString(SearchBox.Text);
-            Filter();
-        }
+		private void Refresh() {
+			ReadList.Items.Refresh();
+			Filter();
+		}
 
-        private async void ImportButton_Click(object sender, RoutedEventArgs e) {
-            var culture = CultureInfo.CurrentUICulture;
-            var importers = GetImplementors<IDataImporter>();
-            var extensions = importers.SelectMany(x => x.ImportExtensions).Distinct();
-            var filterMap = extensions.Select(x => $"{x.ToUpper(culture)}|*.{x.ToLower(culture)}");
-            var allExtensions = string.Join(';', extensions.Select(x => $"*.{x.ToLower(culture)}"));
+		private void Filter() {
+			CollectionViewSource.GetDefaultView(readableList).Refresh();
+		}
 
-            var dialog = new OpenFileDialog {
-                Multiselect = false,
-                Filter = $"All|{allExtensions}|{string.Join('|', filterMap)}"
-            };
-            if (dialog.ShowDialog() == true) {
-                var path = dialog.FileName;
-                var extension = Path.GetExtension(path);
+		private void SearchBox_TextChanged(object sender, TextChangedEventArgs e) {
+			strippedSearchString = StripString(SearchBox.Text);
+			Filter();
+		}
 
-                var importer = importers.First(importer => importer.ImportExtensions.Any(e => extension.Contains(e, StringComparison.InvariantCultureIgnoreCase)));
-                try {
-                    var list = await importer.Import(new FileInfo(path)).ConfigureAwait(true);
-                    readableList.AddRange(list);
-                    Save();
-                } catch (Exception exception) {
-                    MessageBox.Show($"Import of file {dialog.FileName} failed. {exception.Message}.", "Import failed.", MessageBoxButton.OK);
-                    Console.WriteLine(exception.StackTrace);
-                }
-            }
-        }
+		private async void ImportButton_Click(object sender, RoutedEventArgs e) {
+			var culture = CultureInfo.CurrentUICulture;
+			var importers = GetImplementors<IDataImporter>();
+			var extensions = importers.SelectMany(x => x.ImportExtensions).Distinct();
+			var filterMap = extensions.Select(x => $"{x.ToUpper(culture)}|*.{x.ToLower(culture)}");
+			var allExtensions = string.Join(';', extensions.Select(x => $"*.{x.ToLower(culture)}"));
 
-        private void ExportButton_Click(object sender, RoutedEventArgs e) {
-            var culture = CultureInfo.CurrentUICulture;
-            var exporters = GetImplementors<IDataExporter>();
-            var filterMap = exporters.SelectMany(x => x.ExportExtensions).Select(x => $"{x.ToUpper(culture)}|*.{x.ToLower(culture)}");
+			var dialog = new OpenFileDialog {
+				Multiselect = false,
+				Filter = $"All|{allExtensions}|{string.Join('|', filterMap)}"
+			};
+			if (dialog.ShowDialog() == true) {
+				var path = dialog.FileName;
+				var extension = Path.GetExtension(path);
 
-            var dialog = new SaveFileDialog() {
-                Filter = string.Join('|', filterMap)
-            };
-            if (dialog.ShowDialog() == true) {
-                var path = dialog.FileName;
-                var exporter = exporters[dialog.FilterIndex - 1];
-                exporter.Export(readableList, new FileInfo(dialog.FileName));
-            }
-        }
+				var importer = importers.First(
+					importer => importer.ImportExtensions.Any(
+						e => extension.Contains(e, StringComparison.InvariantCultureIgnoreCase)
+					)
+				);
+				try {
+					var list = await importer.Import(new FileInfo(path)).ConfigureAwait(true);
+					readableList.AddRange(list);
+					Save();
+				} catch (Exception exception) {
+					MessageBox.Show(
+						$"Import of file {dialog.FileName} failed. {exception.Message}.",
+						"Import failed.",
+						MessageBoxButton.OK
+					);
+					Console.WriteLine(exception.StackTrace);
+				}
+			}
+		}
 
-        private List<T> GetImplementors<T>() {
-            var type = typeof(T);
-            return AppDomain.CurrentDomain
-                .GetAssemblies()
-                .SelectMany(x => x.GetTypes())
-                 .Where(x => type.IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
-                 .Select(x => (T)Activator.CreateInstance(x))
-                 .ToList();
-        }
+		private void ExportButton_Click(object sender, RoutedEventArgs e) {
+			var culture = CultureInfo.CurrentUICulture;
+			var exporters = GetImplementors<IDataExporter>();
+			var filterMap = exporters.SelectMany(x => x.ExportExtensions)
+			                         .Select(x => $"{x.ToUpper(culture)}|*.{x.ToLower(culture)}");
 
-        private void Window_KeyDown(object sender, KeyEventArgs e) {
-            if (SearchBox.IsFocused) return;
+			var dialog = new SaveFileDialog {
+				Filter = string.Join('|', filterMap)
+			};
+			if (dialog.ShowDialog() == true) {
+				var path = dialog.FileName;
+				var exporter = exporters[dialog.FilterIndex - 1];
+				exporter.Export(readableList, new FileInfo(dialog.FileName));
+			}
+		}
 
-            var character = e.Key.ToChar();
-            if (!char.IsControl(character) || e.Key == Key.Back) {
-                SearchBox.Focus();
-            }
-        }
-    }
+		private List<T> GetImplementors<T>() {
+			var type = typeof(T);
+			return AppDomain.CurrentDomain
+			                .GetAssemblies()
+			                .SelectMany(x => x.GetTypes())
+			                .Where(x => type.IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
+			                .Select(x => (T) Activator.CreateInstance(x))
+			                .ToList();
+		}
+
+		private void Window_KeyDown(object sender, KeyEventArgs e) {
+			if (SearchBox.IsFocused) return;
+
+			var character = e.Key.ToChar();
+			if (!char.IsControl(character) || e.Key == Key.Back) {
+				SearchBox.Focus();
+			}
+		}
+	}
 }

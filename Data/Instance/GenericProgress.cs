@@ -2,8 +2,8 @@
 
 namespace LastIRead.Data.Instance {
 	/// <summary>
-	/// Generic implementation of progress.
-	/// Should represent most use cases.
+	///     Generic implementation of progress.
+	///     Should represent most use cases.
 	/// </summary>
 	internal struct GenericProgress : IProgress {
 		public DateTime Date { get; }
