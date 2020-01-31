@@ -162,7 +162,11 @@ namespace LastIRead {
 		}
 
 		private void Refresh(LiteDatabase db) {
-			ReadList.ItemsSource = db.GetReadablesCollection().FindAll().Where(ListFilter);
+			ReadList.ItemsSource = db
+			                       .GetReadablesCollection()
+			                       .FindAll()
+			                       .Where(ListFilter)
+			                       .OrderBy(x => x.Title);
 		}
 
 		private void SearchBox_TextChanged(object sender, TextChangedEventArgs e) {
