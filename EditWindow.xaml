@@ -12,21 +12,40 @@
         fw:AcrylicWindow.Enabled="True">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0*"/>
-            <RowDefinition/>
+            <RowDefinition Height="0*" />
+            <RowDefinition />
         </Grid.RowDefinitions>
-        <Label Foreground="{DynamicResource SystemBaseHighColorBrush}" Content="Title" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
-        <TextBox Style="{StaticResource TextBoxRevealStyle}" x:Name="TitleInput" Margin="10,36,10,0" TextWrapping="NoWrap" VerticalAlignment="Top" Grid.RowSpan="2"/>
-        <Label Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="CurrentProgress" Content="Current progress" HorizontalAlignment="Left" Margin="10,74,0,0" Grid.RowSpan="2" Height="26" VerticalAlignment="Top"/>
-        <numeric:DoubleBox Style="{StaticResource TextBoxRevealStyle}" x:Name="CurrenProgressInput" Margin="10,100,90,0" TextWrapping="Wrap" VerticalAlignment="Top" PreviewTextInput="TextBox_PreviewTextInput" Grid.RowSpan="2" CanValueBeNull="True"/>
-        <Label Foreground="{DynamicResource SystemBaseHighColorBrush}" Content="Previous chapter" HorizontalAlignment="Right" Margin="0,74,10,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
-        <Label Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="LastChapterLabel" Content="999" HorizontalAlignment="Right" Margin="0,100,10,0" VerticalAlignment="Top" Height="18" Padding="0,0,0,0" Width="75" HorizontalContentAlignment="Right" Grid.RowSpan="2"/>
-        <Button Style="{StaticResource ButtonRevealStyle}" x:Name="CancelButton" Content="Cancel" Margin="0,0,10,10" Click="CancelButton_Click" Grid.RowSpan="2" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="60"/>
-        <Button Style="{StaticResource ButtonRevealStyle}" x:Name="OkButton" Content="OK" Margin="0,0,75,10" Click="OkButton_Click" Grid.RowSpan="2" HorizontalAlignment="Right" Width="60" Height="30" VerticalAlignment="Bottom"/>
-        <Label Foreground="{DynamicResource SystemBaseHighColorBrush}" Content="Max progress" HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
-        <numeric:DoubleBox Style="{StaticResource TextBoxRevealStyle}" x:Name="MaxProgressInput" Margin="10,164,150,0" TextWrapping="Wrap" VerticalAlignment="Top" PreviewTextInput="TextBox_PreviewTextInput" Grid.Row="1" NumberStyles="Float" CanValueBeNull="True"/>
-        <CheckBox Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="AbandonedCheckbox" Content="Abandoned" Margin="10,202,0,0" Grid.Row="1" HorizontalAlignment="Left" Width="120" Height="18" VerticalAlignment="Top"/>
-        <CheckBox Foreground="{DynamicResource SystemBaseHighColorBrush}"  x:Name="OngoingCheckbox" Content="Ongoing" HorizontalAlignment="Left" Margin="10,225,0,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
+        <Label Foreground="{DynamicResource SystemBaseHighColorBrush}" Content="Title" HorizontalAlignment="Left"
+               Margin="10,10,0,0" VerticalAlignment="Top" Grid.RowSpan="2" />
+        <TextBox Style="{StaticResource TextBoxRevealStyle}" x:Name="TitleInput" Margin="10,36,10,0"
+                 TextWrapping="NoWrap" VerticalAlignment="Top" Grid.RowSpan="2" />
+        <Label Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="CurrentProgress"
+               Content="Current progress" HorizontalAlignment="Left" Margin="10,74,0,0" Grid.RowSpan="2" Height="26"
+               VerticalAlignment="Top" />
+        <numeric:DoubleBox Style="{StaticResource TextBoxRevealStyle}" x:Name="CurrenProgressInput"
+                           Margin="10,100,90,0" TextWrapping="Wrap" VerticalAlignment="Top"
+                           PreviewTextInput="TextBox_PreviewTextInput" Grid.RowSpan="2" CanValueBeNull="True" />
+        <Label Foreground="{DynamicResource SystemBaseHighColorBrush}" Content="Previous chapter"
+               HorizontalAlignment="Right" Margin="0,74,10,0" VerticalAlignment="Top" Grid.RowSpan="2" />
+        <Label Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="LastChapterLabel" Content="999"
+               HorizontalAlignment="Right" Margin="0,100,10,0" VerticalAlignment="Top" Height="18" Padding="0,0,0,0"
+               Width="75" HorizontalContentAlignment="Right" Grid.RowSpan="2" />
+        <Button Style="{StaticResource ButtonRevealStyle}" x:Name="CancelButton" Content="Cancel" Margin="0,0,10,10"
+                Click="CancelButton_Click" Grid.RowSpan="2" Height="30" VerticalAlignment="Bottom"
+                HorizontalAlignment="Right" Width="60" />
+        <Button Style="{StaticResource ButtonRevealStyle}" x:Name="OkButton" Content="OK" Margin="0,0,75,10"
+                Click="OkButton_Click" Grid.RowSpan="2" HorizontalAlignment="Right" Width="60" Height="30"
+                VerticalAlignment="Bottom" />
+        <Label Foreground="{DynamicResource SystemBaseHighColorBrush}" Content="Max progress"
+               HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top" Grid.RowSpan="2" />
+        <numeric:DoubleBox Style="{StaticResource TextBoxRevealStyle}" x:Name="MaxProgressInput" Margin="10,164,150,0"
+                           TextWrapping="Wrap" VerticalAlignment="Top" PreviewTextInput="TextBox_PreviewTextInput"
+                           Grid.Row="1" NumberStyles="Float" CanValueBeNull="True" />
+        <CheckBox Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="AbandonedCheckbox"
+                  Content="Abandoned" Margin="10,202,0,0" Grid.Row="1" HorizontalAlignment="Left" Width="120"
+                  Height="18" VerticalAlignment="Top" />
+        <CheckBox Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="OngoingCheckbox" Content="Ongoing"
+                  HorizontalAlignment="Left" Margin="10,225,0,0" Grid.RowSpan="2" VerticalAlignment="Top" />
 
     </Grid>
 </Window>
