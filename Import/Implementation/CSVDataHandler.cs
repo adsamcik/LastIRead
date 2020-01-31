@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using static System.Linq.AsyncEnumerable;
 
 namespace LastIRead.Import {
-#nullable enable
     /// <summary>
     /// CSV Data handler providing CSV import and export for IReadables.
     /// </summary>
@@ -18,16 +17,12 @@ namespace LastIRead.Import {
         public string[] ExportExtensions => ImportExtensions;
 
         public async Task Export(IList<IReadable> readables, FileInfo file) {
-            Contract.Requires(file != null);
-
             using var writer = new StreamWriter(file.FullName);
             using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
             await csv.WriteRecordsAsync(readables).ConfigureAwait(false);
         }
 
         public async Task<IList<IReadable>> Import(FileInfo file) {
-            Contract.Requires(file != null);
-
             using var reader = new StreamReader(file.FullName);
             using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
             var records = csv.GetRecordsAsync<GenericReadable>();
