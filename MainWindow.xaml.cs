@@ -21,7 +21,7 @@ namespace LastIRead {
     /// </summary>
     public partial class MainWindow : Window {
         private string databasePath = $"{AppDomain.CurrentDomain.BaseDirectory}{Path.DirectorySeparatorChar}reading-list.json";
-        private List<IReadable> readableList = new List<IReadable>();
+        private readonly List<IReadable> readableList = new List<IReadable>();
 
         private string strippedSearchString = null;
 
