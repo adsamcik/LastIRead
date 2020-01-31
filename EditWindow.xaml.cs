@@ -36,7 +36,7 @@ namespace LastIRead {
 			Readable.Ongoing = OngoingCheckbox.IsChecked == true;
 			Readable.Abandoned = AbandonedCheckbox.IsChecked == true;
 
-			var progressValue = CurrenProgressInput.Value;
+			var progressValue = CurrentProgressInput.Value;
 			if (progressValue != null) Readable.LogProgress((double) progressValue);
 
 			Readable.MaxProgress = MaxProgressInput.Value ?? 0;

@@ -15,7 +15,6 @@ namespace LastIRead.Import {
 		/// <summary>
 		///     Converts file from given format to new format.
 		/// </summary>
-		/// <exception cref="InvalidFormatException">Thrown when file format is not supported.</exception>
 		/// <param name="file">File</param>
 		/// <returns>List of imported readables</returns>
 		Task<IList<IReadable>> Import(FileInfo file);

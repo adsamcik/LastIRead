@@ -11,10 +11,6 @@
         fw:AcrylicWindow.AcrylicWindowStyle="NoIcon"
         fw:AcrylicWindow.Enabled="True">
 	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="0*" />
-			<RowDefinition />
-		</Grid.RowDefinitions>
 		<Label Foreground="{DynamicResource SystemBaseHighColorBrush}" Content="Title" HorizontalAlignment="Left"
 		       Margin="10,10,0,0" VerticalAlignment="Top" Grid.RowSpan="2" />
 		<TextBox Style="{StaticResource TextBoxRevealStyle}" x:Name="TitleInput" Margin="10,36,10,0"
@@ -22,7 +18,7 @@
 		<Label Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="CurrentProgress"
 		       Content="Current progress" HorizontalAlignment="Left" Margin="10,74,0,0" Grid.RowSpan="2" Height="26"
 		       VerticalAlignment="Top" />
-		<numeric:DoubleBox Style="{StaticResource TextBoxRevealStyle}" x:Name="CurrenProgressInput"
+		<numeric:DoubleBox Style="{StaticResource TextBoxRevealStyle}" x:Name="CurrentProgressInput"
 		                   Margin="10,100,90,0" TextWrapping="Wrap" VerticalAlignment="Top"
 		                   PreviewTextInput="TextBox_PreviewTextInput" Grid.RowSpan="2" CanValueBeNull="True" />
 		<Label Foreground="{DynamicResource SystemBaseHighColorBrush}" Content="Previous chapter"
@@ -40,9 +36,9 @@
 		       HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top" Grid.RowSpan="2" />
 		<numeric:DoubleBox Style="{StaticResource TextBoxRevealStyle}" x:Name="MaxProgressInput" Margin="10,164,150,0"
 		                   TextWrapping="Wrap" VerticalAlignment="Top" PreviewTextInput="TextBox_PreviewTextInput"
-		                   Grid.Row="1" NumberStyles="Float" CanValueBeNull="True" />
+		                   NumberStyles="Float" CanValueBeNull="True" />
 		<CheckBox Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="AbandonedCheckbox"
-		          Content="Abandoned" Margin="10,202,0,0" Grid.Row="1" HorizontalAlignment="Left" Width="120"
+		          Content="Abandoned" Margin="10,202,0,0" HorizontalAlignment="Left" Width="120"
 		          Height="18" VerticalAlignment="Top" />
 		<CheckBox Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="OngoingCheckbox" Content="Ongoing"
 		          HorizontalAlignment="Left" Margin="10,225,0,0" Grid.RowSpan="2" VerticalAlignment="Top" />

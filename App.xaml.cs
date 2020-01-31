@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace LastIRead {
+﻿namespace LastIRead {
 	/// <summary>
 	///     Interaction logic for App.xaml
 	/// </summary>
