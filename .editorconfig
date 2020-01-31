@@ -15,6 +15,12 @@ ij_smart_tabs=false
 ij_wrap_on_typing=false
 
 # ReSharper properties
+resharper_align_linq_query=true
+resharper_align_multiline_argument=true
+resharper_align_multiline_calls_chain=true
+resharper_align_multiline_extends_list=true
+resharper_align_multiline_parameter=true
+resharper_align_tuple_components=true
 resharper_csharp_indent_style=tab
 resharper_csharp_wrap_arguments_style=chop_if_long
 resharper_csharp_wrap_extends_list_style=chop_if_long
@@ -30,6 +36,9 @@ resharper_wrap_before_invocation_rpar=true
 resharper_wrap_chained_binary_expressions=chop_if_long
 resharper_wrap_chained_method_calls=chop_if_long
 resharper_wrap_verbatim_interpolated_strings=chop_if_long
+resharper_xml_indent_style=tab
+resharper_xml_insert_final_newline=true
+resharper_xml_pi_attribute_style=on_single_line
 
 # Microsoft .NET properties
 csharp_indent_braces=false
@@ -100,6 +109,11 @@ ij_xml_keep_indents_on_empty_lines=false
 ij_xml_line_comment_at_first_column=true
 
 [*.cs]
+indent_style=tab
+indent_size=tab
+tab_width=4
+
+[*.{appxmanifest,build,dtd,nuspec,xaml,xamlx,xoml,xsd}]
 indent_style=tab
 indent_size=tab
 tab_width=4
