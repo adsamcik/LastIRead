@@ -8,6 +8,7 @@ namespace LastIRead.Data.Instance {
 	internal struct GenericProgress : IProgress {
 		public DateTime Date { get; }
 
+		// ReSharper disable once AutoPropertyCanBeMadeGetOnly.Local
 		public double Value { get; private set; }
 
 		public GenericProgress(DateTime date, double value) {

@@ -11,11 +11,11 @@ namespace LastIRead.Import.Implementation {
 	/// <summary>
 	///     JSON data handler providing JSON import and export for IReadables.
 	/// </summary>
-	internal class JSONDataHandler : IDataImporter, IDataExporter {
-		private JsonSerializer Serializer => new JsonSerializer();
+	internal class JsonDataHandler : IDataImporter, IDataExporter {
+		private static JsonSerializer Serializer => new JsonSerializer();
 
-		public string[] ExportExtensions => ImportExtensions;
-		public string[] ImportExtensions => new[] {"json"};
+		public IEnumerable<string> ExportExtensions => ImportExtensions;
+		public IEnumerable<string> ImportExtensions => new[] {"json"};
 
 		/// <summary>
 		///     Progress converter.
@@ -72,7 +72,7 @@ namespace LastIRead.Import.Implementation {
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 
 		public async Task Export(IList<IReadable> readables, FileInfo file) {
-			using var writer = File.CreateText(file.FullName);
+			await using var writer = File.CreateText(file.FullName);
 
 			Serializer.Serialize(writer, readables);
 		}

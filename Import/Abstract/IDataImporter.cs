@@ -10,7 +10,7 @@ namespace LastIRead.Import {
 		/// <summary>
 		///     Array of import extensions.
 		/// </summary>
-		public string[] ImportExtensions { get; }
+		public IEnumerable<string> ImportExtensions { get; }
 
 		/// <summary>
 		///     Converts file from given format to new format.

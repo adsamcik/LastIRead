@@ -50,10 +50,11 @@ namespace LastIRead.Data.Instance {
 			if (!Ongoing && MaxProgress > 0) progress = Math.Min(MaxProgress, progress);
 
 			var newProgress = new GenericProgress(DateTime.Today, progress);
-			if (LastRead != newProgress.Date)
+			if (LastRead != newProgress.Date) {
 				History.Add(newProgress);
-			else
-				History[History.Count - 1] = newProgress;
+			} else {
+				History[^1] = newProgress;
+			}
 		}
 	}
 }

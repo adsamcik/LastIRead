@@ -8,26 +8,23 @@ namespace LastIRead {
 	/// <summary>
 	///     Interaction logic for EditWindow.xaml
 	/// </summary>
-	public partial class EditWindow : Window {
+	public partial class EditWindow {
 		public EditWindow(IReadable readable) {
 			Contract.Requires(readable != null);
 
 			InitializeComponent();
 
-			this.readable = readable;
+			this.Readable = readable;
 			InitializeFields(readable);
 		}
 
-		public IReadable readable { get; private set; }
+		private IReadable Readable { get; }
 
 		private void InitializeFields(IReadable readable) {
 			var culture = CultureInfo.CurrentUICulture;
 			TitleInput.Text = readable.Title;
 
-			if (string.IsNullOrEmpty(readable.Title))
-				Title = "New readable";
-			else
-				Title = readable.Title;
+			Title = string.IsNullOrEmpty(readable.Title) ? "New readable" : readable.Title;
 
 			LastChapterLabel.Content = readable.Progress.ToString(culture.NumberFormat);
 			OngoingCheckbox.IsChecked = readable.Ongoing;
@@ -36,14 +33,14 @@ namespace LastIRead {
 		}
 
 		private void UpdateFromFields() {
-			readable.Ongoing = OngoingCheckbox.IsChecked == true;
-			readable.Abandoned = AbandonedCheckbox.IsChecked == true;
+			Readable.Ongoing = OngoingCheckbox.IsChecked == true;
+			Readable.Abandoned = AbandonedCheckbox.IsChecked == true;
 
 			var progressValue = CurrenProgressInput.Value;
-			if (progressValue != null) readable.LogProgress((double) progressValue);
+			if (progressValue != null) Readable.LogProgress((double) progressValue);
 
-			readable.MaxProgress = MaxProgressInput.Value ?? 0;
-			readable.Title = TitleInput.Text;
+			Readable.MaxProgress = MaxProgressInput.Value ?? 0;
+			Readable.Title = TitleInput.Text;
 		}
 
 		private void OkButton_Click(object sender, RoutedEventArgs e) {

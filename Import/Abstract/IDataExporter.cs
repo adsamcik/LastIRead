@@ -10,7 +10,7 @@ namespace LastIRead.Import {
 		/// <summary>
 		///     Array of all supported extensions
 		/// </summary>
-		public string[] ExportExtensions { get; }
+		public IEnumerable<string> ExportExtensions { get; }
 
 		/// <summary>
 		///     Exports data from readables to a file.

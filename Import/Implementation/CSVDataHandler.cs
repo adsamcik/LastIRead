@@ -10,16 +10,16 @@ namespace LastIRead.Import {
 	/// <summary>
 	///     CSV Data handler providing CSV import and export for IReadables.
 	/// </summary>
-	public class CSVDataHandler : IDataImporter, IDataExporter {
-		public string[] ExportExtensions => ImportExtensions;
+	public class CsvDataHandler : IDataImporter, IDataExporter {
+		public IEnumerable<string> ExportExtensions => ImportExtensions;
 
 		public async Task Export(IList<IReadable> readables, FileInfo file) {
-			using var writer = new StreamWriter(file.FullName);
-			using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
+			await using var writer = new StreamWriter(file.FullName);
+			await using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
 			await csv.WriteRecordsAsync(readables).ConfigureAwait(false);
 		}
 
-		public string[] ImportExtensions => new[] {"csv"};
+		public IEnumerable<string> ImportExtensions => new[] {"csv"};
 
 		public async Task<IList<IReadable>> Import(FileInfo file) {
 			using var reader = new StreamReader(file.FullName);
