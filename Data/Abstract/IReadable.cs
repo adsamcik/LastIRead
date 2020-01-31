@@ -5,7 +5,7 @@ using LiteDB;
 namespace LastIRead {
 	public interface IReadable {
 		/// <summary>
-		/// Database id
+		///     Database id
 		/// </summary>
 		ObjectId Id { get; set; }
 

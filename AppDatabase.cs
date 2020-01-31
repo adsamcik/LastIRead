@@ -1,5 +1,4 @@
-﻿using System;
-using LiteDB;
+﻿using LiteDB;
 
 namespace LastIRead {
 	public static class AppDatabase {

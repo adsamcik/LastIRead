@@ -14,7 +14,7 @@ namespace LastIRead {
 
 			InitializeComponent();
 
-			this.Readable = readable;
+			Readable = readable;
 			InitializeFields(readable);
 		}
 

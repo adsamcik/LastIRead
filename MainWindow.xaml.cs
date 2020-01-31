@@ -6,13 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using LastIRead.Data.Instance;
 using LastIRead.Extensions;
 using LastIRead.Import;
-using LastIRead.Import.Implementation;
 using LiteDB;
 using Microsoft.Win32;
 
@@ -95,6 +93,7 @@ namespace LastIRead {
 					if (result != MessageBoxResult.Yes) {
 						return;
 					}
+
 					break;
 				}
 				default:
@@ -106,6 +105,7 @@ namespace LastIRead {
 					if (result != MessageBoxResult.Yes) {
 						return;
 					}
+
 					break;
 			}
 
