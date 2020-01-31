@@ -5,8 +5,10 @@ using LastIRead.Import.Implementation;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -20,6 +22,8 @@ namespace LastIRead {
     public partial class MainWindow : Window {
         private string databasePath = $"{AppDomain.CurrentDomain.BaseDirectory}{Path.DirectorySeparatorChar}reading-list.json";
         private List<IReadable> readableList = new List<IReadable>();
+
+        private string strippedSearchString = null;
 
         public MainWindow() {
             InitializeComponent();
@@ -41,12 +45,28 @@ namespace LastIRead {
         }
 
         private bool ListFilter(object item) {
-            var searchText = SearchBox.Text;
-            if (string.IsNullOrEmpty(searchText)) {
+            if (string.IsNullOrEmpty(strippedSearchString)) {
                 return true;
             } else {
-                return (item as IReadable).Title.Contains(searchText, StringComparison.OrdinalIgnoreCase);
+                var readable = item as IReadable;
+                var title = readable.Title;
+                var titleStripped = StripString(title);
+                return titleStripped.Contains(strippedSearchString, StringComparison.OrdinalIgnoreCase);
             }
+        }
+
+        private static string StripString(string text) {
+            var result = new StringBuilder(text.Length);
+            foreach (var character in text) {
+                if (char.IsPunctuation(character) ||
+                    char.IsWhiteSpace(character) ||
+                    char.IsSeparator(character)) {
+                    continue;
+                }
+
+                result.Append(character);
+            }
+            return result.ToString();
         }
 
         private void IncrementButton_Click(object sender, RoutedEventArgs e) {
@@ -93,13 +113,13 @@ namespace LastIRead {
         private async void Save() {
             Refresh();
 
-            await new JSONDataHandler().Export(readableList, new FileInfo(databasePath));
+            await new JSONDataHandler().Export(readableList, new FileInfo(databasePath)).ConfigureAwait(false);
         }
 
         private async void Load() {
             try {
                 readableList.Clear();
-                var loadedList = await new JSONDataHandler().Import(new FileInfo(databasePath));
+                var loadedList = await new JSONDataHandler().Import(new FileInfo(databasePath)).ConfigureAwait(true);
                 readableList.AddRange(loadedList);
 
                 Refresh();
@@ -110,18 +130,24 @@ namespace LastIRead {
 
         private void Refresh() {
             ReadList.Items.Refresh();
+            Filter();
+        }
+
+        private void Filter() {
             CollectionViewSource.GetDefaultView(readableList).Refresh();
         }
 
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e) {
-            CollectionViewSource.GetDefaultView(readableList).Refresh();
+            strippedSearchString = StripString(SearchBox.Text);
+            Filter();
         }
 
         private async void ImportButton_Click(object sender, RoutedEventArgs e) {
+            var culture = CultureInfo.CurrentUICulture;
             var importers = GetImplementors<IDataImporter>();
             var extensions = importers.SelectMany(x => x.ImportExtensions).Distinct();
-            var filterMap = extensions.Select(x => $"{x.ToUpper()}|*.{x.ToLower()}");
-            var allExtensions = string.Join(';', extensions.Select(x => $"*.{x.ToLower()}"));
+            var filterMap = extensions.Select(x => $"{x.ToUpper(culture)}|*.{x.ToLower(culture)}");
+            var allExtensions = string.Join(';', extensions.Select(x => $"*.{x.ToLower(culture)}"));
 
             var dialog = new OpenFileDialog {
                 Multiselect = false,
@@ -133,7 +159,7 @@ namespace LastIRead {
 
                 var importer = importers.First(importer => importer.ImportExtensions.Any(e => extension.Contains(e, StringComparison.InvariantCultureIgnoreCase)));
                 try {
-                    var list = await importer.Import(new FileInfo(path));
+                    var list = await importer.Import(new FileInfo(path)).ConfigureAwait(true);
                     readableList.AddRange(list);
                     Save();
                 } catch (Exception exception) {
@@ -144,8 +170,9 @@ namespace LastIRead {
         }
 
         private void ExportButton_Click(object sender, RoutedEventArgs e) {
+            var culture = CultureInfo.CurrentUICulture;
             var exporters = GetImplementors<IDataExporter>();
-            var filterMap = exporters.SelectMany(x => x.ExportExtensions).Select(x => $"{x.ToUpper()}|*.{x.ToLower()}");
+            var filterMap = exporters.SelectMany(x => x.ExportExtensions).Select(x => $"{x.ToUpper(culture)}|*.{x.ToLower(culture)}");
 
             var dialog = new SaveFileDialog() {
                 Filter = string.Join('|', filterMap)
