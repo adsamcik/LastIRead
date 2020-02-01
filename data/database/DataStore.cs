@@ -1,30 +1,28 @@
 using LiteDB;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 
 namespace LastIRead.data.database {
-	class DataStore : IDisposable {
-		private readonly LiteDatabase database;
-		private readonly ILiteCollection<IReadable> collection;
+	internal class DataStore : IDisposable {
+		private readonly LiteDatabase _database;
+		private readonly ILiteCollection<IReadable> _collection;
 
 		public DataStore() {
-			database = AppDatabase.CreateDatabase();
-			collection = database.GetReadablesCollection();
+			_database = AppDatabase.CreateDatabase();
+			_collection = _database.GetReadablesCollection();
 		}
 
 		public void Update(IReadable readable) {
-			collection.Update(readable);
+			_collection.Update(readable);
 		}
 
 		public void Insert(IReadable readable) {
-			collection.Insert(readable);
+			_collection.Insert(readable);
 		}
 
 		public void Insert(IEnumerable<IReadable> readables) {
-			collection.Insert(readables);
+			_collection.Insert(readables);
 		}
 
 		public void Delete(IEnumerable<IReadable> readables) {
@@ -34,15 +32,15 @@ namespace LastIRead.data.database {
 		}
 
 		public void Delete(IReadable readable) {
-			collection.Delete(readable.Id);
+			_collection.Delete(readable.Id);
 		}
 
 		public IEnumerable<IReadable> GetSelected(string filter) {
-			string strippedFilter = StripString(filter);
-			var result = collection.FindAll();
+			var strippedFilter = StripString(filter);
+			var result = _collection.FindAll();
 
 			if (!string.IsNullOrEmpty(filter)) {
-				result = result.Where((IReadable readable) => {
+				result = result.Where(readable => {
 					var titleStripped = StripString(readable.Title);
 					return titleStripped.Contains(strippedFilter, StringComparison.OrdinalIgnoreCase);
 				});
@@ -52,11 +50,11 @@ namespace LastIRead.data.database {
 		}
 
 		public IEnumerable<IReadable> GetAll() {
-			return collection.FindAll().ToArray();
+			return _collection.FindAll().ToArray();
 		}
 
 		public void Dispose() {
-			database.Dispose();
+			_database.Dispose();
 		}
 
 
