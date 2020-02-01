@@ -30,7 +30,7 @@ namespace LastIRead {
 
 		private static void UpdateBrushes() {
 			var brush = (SolidColorBrush)Application.Current.Resources["SystemAltHighColorBrush"];
-			brush.Opacity = 0.3;
+			brush.Opacity = 0.1;
 			Application.Current.Resources["BackgroundBrush"] = brush;
 		}
 

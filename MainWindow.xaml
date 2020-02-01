@@ -18,7 +18,7 @@
 		<ListView x:Name="ReadList" Margin="10,50,10,54" MouseDoubleClick="ReadList_MouseDoubleClick"
 		          Background="{DynamicResource BackgroundBrush}" BorderThickness="0"
 		          Foreground="{DynamicResource SystemBaseHighColorBrush}"
-		          BorderBrush="{DynamicResource SytemAltMediumColorBrush}"
+		          BorderBrush="{DynamicResource SystemAltMediumColorBrush}"
 		          ItemContainerStyle="{DynamicResource ListViewContainerStyle}">
 			<ListView.View>
 				<GridView ColumnHeaderContainerStyle="{DynamicResource ListViewHeaderStyle}">
