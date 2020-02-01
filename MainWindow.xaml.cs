@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
+using LastIRead.data.database;
 using LastIRead.Data.Instance;
 using LastIRead.Extensions;
 using LastIRead.Import;
@@ -20,11 +21,6 @@ namespace LastIRead {
 	///     Interaction logic for MainWindow.xaml
 	/// </summary>
 	public partial class MainWindow {
-		private readonly string _databasePath =
-			$"{AppDomain.CurrentDomain.BaseDirectory}{Path.DirectorySeparatorChar}reading-list.json";
-
-		private string _strippedSearchString;
-
 		public MainWindow() {
 			InitializeCulture();
 			InitializeComponent();
@@ -33,7 +29,7 @@ namespace LastIRead {
 		}
 
 		private static void UpdateBrushes() {
-			var brush = (SolidColorBrush) Application.Current.Resources["SystemAltHighColorBrush"];
+			var brush = (SolidColorBrush)Application.Current.Resources["SystemAltHighColorBrush"];
 			brush.Opacity = 0.3;
 			Application.Current.Resources["BackgroundBrush"] = brush;
 		}
@@ -45,33 +41,9 @@ namespace LastIRead {
 					XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 		}
 
-		private bool ListFilter(IReadable readable) {
-			if (string.IsNullOrEmpty(_strippedSearchString)) {
-				return true;
-			}
-
-			Debug.Assert(readable != null, nameof(readable) + " != null");
-
-			var title = readable.Title;
-			var titleStripped = StripString(title);
-			return titleStripped.Contains(_strippedSearchString, StringComparison.OrdinalIgnoreCase);
-		}
-
-		private static string StripString(string text) {
-			var selectedCharacters = text
-				.Where(
-					character =>
-						!char.IsPunctuation(character) &&
-						!char.IsWhiteSpace(character) &&
-						!char.IsSeparator(character)
-				);
-
-			return string.Concat(selectedCharacters);
-		}
-
 		private void IncrementButton_Click(object sender, RoutedEventArgs e) {
 			e.Handled = true;
-			var data = (IReadable) ((Button) sender).DataContext;
+			var data = (IReadable)((Button)sender).DataContext;
 			data.IncrementProgress();
 			Update(data);
 		}
@@ -93,18 +65,18 @@ namespace LastIRead {
 				case 0:
 					return;
 				case 1: {
-					var data = (GenericReadable) ReadList.SelectedItem;
-					result = MessageBox.Show(
-						$"Are you sure you want to delete {data.Title}?",
-						"Delete confirmation",
-						MessageBoxButton.YesNo
-					);
-					if (result != MessageBoxResult.Yes) {
-						return;
-					}
+						var data = (GenericReadable)ReadList.SelectedItem;
+						result = MessageBox.Show(
+							$"Are you sure you want to delete {data.Title}?",
+							"Delete confirmation",
+							MessageBoxButton.YesNo
+						);
+						if (result != MessageBoxResult.Yes) {
+							return;
+						}
 
-					break;
-				}
+						break;
+					}
 				default:
 					result = MessageBox.Show(
 						$"Are you sure you want to delete {count} records?",
@@ -127,38 +99,34 @@ namespace LastIRead {
 				return;
 			}
 
-			var readable = (IReadable) ReadList.SelectedItem;
+			var readable = (IReadable)ReadList.SelectedItem;
 			if (EditItem(readable)) {
 				Update(readable);
 			}
 		}
 
 		private void Update(IReadable item) {
-			using var db = AppDatabase.CreateDatabase();
-			db.GetReadablesCollection().Update(item);
-			Refresh(db);
+			using var ds = new DataStore();
+			ds.Update(item);
+			Refresh(ds);
 		}
 
 		private void Insert(IReadable item) {
-			using var db = AppDatabase.CreateDatabase();
-			db.GetReadablesCollection().Insert(item);
-			Refresh(db);
+			using var ds = new DataStore();
+			ds.Delete(item);
+			Refresh(ds);
 		}
 
-		private void Insert(IEnumerable<IReadable> item) {
-			using var db = AppDatabase.CreateDatabase();
-			db.GetReadablesCollection().Insert(item);
-			Refresh(db);
+		private void Insert(IEnumerable<IReadable> items) {
+			using var ds = new DataStore();
+			ds.Insert(items);
+			Refresh(ds);
 		}
 
 		private void Delete(IEnumerable<IReadable> items) {
-			using var db = AppDatabase.CreateDatabase();
-			var collection = db.GetReadablesCollection();
-			foreach (var readable in items) {
-				collection.Delete(readable.Id);
-			}
-
-			Refresh(db);
+			using var ds = new DataStore();
+			ds.Delete(items);
+			Refresh(ds);
 		}
 
 		private static bool EditItem(IReadable readable) {
@@ -166,20 +134,15 @@ namespace LastIRead {
 		}
 
 		private void Refresh() {
-			using var db = AppDatabase.CreateDatabase();
-			Refresh(db);
+			using var ds = new DataStore();
+			Refresh(ds);
 		}
 
-		private void Refresh(LiteDatabase db) {
-			ReadList.ItemsSource = db
-			                       .GetReadablesCollection()
-			                       .FindAll()
-			                       .Where(ListFilter)
-			                       .OrderBy(x => x.Title);
+		private void Refresh(DataStore dataStore) {
+			ReadList.ItemsSource = dataStore.GetSelected(SearchBox.Text);
 		}
 
 		private void SearchBox_TextChanged(object sender, TextChangedEventArgs e) {
-			_strippedSearchString = StripString(SearchBox.Text);
 			Refresh();
 		}
 
@@ -223,7 +186,7 @@ namespace LastIRead {
 			var culture = CultureInfo.CurrentUICulture;
 			var exporters = GetImplementors<IDataExporter>();
 			var filterMap = exporters.SelectMany(x => x.ExportExtensions)
-			                         .Select(x => $"{x.ToUpper(culture)}|*.{x.ToLower(culture)}");
+									 .Select(x => $"{x.ToUpper(culture)}|*.{x.ToLower(culture)}");
 
 			var dialog = new SaveFileDialog {
 				Filter = string.Join('|', filterMap)
@@ -232,20 +195,10 @@ namespace LastIRead {
 				return;
 			}
 
-			using var db = AppDatabase.CreateDatabase();
-			var list = db.GetReadablesCollection().FindAll();
+			using var ds = new DataStore();
+			var list = ds.GetAll();
 			var exporter = exporters[dialog.FilterIndex - 1];
 			exporter.Export(list, new FileInfo(dialog.FileName));
-		}
-
-		private static List<T> GetImplementors<T>() {
-			var type = typeof(T);
-			return AppDomain.CurrentDomain
-			                .GetAssemblies()
-			                .SelectMany(x => x.GetTypes())
-			                .Where(x => type.IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
-			                .Select(x => (T) Activator.CreateInstance(x))
-			                .ToList();
 		}
 
 		private void Window_KeyDown(object sender, KeyEventArgs e) {
@@ -255,6 +208,16 @@ namespace LastIRead {
 			if (!char.IsControl(character) || e.Key == Key.Back) {
 				SearchBox.Focus();
 			}
+		}
+
+		private static List<T> GetImplementors<T>() {
+			var type = typeof(T);
+			return AppDomain.CurrentDomain
+							.GetAssemblies()
+							.SelectMany(x => x.GetTypes())
+							.Where(x => type.IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
+							.Select(x => (T)Activator.CreateInstance(x))
+							.ToList();
 		}
 	}
 }

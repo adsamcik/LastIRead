@@ -1,4 +1,4 @@
-﻿using LiteDB;
+using LiteDB;
 
 namespace LastIRead {
 	public static class AppDatabase {
@@ -9,7 +9,7 @@ namespace LastIRead {
 			return new LiteDatabase(Path);
 		}
 
-		public static LiteCollection<IReadable> GetReadablesCollection(this LiteDatabase database) {
+		public static ILiteCollection<IReadable> GetReadablesCollection(this LiteDatabase database) {
 			return database.GetCollection<IReadable>(ReadableCollection);
 		}
 	}
