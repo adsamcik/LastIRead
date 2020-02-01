@@ -95,14 +95,11 @@ namespace LastIRead {
 		}
 
 		private void ReadList_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
-			if (ReadList.SelectedItems.Count != 1) {
-				return;
-			}
+			EditSelectedItem();
+		}
 
-			var readable = (IReadable) ReadList.SelectedItem;
-			if (EditItem(readable)) {
-				Update(readable);
-			}
+		private void EditButton_Click(object sender, RoutedEventArgs e) {
+			EditSelectedItem();
 		}
 
 		private void Update(IReadable item) {
@@ -127,6 +124,19 @@ namespace LastIRead {
 			using var ds = new DataStore();
 			ds.Delete(items);
 			Refresh(ds);
+		}
+
+		private bool EditSelectedItem() {
+			if (ReadList.SelectedItems.Count != 1) {
+				return false;
+			}
+
+			var readable = (IReadable)ReadList.SelectedItem;
+			if (EditItem(readable)) {
+				Update(readable);
+				return true;
+			}
+			return false;
 		}
 
 		private static bool EditItem(IReadable readable) {
