@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.Contracts;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -26,7 +26,7 @@ namespace LastIRead {
 
 			Title = string.IsNullOrEmpty(readable.Title) ? "New readable" : readable.Title;
 
-			LastChapterLabel.Content = readable.Progress.ToString(culture.NumberFormat);
+			LastChapterLabel.Content = $"Last {readable.Progress.ToString(culture.NumberFormat)}";
 			OngoingCheckbox.IsChecked = readable.Ongoing;
 			AbandonedCheckbox.IsChecked = readable.Abandoned;
 			MaxProgressInput.Text = readable.MaxProgress.ToString(culture.NumberFormat);

@@ -4,11 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
-		xmlns:uwp="using:MaterialDesignThemes.Uwp"
-        xmlns:local="clr-namespace:LastIRead"
         xmlns:numeric="http://gu.se/NumericInput"
         mc:Ignorable="d"
-        Title="EditWindow" Height="320" Width="300"
+        Title="EditWindow" 
+		Height="350" 
+		Width="300"
+		MinWidth="200"
+		MinHeight="100"
 		Background="#000000"
         fw:AcrylicWindow.AcrylicWindowStyle="NoIcon"
         fw:AcrylicWindow.Enabled="True">
@@ -19,40 +21,46 @@
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Window.Resources>
-	
-	<Grid>
-		<Label Foreground="{DynamicResource SystemBaseHighColorBrush}" Content="Title" HorizontalAlignment="Left"
-		       Margin="10,10,0,0" VerticalAlignment="Top" Grid.RowSpan="2" />
-		<TextBox Style="{StaticResource TextBoxRevealStyle}" x:Name="TitleInput" Margin="10,36,10,0"
-		         TextWrapping="NoWrap" VerticalAlignment="Top" Grid.RowSpan="2" />
-		<Label Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="CurrentProgress"
-		       Content="Current progress" HorizontalAlignment="Left" Margin="10,74,0,0" Grid.RowSpan="2" Height="26"
+
+	<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+		<Grid>
+			<Label Style="{StaticResource Title}" Content="Title" HorizontalAlignment="Left"
+		       Margin="10,10,0,0" VerticalAlignment="Top" />
+			<TextBox Style="{StaticResource TextBoxRevealStyle}" x:Name="TitleInput" Margin="10,39,10,0"
+		         TextWrapping="NoWrap" VerticalAlignment="Top" />
+			<Label Style="{StaticResource Title}" x:Name="CurrentProgress"
+		       Content="Current progress" HorizontalAlignment="Left" Margin="10,77,0,0"
 		       VerticalAlignment="Top" />
-		<numeric:DoubleBox Style="{StaticResource TextBoxRevealStyle}" x:Name="CurrentProgressInput"
-		                   Margin="10,100,90,0" TextWrapping="Wrap" VerticalAlignment="Top"
-		                   PreviewTextInput="TextBox_PreviewTextInput" Grid.RowSpan="2" CanValueBeNull="True" />
-		<Label Foreground="{DynamicResource SystemBaseHighColorBrush}" Content="Previous chapter"
-		       HorizontalAlignment="Right" Margin="0,74,10,0" VerticalAlignment="Top" Grid.RowSpan="2" />
-		<Label Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="LastChapterLabel" Content="999"
-		       HorizontalAlignment="Right" Margin="0,100,10,0" VerticalAlignment="Top" Height="18" Padding="0,0,0,0"
-		       Width="75" HorizontalContentAlignment="Right" Grid.RowSpan="2" />
-		<Button Style="{StaticResource ButtonRevealStyle}" x:Name="CancelButton" Content="Cancel" Margin="0,0,10,10"
-		        Click="CancelButton_Click" Grid.RowSpan="2" Height="30" VerticalAlignment="Bottom"
-		        HorizontalAlignment="Right" Width="60" />
-		<Button Style="{StaticResource ButtonRevealStyle}" x:Name="OkButton" Content="OK" Margin="0,0,75,10"
-		        Click="OkButton_Click" Grid.RowSpan="2" HorizontalAlignment="Right" Width="60" Height="30"
-		        VerticalAlignment="Bottom" />
-		<Label Foreground="{DynamicResource SystemBaseHighColorBrush}" Content="Max progress"
-		       HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top" Grid.RowSpan="2" />
-		<numeric:DoubleBox Style="{StaticResource TextBoxRevealStyle}" x:Name="MaxProgressInput" Margin="10,164,150,0"
+			<numeric:DoubleBox Style="{StaticResource TextBoxRevealStyle}" x:Name="CurrentProgressInput"
+						   HorizontalContentAlignment="Left"
+		                   Margin="10,111,10,0" TextWrapping="Wrap" VerticalAlignment="Top"
+		                   PreviewTextInput="TextBox_PreviewTextInput" CanValueBeNull="True" />
+			<Label Foreground="#cc000000" Background="#22000000" x:Name="LastChapterLabel" Content="Last 999"
+		       HorizontalAlignment="Right" VerticalContentAlignment="Center" Margin="0,113,12,0" VerticalAlignment="Top" Height="28.5" Padding="4,0,4,0"
+		       Width="Auto" HorizontalContentAlignment="Right" />
+			<Label Style="{StaticResource Title}" Content="Max progress"
+		       HorizontalAlignment="Left" Margin="10,149,0,0" VerticalAlignment="Top" />
+			<numeric:DoubleBox Style="{StaticResource TextBoxRevealStyle}" x:Name="MaxProgressInput" Margin="10,178,10,0"
 		                   TextWrapping="Wrap" VerticalAlignment="Top" PreviewTextInput="TextBox_PreviewTextInput"
-		                   NumberStyles="Float" CanValueBeNull="True" />
-		<CheckBox
-			Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="AbandonedCheckbox"
-		          Content="Abandoned" Margin="10,202,0,0" HorizontalAlignment="Left" Width="120"
-		          Height="18" VerticalAlignment="Top" />
-		<CheckBox Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="OngoingCheckbox" Content="Ongoing"
+		                   NumberStyles="Float" CanValueBeNull="True"
+						   HorizontalContentAlignment="Left"/>
+			<CheckBox Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="OngoingCheckbox" Content="Ongoing"
 		          HorizontalAlignment="Left" Margin="10,225,0,0" Grid.RowSpan="2" VerticalAlignment="Top" />
 
-	</Grid>
+			<CheckBox
+			Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="AbandonedCheckbox"
+		          Content="Abandoned" Margin="10,251,0,0" HorizontalAlignment="Left" Width="120"
+		          Height="18" VerticalAlignment="Top" />
+
+			<Separator Margin="0,274,0,00" Background="Transparent"/>
+
+			<Button Style="{StaticResource ButtonRevealStyle}" x:Name="CancelButton" Content="Cancel" Margin="0,0,10,10"
+		        Click="CancelButton_Click" Grid.RowSpan="2" Height="35" VerticalAlignment="Bottom"
+		        HorizontalAlignment="Right" Width="80" />
+			<Button Style="{StaticResource ButtonRevealStyle}" x:Name="OkButton" Content="OK" Margin="0,0,95,10"
+		        Click="OkButton_Click" HorizontalAlignment="Right" Width="80" Height="35"
+		        VerticalAlignment="Bottom" />
+
+		</Grid>
+	</ScrollViewer>
 </Window>
