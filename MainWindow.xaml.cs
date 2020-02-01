@@ -27,7 +27,7 @@ namespace LastIRead {
 		}
 
 		private static void UpdateBrushes() {
-			var brush = (SolidColorBrush)Application.Current.Resources["SystemAltHighColorBrush"];
+			var brush = (SolidColorBrush) Application.Current.Resources["SystemAltHighColorBrush"];
 			brush.Opacity = 0.1;
 			Application.Current.Resources["BackgroundBrush"] = brush;
 		}
@@ -36,12 +36,14 @@ namespace LastIRead {
 			LanguageProperty.OverrideMetadata(
 				typeof(FrameworkElement),
 				new FrameworkPropertyMetadata(
-					XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+					XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)
+				)
+			);
 		}
 
 		private void IncrementButton_Click(object sender, RoutedEventArgs e) {
 			e.Handled = true;
-			var data = (IReadable)((Button)sender).DataContext;
+			var data = (IReadable) ((Button) sender).DataContext;
 			data.IncrementProgress();
 			Update(data);
 		}
@@ -63,18 +65,18 @@ namespace LastIRead {
 				case 0:
 					return;
 				case 1: {
-						var data = (GenericReadable)ReadList.SelectedItem;
-						result = MessageBox.Show(
-							$"Are you sure you want to delete {data.Title}?",
-							"Delete confirmation",
-							MessageBoxButton.YesNo
-						);
-						if (result != MessageBoxResult.Yes) {
-							return;
-						}
-
-						break;
+					var data = (GenericReadable) ReadList.SelectedItem;
+					result = MessageBox.Show(
+						$"Are you sure you want to delete {data.Title}?",
+						"Delete confirmation",
+						MessageBoxButton.YesNo
+					);
+					if (result != MessageBoxResult.Yes) {
+						return;
 					}
+
+					break;
+				}
 				default:
 					result = MessageBox.Show(
 						$"Are you sure you want to delete {count} records?",
@@ -97,7 +99,7 @@ namespace LastIRead {
 				return;
 			}
 
-			var readable = (IReadable)ReadList.SelectedItem;
+			var readable = (IReadable) ReadList.SelectedItem;
 			if (EditItem(readable)) {
 				Update(readable);
 			}
@@ -184,7 +186,7 @@ namespace LastIRead {
 			var culture = CultureInfo.CurrentUICulture;
 			var exporters = GetImplementors<IDataExporter>();
 			var filterMap = exporters.SelectMany(x => x.ExportExtensions)
-									 .Select(x => $"{x.ToUpper(culture)}|*.{x.ToLower(culture)}");
+			                         .Select(x => $"{x.ToUpper(culture)}|*.{x.ToLower(culture)}");
 
 			var dialog = new SaveFileDialog {
 				Filter = string.Join('|', filterMap)
@@ -211,11 +213,11 @@ namespace LastIRead {
 		private static List<T> GetImplementors<T>() {
 			var type = typeof(T);
 			return AppDomain.CurrentDomain
-							.GetAssemblies()
-							.SelectMany(x => x.GetTypes())
-							.Where(x => type.IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
-							.Select(x => (T)Activator.CreateInstance(x))
-							.ToList();
+			                .GetAssemblies()
+			                .SelectMany(x => x.GetTypes())
+			                .Where(x => type.IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
+			                .Select(x => (T) Activator.CreateInstance(x))
+			                .ToList();
 		}
 	}
 }

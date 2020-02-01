@@ -1,16 +1,20 @@
-using LiteDB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using LiteDB;
 
 namespace LastIRead.data.database {
 	internal class DataStore : IDisposable {
-		private readonly LiteDatabase _database;
 		private readonly ILiteCollection<IReadable> _collection;
+		private readonly LiteDatabase _database;
 
 		public DataStore() {
 			_database = AppDatabase.CreateDatabase();
 			_collection = _database.GetReadablesCollection();
+		}
+
+		public void Dispose() {
+			_database.Dispose();
 		}
 
 		public void Update(IReadable readable) {
@@ -40,10 +44,12 @@ namespace LastIRead.data.database {
 			var result = _collection.FindAll();
 
 			if (!string.IsNullOrEmpty(filter)) {
-				result = result.Where(readable => {
-					var titleStripped = StripString(readable.Title);
-					return titleStripped.Contains(strippedFilter, StringComparison.OrdinalIgnoreCase);
-				});
+				result = result.Where(
+					readable => {
+						var titleStripped = StripString(readable.Title);
+						return titleStripped.Contains(strippedFilter, StringComparison.OrdinalIgnoreCase);
+					}
+				);
 			}
 
 			return result.OrderBy(x => x.Title).ToArray();
@@ -51,10 +57,6 @@ namespace LastIRead.data.database {
 
 		public IEnumerable<IReadable> GetAll() {
 			return _collection.FindAll().ToArray();
-		}
-
-		public void Dispose() {
-			_database.Dispose();
 		}
 
 
@@ -69,6 +71,5 @@ namespace LastIRead.data.database {
 
 			return string.Concat(selectedCharacters);
 		}
-
 	}
 }
