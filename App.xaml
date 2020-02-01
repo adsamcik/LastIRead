@@ -1,4 +1,4 @@
-﻿<Application x:Class="LastIRead.App"
+<Application x:Class="LastIRead.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:LastIRead"
@@ -6,7 +6,7 @@
 	<Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="MainResourceDictionary.xaml" />
+				<ResourceDictionary Source="resources/MainResourceDictionary.xaml" />
 				<!--  FluentWPF Controls  -->
 				<ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Controls.xaml" />
 			</ResourceDictionary.MergedDictionaries>

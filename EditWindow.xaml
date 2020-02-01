@@ -1,15 +1,25 @@
-﻿<Window x:Class="LastIRead.EditWindow"
+<Window x:Class="LastIRead.EditWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+		xmlns:uwp="using:MaterialDesignThemes.Uwp"
         xmlns:local="clr-namespace:LastIRead"
         xmlns:numeric="http://gu.se/NumericInput"
         mc:Ignorable="d"
         Title="EditWindow" Height="320" Width="300"
+		Background="#000000"
         fw:AcrylicWindow.AcrylicWindowStyle="NoIcon"
         fw:AcrylicWindow.Enabled="True">
+	<Window.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="resources/InputResourceDictionary.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Window.Resources>
+	
 	<Grid>
 		<Label Foreground="{DynamicResource SystemBaseHighColorBrush}" Content="Title" HorizontalAlignment="Left"
 		       Margin="10,10,0,0" VerticalAlignment="Top" Grid.RowSpan="2" />
@@ -37,7 +47,8 @@
 		<numeric:DoubleBox Style="{StaticResource TextBoxRevealStyle}" x:Name="MaxProgressInput" Margin="10,164,150,0"
 		                   TextWrapping="Wrap" VerticalAlignment="Top" PreviewTextInput="TextBox_PreviewTextInput"
 		                   NumberStyles="Float" CanValueBeNull="True" />
-		<CheckBox Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="AbandonedCheckbox"
+		<CheckBox
+			Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="AbandonedCheckbox"
 		          Content="Abandoned" Margin="10,202,0,0" HorizontalAlignment="Left" Width="120"
 		          Height="18" VerticalAlignment="Top" />
 		<CheckBox Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="OngoingCheckbox" Content="Ongoing"
