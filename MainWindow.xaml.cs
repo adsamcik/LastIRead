@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using LastIRead.Data.Instance;
 using LastIRead.Extensions;
@@ -25,6 +26,7 @@ namespace LastIRead {
 		private string _strippedSearchString;
 
 		public MainWindow() {
+			InitializeCulture();
 			InitializeComponent();
 			Refresh();
 			UpdateBrushes();
@@ -34,6 +36,13 @@ namespace LastIRead {
 			var brush = (SolidColorBrush) Application.Current.Resources["SystemAltHighColorBrush"];
 			brush.Opacity = 0.3;
 			Application.Current.Resources["BackgroundBrush"] = brush;
+		}
+
+		private static void InitializeCulture() {
+			LanguageProperty.OverrideMetadata(
+				typeof(FrameworkElement),
+				new FrameworkPropertyMetadata(
+					XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 		}
 
 		private bool ListFilter(IReadable readable) {

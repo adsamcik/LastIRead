@@ -26,7 +26,7 @@
 					<GridViewColumn Header="Progress" Width="60" DisplayMemberBinding="{Binding Progress}" />
 					<GridViewColumn Header="Abandoned" Width="70" DisplayMemberBinding="{Binding Abandoned}" />
 					<GridViewColumn Header="Ongoing" Width="60" DisplayMemberBinding="{Binding Ongoing}" />
-					<GridViewColumn Header="Last read" Width="70" DisplayMemberBinding="{Binding LastRead, StringFormat=d}" />
+					<GridViewColumn Header="Last read" Width="90" DisplayMemberBinding="{Binding LastRead, StringFormat=d}" />
 					<GridViewColumn Header="Increment" x:Name="IncrementColumn" Width="60">
 						<GridViewColumn.CellTemplate>
 							<DataTemplate>
