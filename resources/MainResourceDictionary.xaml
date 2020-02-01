@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
-                    xmlns:local="clr-namespace:LastIRead">
+                    xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF">
 	<Style x:Key="ListViewContainerStyle" TargetType="{x:Type ListViewItem}">
 		<Setter Property="SnapsToDevicePixels" Value="True" />
 		<Setter Property="Padding" Value="4" />

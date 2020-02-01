@@ -126,17 +126,17 @@ namespace LastIRead {
 			Refresh(ds);
 		}
 
-		private bool EditSelectedItem() {
+		private void EditSelectedItem() {
 			if (ReadList.SelectedItems.Count != 1) {
-				return false;
+				return;
 			}
 
 			var readable = (IReadable)ReadList.SelectedItem;
-			if (EditItem(readable)) {
-				Update(readable);
-				return true;
+			if (!EditItem(readable)) {
+				return;
 			}
-			return false;
+
+			Update(readable);
 		}
 
 		private static bool EditItem(IReadable readable) {
