@@ -110,7 +110,7 @@ namespace LastIRead {
 
 		private void Insert(IReadable item) {
 			using var ds = new DataStore();
-			ds.Delete(item);
+			ds.Insert(item);
 			Refresh(ds);
 		}
 
