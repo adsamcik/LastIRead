@@ -28,7 +28,7 @@ namespace LastIRead {
 
 		private static void UpdateBrushes() {
 			var brush = (SolidColorBrush) Application.Current.Resources["SystemAltHighColorBrush"];
-			brush.Opacity = 0.1;
+			brush = new SolidColorBrush(brush.Color) {Opacity = 0.1};
 			Application.Current.Resources["BackgroundBrush"] = brush;
 		}
 
@@ -131,7 +131,7 @@ namespace LastIRead {
 				return;
 			}
 
-			var readable = (IReadable)ReadList.SelectedItem;
+			var readable = (IReadable) ReadList.SelectedItem;
 			if (!EditItem(readable)) {
 				return;
 			}
