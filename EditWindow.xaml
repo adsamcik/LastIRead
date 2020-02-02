@@ -57,7 +57,7 @@
 				PreviewTextInput="TextBox_PreviewTextInput"
 				CanValueBeNull="True" />
 			<Label
-				Foreground="#cc000000"
+				Foreground="#ff000000"
 				Background="#22000000"
 				x:Name="LastChapterLabel"
 				Content="Last 999"
