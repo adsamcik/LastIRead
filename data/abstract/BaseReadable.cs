@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace LastIRead {
 	/// <summary>
-	/// Base readable implementation providing utility methods for UI.
+	///     Base readable implementation providing utility methods for UI.
 	/// </summary>
 	public abstract class BaseReadable : IReadable {
 		public abstract ObjectId Id { get; set; }
@@ -17,7 +17,6 @@ namespace LastIRead {
 		public abstract bool Abandoned { get; set; }
 		public abstract IList<IProgress> History { get; protected set; }
 		public abstract double ProgressIncrement { get; set; }
-		protected abstract IProgress CreateNewProgress(double progress);
 
 		[Optional]
 		[JsonIgnore]
@@ -56,5 +55,7 @@ namespace LastIRead {
 				History[^1] = newProgress;
 			}
 		}
+
+		protected abstract IProgress CreateNewProgress(double progress);
 	}
 }

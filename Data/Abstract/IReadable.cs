@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using CsvHelper.Configuration.Attributes;
 using LiteDB;
-using Newtonsoft.Json;
 
 namespace LastIRead {
 	public interface IReadable {
@@ -40,24 +36,12 @@ namespace LastIRead {
 		IList<IProgress> History { get; }
 
 		/// <summary>
-		/// 	Progress increment value.
+		///     Progress increment value.
 		/// </summary>
 		double ProgressIncrement { get; set; }
 
 		/// <summary>
-		///     Increments progress by 1. If this is first time reading that day
-		///     also creates a new record.
-		/// </summary>
-		void IncrementProgress();
-
-		/// <summary>
-		///     Updates reading progress with given progress value.
-		/// </summary>
-		/// <param name="progress">Progress value</param>
-		void LogProgress(double progress);
-
-		/// <summary>
-		/// 	Date of the first progress entry.
+		///     Date of the first progress entry.
 		/// </summary>
 		public DateTime StartedReading { get; }
 
@@ -72,8 +56,20 @@ namespace LastIRead {
 		public double Progress { get; set; }
 
 		/// <summary>
-		/// 	Returns last progress instance or default value if no progress is logged.
+		///     Returns last progress instance or default value if no progress is logged.
 		/// </summary>
 		public IProgress LastProgress { get; }
+
+		/// <summary>
+		///     Increments progress by 1. If this is first time reading that day
+		///     also creates a new record.
+		/// </summary>
+		void IncrementProgress();
+
+		/// <summary>
+		///     Updates reading progress with given progress value.
+		/// </summary>
+		/// <param name="progress">Progress value</param>
+		void LogProgress(double progress);
 	}
 }

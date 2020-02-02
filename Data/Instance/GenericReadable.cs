@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using CsvHelper.Configuration.Attributes;
 using LiteDB;
 using Newtonsoft.Json;
@@ -21,7 +20,6 @@ namespace LastIRead.Data.Instance {
 
 		[Optional]
 		public override bool Abandoned { get; set; }
-
 
 		[Optional]
 		[JsonProperty]
