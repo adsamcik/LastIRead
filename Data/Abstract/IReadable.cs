@@ -34,7 +34,6 @@ namespace LastIRead {
 		/// </summary>
 		bool Abandoned { get; set; }
 
-
 		/// <summary>
 		///     Complete progress history of reading.
 		/// </summary>

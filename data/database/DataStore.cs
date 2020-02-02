@@ -59,7 +59,6 @@ namespace LastIRead.data.database {
 			return _collection.FindAll().ToArray();
 		}
 
-
 		private static string StripString(string text) {
 			var selectedCharacters = text
 				.Where(
