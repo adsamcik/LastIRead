@@ -47,8 +47,7 @@
 			<CheckBox Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="OngoingCheckbox" Content="Ongoing"
 		          HorizontalAlignment="Left" Margin="10,225,0,0" Grid.RowSpan="2" VerticalAlignment="Top" />
 
-			<CheckBox
-			Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="AbandonedCheckbox"
+			<CheckBox Foreground="{DynamicResource SystemBaseHighColorBrush}" x:Name="AbandonedCheckbox"
 		          Content="Abandoned" Margin="10,251,0,0" HorizontalAlignment="Left" Width="120"
 		          Height="18" VerticalAlignment="Top" />
 
