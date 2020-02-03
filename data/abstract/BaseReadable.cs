@@ -9,29 +9,43 @@ namespace LastIRead {
 	/// <summary>
 	///     Base readable implementation providing utility methods for UI.
 	/// </summary>
-	public abstract class BaseReadable : IReadable {
+	public abstract class BaseReadable : IReadable, IUiReadable {
+		[Ignore]
+		[JsonIgnore]
 		public abstract ObjectId Id { get; set; }
-		public abstract string Title { get; set; }
+
+		[Optional]
+		public abstract string LocalizedTitle { get; set; }
+
+		[Optional]
+		public abstract string OriginalTitle { get; set; }
+
+		[Optional]
 		public abstract double MaxProgress { get; set; }
+
+		[Optional]
 		public abstract bool Ongoing { get; set; }
+
+		[Optional]
 		public abstract bool Abandoned { get; set; }
+
 		public abstract IList<IProgress> History { get; protected set; }
 		public abstract double ProgressIncrement { get; set; }
 
 		[Optional]
 		[JsonIgnore]
 		[BsonIgnore]
-		public DateTime StartedReading => History.FirstOrDefault()?.Date ?? DateTime.MinValue;
+		public virtual DateTime StartedReading => History.FirstOrDefault()?.Date ?? DateTime.MinValue;
 
 		[Ignore]
 		[JsonIgnore]
 		[BsonIgnore]
-		public DateTime LastRead => LastProgress?.Date ?? DateTime.MinValue;
+		public virtual DateTime LastRead => LastProgress?.Date ?? DateTime.MinValue;
 
 		[Optional]
 		[JsonIgnore]
 		[BsonIgnore]
-		public double Progress {
+		public virtual double Progress {
 			get => LastProgress?.Value ?? 0.0;
 			set => LogProgress(value);
 		}
@@ -39,13 +53,18 @@ namespace LastIRead {
 		[Ignore]
 		[JsonIgnore]
 		[BsonIgnore]
-		public IProgress LastProgress => History.LastOrDefault();
+		public virtual string Title => LocalizedTitle ?? OriginalTitle;
 
-		public void IncrementProgress() {
+		[Ignore]
+		[JsonIgnore]
+		[BsonIgnore]
+		public virtual IProgress LastProgress => History.LastOrDefault();
+
+		public virtual void IncrementProgress() {
 			LogProgress(Progress + 1);
 		}
 
-		public void LogProgress(double progress) {
+		public virtual void LogProgress(double progress) {
 			if (!Ongoing && MaxProgress > 0) progress = Math.Min(MaxProgress, progress);
 
 			var newProgress = CreateNewProgress(progress);

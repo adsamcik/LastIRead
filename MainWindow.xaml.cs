@@ -67,7 +67,7 @@ namespace LastIRead {
 				case 1: {
 					var data = (GenericReadable) ReadList.SelectedItem;
 					result = MessageBox.Show(
-						$"Are you sure you want to delete {data.Title}?",
+						$"Are you sure you want to delete {data.LocalizedTitle}?",
 						"Delete confirmation",
 						MessageBoxButton.YesNo
 					);

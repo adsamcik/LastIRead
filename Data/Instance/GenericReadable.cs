@@ -10,9 +10,11 @@ namespace LastIRead.Data.Instance {
 	/// </summary>
 	internal class GenericReadable : BaseReadable {
 		public override ObjectId Id { get; set; }
-		public override string Title { get; set; }
 
-		[Optional]
+		public override string LocalizedTitle { get; set; }
+
+		public override string OriginalTitle { get; set; }
+
 		public override double MaxProgress { get; set; }
 
 		[Optional]

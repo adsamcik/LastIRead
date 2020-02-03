@@ -26,7 +26,11 @@ namespace LastIRead.data.database {
 		}
 
 		public void Insert(IEnumerable<IReadable> readables) {
-			_collection.Insert(readables);
+			foreach (var readable in readables) {
+				_collection.Insert(readable);
+			}
+
+			//_collection.Insert(readables);
 		}
 
 		public void Delete(IEnumerable<IReadable> readables) {
@@ -46,13 +50,13 @@ namespace LastIRead.data.database {
 			if (!string.IsNullOrEmpty(filter)) {
 				result = result.Where(
 					readable => {
-						var titleStripped = StripString(readable.Title);
+						var titleStripped = StripString(readable.LocalizedTitle);
 						return titleStripped.Contains(strippedFilter, StringComparison.OrdinalIgnoreCase);
 					}
 				);
 			}
 
-			return result.OrderBy(x => x.Title).ToArray();
+			return result.OrderBy(x => x.LocalizedTitle).ToArray();
 		}
 
 		public IEnumerable<IReadable> GetAll() {

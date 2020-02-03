@@ -12,7 +12,12 @@ namespace LastIRead {
 		/// <summary>
 		///     Title of the reading material
 		/// </summary>
-		string Title { get; set; }
+		string LocalizedTitle { get; set; }
+
+		/// <summary>
+		/// 	Title of the reading material in original language.
+		/// </summary>
+		string OriginalTitle { get; set; }
 
 		/// <summary>
 		///     Max progress indicates how long the reading material is.
@@ -41,24 +46,9 @@ namespace LastIRead {
 		double ProgressIncrement { get; set; }
 
 		/// <summary>
-		///     Date of the first progress entry.
-		/// </summary>
-		public DateTime StartedReading { get; }
-
-		/// <summary>
-		///     Date of last progress change.
-		/// </summary>
-		public DateTime LastRead { get; }
-
-		/// <summary>
 		///     Latest progress data.
 		/// </summary>
 		public double Progress { get; set; }
-
-		/// <summary>
-		///     Returns last progress instance or default value if no progress is logged.
-		/// </summary>
-		public IProgress LastProgress { get; }
 
 		/// <summary>
 		///     Increments progress by 1. If this is first time reading that day
