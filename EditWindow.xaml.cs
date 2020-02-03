@@ -40,7 +40,9 @@ namespace LastIRead {
 			Readable.Abandoned = AbandonedCheckbox.IsChecked == true;
 
 			var progressValue = CurrentProgressInput.Value;
-			if (progressValue != null) Readable.LogProgress((double) progressValue);
+			if (progressValue.HasValue) {
+				Readable.LogProgress(progressValue.Value);
+			}
 
 			Readable.MaxProgress = MaxProgressInput.Value ?? 0;
 			Readable.LocalizedTitle = LocalizedTitleInput.Text;
