@@ -8,9 +8,9 @@
 	xmlns:numeric="http://gu.se/NumericInput"
 	mc:Ignorable="d"
 	Title="EditWindow"
-	Height="350"
+	Height="375"
 	Width="500"
-	MinWidth="200"
+	MinWidth="270"
 	MinHeight="100"
 	Background="#000000"
 	fw:AcrylicWindow.AcrylicWindowStyle="NoIcon"
@@ -24,29 +24,31 @@
 		</ResourceDictionary>
 	</Window.Resources>
 
-	<ScrollViewer
+	<Grid>
+		<ScrollViewer
+			Margin="0,0,0,55"
 		HorizontalScrollBarVisibility="Disabled"
 		VerticalScrollBarVisibility="Auto">
-		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
 					Width="1.5*" />
-				<ColumnDefinition
+					<ColumnDefinition
 					Width="*" />
-			</Grid.ColumnDefinitions>
-			<Label
+				</Grid.ColumnDefinitions>
+				<Label
 				Style="{StaticResource Title}"
 				Content="Localized title"
 				HorizontalAlignment="Left"
 				Margin="10,10,0,0"
 				VerticalAlignment="Top" />
-			<TextBox
+				<TextBox
 				Style="{StaticResource TextBoxRevealStyle}"
 				x:Name="LocalizedTitleInput"
 				Margin="10,39,10,0"
 				TextWrapping="NoWrap"
 				VerticalAlignment="Top" />
-			<Label
+				<Label
 				Grid.Column="1"
 				Style="{StaticResource Title}"
 				x:Name="CurrentProgress"
@@ -54,7 +56,7 @@
 				HorizontalAlignment="Left"
 				Margin="10,3,0,0"
 				VerticalAlignment="Top" />
-			<numeric:DoubleBox
+				<numeric:DoubleBox
 				Grid.Column="1"
 				Style="{StaticResource TextBoxRevealStyle}"
 				x:Name="CurrentProgressInput"
@@ -63,7 +65,7 @@
 				TextWrapping="Wrap"
 				VerticalAlignment="Top"
 				CanValueBeNull="True" />
-			<Label
+				<Label
 				Grid.Column="1"
 				Foreground="#ff000000"
 				Background="#22000000"
@@ -77,14 +79,14 @@
 				Padding="4,0,4,0"
 				Width="Auto"
 				HorizontalContentAlignment="Right" />
-			<Label
+				<Label
 				Grid.Column="1"
 				Style="{StaticResource Title}"
 				Content="Max progress"
 				HorizontalAlignment="Left"
 				Margin="10,75,0,0"
 				VerticalAlignment="Top" />
-			<numeric:DoubleBox
+				<numeric:DoubleBox
 				Grid.Column="1"
 				Style="{StaticResource TextBoxRevealStyle}"
 				x:Name="MaxProgressInput"
@@ -94,7 +96,7 @@
 				NumberStyles="Float"
 				CanValueBeNull="True"
 				HorizontalContentAlignment="Left" />
-			<CheckBox
+				<CheckBox
 				Grid.Column="0"
 				Foreground="{DynamicResource SystemBaseHighColorBrush}"
 				x:Name="OngoingCheckbox"
@@ -103,7 +105,7 @@
 				Margin="10,230,0,0"
 				VerticalAlignment="Top" />
 
-			<CheckBox
+				<CheckBox
 				Grid.Column="0"
 				Foreground="{DynamicResource SystemBaseHighColorBrush}"
 				x:Name="AbandonedCheckbox"
@@ -114,15 +116,38 @@
 				Height="18"
 				VerticalAlignment="Top" />
 
-			<Separator
-				Grid.ColumnSpan="2"
+				<Label
 				Grid.Column="0"
-				Margin="0,274,0,00"
-				Background="Transparent" />
+				Style="{StaticResource Title}"
+				Content="Original title"
+				HorizontalAlignment="Left"
+				Margin="10,75,0,0"
+				VerticalAlignment="Top" />
+				<TextBox
+				Grid.Column="0"
+				Style="{StaticResource TextBoxRevealStyle}"
+				x:Name="OriginalTitleInput"
+				Margin="10,104,10,0"
+				TextWrapping="NoWrap"
+				VerticalAlignment="Top" />
+				<Label
+				Grid.Column="0"
+				Style="{StaticResource Title}"
+				Content="Web address"
+				HorizontalAlignment="Left"
+				Margin="10,157,0,0"
+				VerticalAlignment="Top" />
+				<TextBox
+				Grid.Column="0"
+				Style="{StaticResource TextBoxRevealStyle}"
+				x:Name="UrlInput"
+				Margin="10,186,10,0"
+				TextWrapping="NoWrap"
+				VerticalAlignment="Top" />
+			</Grid>
+		</ScrollViewer>
 
-			<Button
-				Grid.ColumnSpan="2"
-				Grid.Column="0"
+		<Button
 				Style="{StaticResource ButtonRevealStyle}"
 				x:Name="CancelButton"
 				Content="Cancel"
@@ -133,9 +158,7 @@
 				VerticalAlignment="Bottom"
 				HorizontalAlignment="Right"
 				Width="80" />
-			<Button
-				Grid.ColumnSpan="2"
-				Grid.Column="0"
+		<Button
 				Style="{StaticResource ButtonRevealStyle}"
 				x:Name="OkButton"
 				Content="OK"
@@ -145,35 +168,13 @@
 				Width="80"
 				Height="35"
 				VerticalAlignment="Bottom" />
-			<Label
-				Grid.Column="0"
-				Style="{StaticResource Title}"
-				Content="Original title"
-				HorizontalAlignment="Left"
-				Margin="10,75,0,0"
-				VerticalAlignment="Top" />
-			<TextBox
-				Grid.Column="0"
-				Style="{StaticResource TextBoxRevealStyle}"
-				x:Name="OriginalTitleInput"
-				Margin="10,104,10,0"
-				TextWrapping="NoWrap"
-				VerticalAlignment="Top" />
-			<Label
-				Grid.Column="0"
-				Style="{StaticResource Title}"
-				Content="Web address"
-				HorizontalAlignment="Left"
-				Margin="10,157,0,0"
-				VerticalAlignment="Top" />
-			<TextBox
-				Grid.Column="0"
-				Style="{StaticResource TextBoxRevealStyle}"
-				x:Name="UrlInput"
-				Margin="10,186,10,0"
-				TextWrapping="NoWrap"
-				VerticalAlignment="Top" />
 
-		</Grid>
-	</ScrollViewer>
+		<Button
+       Style="{StaticResource ButtonRevealStyle}"
+       x:Name="StatsButton"
+       Content="Stats"
+       Margin="10,0,0,10"
+       Height="35"
+       VerticalAlignment="Bottom" Click="StatsButton_Click" HorizontalAlignment="Left" Width="80" />
+	</Grid>
 </Window>

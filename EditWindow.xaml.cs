@@ -63,5 +63,9 @@ namespace LastIRead {
 			DialogResult = false;
 			Close();
 		}
+
+		private void StatsButton_Click(object sender, RoutedEventArgs e) {
+
+		}
 	}
 }
