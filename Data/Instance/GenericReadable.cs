@@ -29,10 +29,10 @@ namespace LastIRead.Data.Instance {
 
 		public override double ProgressIncrement { get; set; }
 
+		public string WebAddress { get; set; }
+
 		protected override IProgress CreateNewProgress(double progress) {
 			return new GenericProgress(DateTime.Today, progress);
 		}
-
-		public string WebAddress { get; set; }
 	}
 }

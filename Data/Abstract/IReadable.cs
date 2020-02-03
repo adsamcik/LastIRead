@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using LiteDB;
 
 namespace LastIRead {
@@ -15,7 +14,7 @@ namespace LastIRead {
 		string LocalizedTitle { get; set; }
 
 		/// <summary>
-		/// 	Title of the reading material in original language.
+		///     Title of the reading material in original language.
 		/// </summary>
 		string OriginalTitle { get; set; }
 

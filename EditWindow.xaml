@@ -15,36 +15,38 @@
 	Background="#000000"
 	fw:AcrylicWindow.AcrylicWindowStyle="NoIcon"
 	fw:AcrylicWindow.Enabled="True">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary
+	<Window.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary
 					Source="resources/InputResourceDictionary.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Window.Resources>
 
-    <ScrollViewer
+	<ScrollViewer
 		HorizontalScrollBarVisibility="Disabled"
 		VerticalScrollBarVisibility="Auto">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.5*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Label
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition
+					Width="1.5*" />
+				<ColumnDefinition
+					Width="*" />
+			</Grid.ColumnDefinitions>
+			<Label
 				Style="{StaticResource Title}"
 				Content="Localized title"
 				HorizontalAlignment="Left"
 				Margin="10,10,0,0"
 				VerticalAlignment="Top" />
-            <TextBox
+			<TextBox
 				Style="{StaticResource TextBoxRevealStyle}"
 				x:Name="LocalizedTitleInput"
 				Margin="10,39,10,0"
 				TextWrapping="NoWrap"
 				VerticalAlignment="Top" />
-            <Label
+			<Label
 				Grid.Column="1"
 				Style="{StaticResource Title}"
 				x:Name="CurrentProgress"
@@ -52,7 +54,7 @@
 				HorizontalAlignment="Left"
 				Margin="10,3,0,0"
 				VerticalAlignment="Top" />
-            <numeric:DoubleBox
+			<numeric:DoubleBox
 				Grid.Column="1"
 				Style="{StaticResource TextBoxRevealStyle}"
 				x:Name="CurrentProgressInput"
@@ -61,7 +63,7 @@
 				TextWrapping="Wrap"
 				VerticalAlignment="Top"
 				CanValueBeNull="True" />
-            <Label
+			<Label
 				Grid.Column="1"
 				Foreground="#ff000000"
 				Background="#22000000"
@@ -75,14 +77,14 @@
 				Padding="4,0,4,0"
 				Width="Auto"
 				HorizontalContentAlignment="Right" />
-            <Label
+			<Label
 				Grid.Column="1"
 				Style="{StaticResource Title}"
 				Content="Max progress"
 				HorizontalAlignment="Left"
 				Margin="10,75,0,0"
 				VerticalAlignment="Top" />
-            <numeric:DoubleBox
+			<numeric:DoubleBox
 				Grid.Column="1"
 				Style="{StaticResource TextBoxRevealStyle}"
 				x:Name="MaxProgressInput"
@@ -92,18 +94,18 @@
 				NumberStyles="Float"
 				CanValueBeNull="True"
 				HorizontalContentAlignment="Left" />
-            <CheckBox
-	            Grid.Column="0"
-	            Foreground="{DynamicResource SystemBaseHighColorBrush}"
+			<CheckBox
+				Grid.Column="0"
+				Foreground="{DynamicResource SystemBaseHighColorBrush}"
 				x:Name="OngoingCheckbox"
 				Content="Ongoing"
 				HorizontalAlignment="Left"
 				Margin="10,230,0,0"
 				VerticalAlignment="Top" />
 
-            <CheckBox
-	            Grid.Column="0"
-	            Foreground="{DynamicResource SystemBaseHighColorBrush}"
+			<CheckBox
+				Grid.Column="0"
+				Foreground="{DynamicResource SystemBaseHighColorBrush}"
 				x:Name="AbandonedCheckbox"
 				Content="Abandoned"
 				Margin="10,256,0,0"
@@ -112,13 +114,13 @@
 				Height="18"
 				VerticalAlignment="Top" />
 
-            <Separator
-	            Grid.ColumnSpan="2"
-	            Grid.Column="0"
-	            Margin="0,274,0,00"
+			<Separator
+				Grid.ColumnSpan="2"
+				Grid.Column="0"
+				Margin="0,274,0,00"
 				Background="Transparent" />
 
-            <Button
+			<Button
 				Grid.ColumnSpan="2"
 				Grid.Column="0"
 				Style="{StaticResource ButtonRevealStyle}"
@@ -131,7 +133,7 @@
 				VerticalAlignment="Bottom"
 				HorizontalAlignment="Right"
 				Width="80" />
-            <Button
+			<Button
 				Grid.ColumnSpan="2"
 				Grid.Column="0"
 				Style="{StaticResource ButtonRevealStyle}"
@@ -143,35 +145,35 @@
 				Width="80"
 				Height="35"
 				VerticalAlignment="Bottom" />
-            <Label
-	            Grid.Column="0"
-	            Style="{StaticResource Title}"
-                Content="Original title"
-                HorizontalAlignment="Left"
-                Margin="10,75,0,0"
-                VerticalAlignment="Top" />
-            <TextBox
-	            Grid.Column="0"
-	            Style="{StaticResource TextBoxRevealStyle}"
-                x:Name="OriginalTitleInput"
-                Margin="10,104,10,0"
-                TextWrapping="NoWrap"
-                VerticalAlignment="Top" />
-            <Label
-	            Grid.Column="0"
-	            Style="{StaticResource Title}"
-                Content="Web address"
-                HorizontalAlignment="Left"
-                Margin="10,157,0,0"
-                VerticalAlignment="Top" />
-            <TextBox
-	            Grid.Column="0"
-	            Style="{StaticResource TextBoxRevealStyle}"
-                x:Name="UrlInput"
-                Margin="10,186,10,0"
-                TextWrapping="NoWrap"
-                VerticalAlignment="Top" />
+			<Label
+				Grid.Column="0"
+				Style="{StaticResource Title}"
+				Content="Original title"
+				HorizontalAlignment="Left"
+				Margin="10,75,0,0"
+				VerticalAlignment="Top" />
+			<TextBox
+				Grid.Column="0"
+				Style="{StaticResource TextBoxRevealStyle}"
+				x:Name="OriginalTitleInput"
+				Margin="10,104,10,0"
+				TextWrapping="NoWrap"
+				VerticalAlignment="Top" />
+			<Label
+				Grid.Column="0"
+				Style="{StaticResource Title}"
+				Content="Web address"
+				HorizontalAlignment="Left"
+				Margin="10,157,0,0"
+				VerticalAlignment="Top" />
+			<TextBox
+				Grid.Column="0"
+				Style="{StaticResource TextBoxRevealStyle}"
+				x:Name="UrlInput"
+				Margin="10,186,10,0"
+				TextWrapping="NoWrap"
+				VerticalAlignment="Top" />
 
-        </Grid>
-    </ScrollViewer>
+		</Grid>
+	</ScrollViewer>
 </Window>

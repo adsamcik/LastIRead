@@ -1,16 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace LastIRead {
 	/// <summary>
-	/// Properties specific for web content.
+	///     Properties specific for web content.
 	/// </summary>
-	interface IWebReadable {
+	internal interface IWebReadable {
 		/// <summary>
-		/// Web Address
+		///     Web Address
 		/// </summary>
 		string WebAddress { get; set; }
-
 	}
 }

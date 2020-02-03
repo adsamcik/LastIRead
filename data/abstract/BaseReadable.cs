@@ -35,30 +35,10 @@ namespace LastIRead {
 		[Optional]
 		[JsonIgnore]
 		[BsonIgnore]
-		public virtual DateTime StartedReading => History.FirstOrDefault()?.Date ?? DateTime.MinValue;
-
-		[Ignore]
-		[JsonIgnore]
-		[BsonIgnore]
-		public virtual DateTime LastRead => LastProgress?.Date ?? DateTime.MinValue;
-
-		[Optional]
-		[JsonIgnore]
-		[BsonIgnore]
 		public virtual double Progress {
 			get => LastProgress?.Value ?? 0.0;
 			set => LogProgress(value);
 		}
-
-		[Ignore]
-		[JsonIgnore]
-		[BsonIgnore]
-		public virtual string Title => LocalizedTitle ?? OriginalTitle;
-
-		[Ignore]
-		[JsonIgnore]
-		[BsonIgnore]
-		public virtual IProgress LastProgress => History.LastOrDefault();
 
 		public virtual void IncrementProgress() {
 			LogProgress(Progress + 1);
@@ -80,6 +60,26 @@ namespace LastIRead {
 				History[^1] = newProgress;
 			}
 		}
+
+		[Optional]
+		[JsonIgnore]
+		[BsonIgnore]
+		public virtual DateTime StartedReading => History.FirstOrDefault()?.Date ?? DateTime.MinValue;
+
+		[Ignore]
+		[JsonIgnore]
+		[BsonIgnore]
+		public virtual DateTime LastRead => LastProgress?.Date ?? DateTime.MinValue;
+
+		[Ignore]
+		[JsonIgnore]
+		[BsonIgnore]
+		public virtual string Title => LocalizedTitle ?? OriginalTitle;
+
+		[Ignore]
+		[JsonIgnore]
+		[BsonIgnore]
+		public virtual IProgress LastProgress => History.LastOrDefault();
 
 		protected abstract IProgress CreateNewProgress(double progress);
 	}
