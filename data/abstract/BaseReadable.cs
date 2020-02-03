@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CsvHelper.Configuration.Attributes;
@@ -65,7 +65,13 @@ namespace LastIRead {
 		}
 
 		public virtual void LogProgress(double progress) {
-			if (!Ongoing && MaxProgress > 0) progress = Math.Min(MaxProgress, progress);
+			if (!Ongoing && MaxProgress > 0) {
+				progress = Math.Min(MaxProgress, progress);
+			}
+
+			if (Ongoing) {
+				MaxProgress = Math.Max(progress, MaxProgress);
+			}
 
 			var newProgress = CreateNewProgress(progress);
 			if (LastRead != newProgress.Date) {

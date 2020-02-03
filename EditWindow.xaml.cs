@@ -1,3 +1,4 @@
+using Microsoft.Toolkit.Wpf.UI.XamlHost;
 using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Text.RegularExpressions;
@@ -22,7 +23,7 @@ namespace LastIRead {
 
 		private void InitializeFields(IReadable readable) {
 			var culture = CultureInfo.CurrentUICulture;
-			TitleInput.Text = readable.LocalizedTitle;
+			LocalizedTitleInput.Text = readable.LocalizedTitle;
 
 			Title = string.IsNullOrEmpty(readable.LocalizedTitle) ? "New readable" : readable.LocalizedTitle;
 
@@ -30,6 +31,11 @@ namespace LastIRead {
 			OngoingCheckbox.IsChecked = readable.Ongoing;
 			AbandonedCheckbox.IsChecked = readable.Abandoned;
 			MaxProgressInput.Text = readable.MaxProgress.ToString(culture.NumberFormat);
+			if (Readable is IWebReadable webReadable) {
+				UrlInput.Text = webReadable.WebAddress;
+			} else {
+				UrlInput.IsEnabled = false;
+			}
 		}
 
 		private void UpdateFromFields() {
@@ -37,10 +43,14 @@ namespace LastIRead {
 			Readable.Abandoned = AbandonedCheckbox.IsChecked == true;
 
 			var progressValue = CurrentProgressInput.Value;
-			if (progressValue != null) Readable.LogProgress((double) progressValue);
+			if (progressValue != null) Readable.LogProgress((double)progressValue);
 
 			Readable.MaxProgress = MaxProgressInput.Value ?? 0;
-			Readable.LocalizedTitle = TitleInput.Text;
+			Readable.LocalizedTitle = LocalizedTitleInput.Text;
+			Readable.OriginalTitle = OriginalTitleInput.Text;
+			if (Readable is IWebReadable webReadable) {
+				webReadable.WebAddress = UrlInput.Text;
+			}
 		}
 
 		private void OkButton_Click(object sender, RoutedEventArgs e) {
@@ -53,10 +63,6 @@ namespace LastIRead {
 		private void CancelButton_Click(object sender, RoutedEventArgs e) {
 			DialogResult = false;
 			Close();
-		}
-
-		private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e) {
-			e.Handled = Regex.IsMatch(e.Text, "[^0-9,.-]+");
 		}
 	}
 }

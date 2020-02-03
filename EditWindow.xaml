@@ -99,7 +99,7 @@
 				x:Name="OngoingCheckbox"
 				Content="Ongoing"
 				HorizontalAlignment="Left"
-				Margin="10,224,0,0"
+				Margin="10,230,0,0"
 				VerticalAlignment="Top" />
 
             <CheckBox
