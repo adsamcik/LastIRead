@@ -1,9 +1,6 @@
-using Microsoft.Toolkit.Wpf.UI.XamlHost;
 using System.Diagnostics.Contracts;
 using System.Globalization;
-using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Input;
 
 namespace LastIRead {
 	/// <summary>
