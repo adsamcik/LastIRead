@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,11 +20,18 @@ namespace LastIRead {
 	///     Interaction logic for MainWindow.xaml
 	/// </summary>
 	public partial class MainWindow {
+		private readonly DataStore _dataStore = new DataStore();
+		
 		public MainWindow() {
 			InitializeCulture();
 			InitializeComponent();
 			Refresh();
 			UpdateBrushes();
+		}
+
+		protected override void OnClosed(EventArgs e) {
+			base.OnClosed(e);
+			_dataStore.Dispose();
 		}
 
 		private static void UpdateBrushes() {
@@ -103,27 +111,23 @@ namespace LastIRead {
 		}
 
 		private void Update(IReadable item) {
-			using var ds = new DataStore();
-			ds.Update(item);
-			Refresh(ds);
+			_dataStore.Update(item);
+			Refresh();
 		}
 
 		private void Insert(IReadable item) {
-			using var ds = new DataStore();
-			ds.Insert(item);
-			Refresh(ds);
+			_dataStore.Insert(item);
+			Refresh();
 		}
 
 		private void Insert(IEnumerable<IReadable> items) {
-			using var ds = new DataStore();
-			ds.Insert(items);
-			Refresh(ds);
+			_dataStore.Insert(items);
+			Refresh();
 		}
 
 		private void Delete(IEnumerable<IReadable> items) {
-			using var ds = new DataStore();
-			ds.Delete(items);
-			Refresh(ds);
+			_dataStore.Delete(items);
+			Refresh();
 		}
 
 		private void EditSelectedItem() {
@@ -144,12 +148,7 @@ namespace LastIRead {
 		}
 
 		private void Refresh() {
-			using var ds = new DataStore();
-			Refresh(ds);
-		}
-
-		private void Refresh(DataStore dataStore) {
-			ReadList.ItemsSource = dataStore.GetSelected(SearchBox.Text);
+			ReadList.ItemsSource = _dataStore.GetSelected(SearchBox.Text);
 		}
 
 		private void SearchBox_TextChanged(object sender, TextChangedEventArgs e) {

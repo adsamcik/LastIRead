@@ -1,16 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using LiteDB;
 
 namespace LastIRead.data.database {
-	internal class DataStore : IDisposable {
+	internal class DataStore : IAsyncDisposable, IDisposable {
 		private readonly ILiteCollection<IReadable> _collection;
 		private readonly LiteDatabase _database;
 
 		public DataStore() {
 			_database = AppDatabase.CreateDatabase();
 			_collection = _database.GetReadablesCollection();
+		}
+
+		public async ValueTask DisposeAsync() {
+			await Task.Run(Dispose);
 		}
 
 		public void Dispose() {
@@ -26,11 +31,7 @@ namespace LastIRead.data.database {
 		}
 
 		public void Insert(IEnumerable<IReadable> readables) {
-			foreach (var readable in readables) {
-				_collection.Insert(readable);
-			}
-
-			//_collection.Insert(readables);
+			_collection.Insert(readables);
 		}
 
 		public void Delete(IEnumerable<IReadable> readables) {
