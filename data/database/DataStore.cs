@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LastIRead.data.extensions;
 using LiteDB;
 
 namespace LastIRead.data.database {
@@ -57,7 +58,7 @@ namespace LastIRead.data.database {
 				);
 			}
 
-			return result.OrderBy(x => x.LocalizedTitle).ToArray();
+			return result.OrderBy(x => x.GetTitle()).ToArray();
 		}
 
 		public IEnumerable<IReadable> GetAll() {

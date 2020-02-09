@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CsvHelper.Configuration.Attributes;
+using LastIRead.data.extensions;
 using LiteDB;
 using Newtonsoft.Json;
 
@@ -74,7 +75,7 @@ namespace LastIRead {
 		[Ignore]
 		[JsonIgnore]
 		[BsonIgnore]
-		public virtual string Title => LocalizedTitle ?? OriginalTitle;
+		public virtual string Title => this.GetTitle();
 
 		[Ignore]
 		[JsonIgnore]

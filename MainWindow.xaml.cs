@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -21,7 +20,7 @@ namespace LastIRead {
 	/// </summary>
 	public partial class MainWindow {
 		private readonly DataStore _dataStore = new DataStore();
-		
+
 		public MainWindow() {
 			InitializeCulture();
 			InitializeComponent();
