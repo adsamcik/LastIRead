@@ -31,8 +31,7 @@
 			BorderThickness="0"
 			Foreground="{DynamicResource SystemBaseHighColorBrush}"
 			BorderBrush="{DynamicResource SystemAltMediumColorBrush}"
-			ItemContainerStyle="{DynamicResource ListViewContainerStyle}"
-			d:DataContext="{d:IReadable |(in LastIRead)}">
+			ItemContainerStyle="{DynamicResource ListViewContainerStyle}">
 			<ListView.View>
 				<GridView
 					ColumnHeaderContainerStyle="{DynamicResource ListViewHeaderStyle}">
