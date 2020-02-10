@@ -9,6 +9,30 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="resources\licenses\csv-helper.md" />
+      <None Remove="resources\licenses\feathericons.md" />
+      <None Remove="resources\licenses\fluent-wpf.md" />
+      <None Remove="resources\licenses\Gu.Wpf.NumericInput.md" />
+      <None Remove="resources\licenses\json.net.md" />
+      <None Remove="resources\licenses\litedb.md" />
+      <None Remove="resources\licenses\markdig.md" />
+      <None Remove="resources\licenses\markdig.wpf.md" />
+      <None Remove="resources\licenses\reactive.md" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="resources\licenses\csv-helper.md" />
+      <EmbeddedResource Include="resources\licenses\feathericons.md" />
+      <EmbeddedResource Include="resources\licenses\fluent-wpf.md" />
+      <EmbeddedResource Include="resources\licenses\Gu.Wpf.NumericInput.md" />
+      <EmbeddedResource Include="resources\licenses\json.net.md" />
+      <EmbeddedResource Include="resources\licenses\litedb.md" />
+      <EmbeddedResource Include="resources\licenses\markdig.md" />
+      <EmbeddedResource Include="resources\licenses\markdig.wpf.md" />
+      <EmbeddedResource Include="resources\licenses\reactive.md" />
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="CsvHelper" Version="15.0.0" />
       <PackageReference Include="FluentWPF" Version="0.8.0" />
       <PackageReference Include="Gu.Wpf.NumericInput" Version="0.5.4" />
@@ -21,6 +45,21 @@
 
     <ItemGroup>
       <Page Include="App.xaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Properties\Resources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Resources.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Properties\Resources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
 </Project>

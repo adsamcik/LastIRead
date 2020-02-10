@@ -12,6 +12,7 @@ using LastIRead.data.database;
 using LastIRead.Data.Instance;
 using LastIRead.Extensions;
 using LastIRead.Import;
+using LastIRead.windows.settings;
 using Microsoft.Win32;
 
 namespace LastIRead {
@@ -226,6 +227,10 @@ namespace LastIRead {
 			                .Where(x => type.IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
 			                .Select(x => (T) Activator.CreateInstance(x))
 			                .ToList();
+		}
+
+		private void Button_Click(object sender, RoutedEventArgs e) {
+			new SettingsWindow().Show();
 		}
 	}
 }
