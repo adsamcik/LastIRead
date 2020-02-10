@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 using LastIRead.resources;
 using Markdig.Wpf;
@@ -9,7 +8,7 @@ namespace LastIRead.windows.settings.pages {
 	/// <summary>
 	///     Interaction logic for LicensePage.xaml
 	/// </summary>
-	public partial class LicensePage : Page {
+	public partial class LicensePage {
 		public LicensePage() {
 			InitializeComponent();
 

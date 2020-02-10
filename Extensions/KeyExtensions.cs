@@ -66,6 +66,8 @@ namespace LastIRead.Extensions {
 			return ch;
 		}
 
+		// ReSharper disable InconsistentNaming
+		// ReSharper disable UnusedMember.Local
 		private enum MapType : uint {
 			MAPVK_VK_TO_VSC = 0x0,
 			MAPVK_VSC_TO_VK = 0x1,

@@ -7,7 +7,6 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	Stretch="Uniform">
 	<Canvas
-		Name="svg837"
 		Width="24"
 		Height="24">
 		<Canvas.RenderTransform>
@@ -24,7 +23,6 @@
 			Canvas.Top="9"
 			Width="6"
 			Height="6"
-			Name="circle833"
 			StrokeThickness="2"
 			Stroke="Black"
 			StrokeLineJoin="Round"
