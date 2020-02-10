@@ -52,8 +52,19 @@ namespace LastIRead.data.database {
 			if (!string.IsNullOrEmpty(filter)) {
 				result = result.Where(
 					readable => {
-						var titleStripped = StripString(readable.LocalizedTitle);
-						return titleStripped.Contains(strippedFilter, StringComparison.OrdinalIgnoreCase);
+						var localizedTitleStripped = StripString(readable.LocalizedTitle);
+						if (localizedTitleStripped.Contains(
+							strippedFilter,
+							StringComparison.InvariantCultureIgnoreCase
+						)) {
+							return true;
+						}
+
+						var originalTitleStripped = StripString(readable.OriginalTitle);
+						return originalTitleStripped.Contains(
+							originalTitleStripped,
+							StringComparison.InvariantCultureIgnoreCase
+						);
 					}
 				);
 			}
