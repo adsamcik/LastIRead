@@ -133,7 +133,8 @@
 			Margin="558,10,0,0"
 			VerticalAlignment="Top"
 			Height="32"
-			Width="32" Click="Button_Click">
+			Width="32"
+			Click="Button_Click">
 			<ContentControl
 				Width="18"
 				Height="18"
