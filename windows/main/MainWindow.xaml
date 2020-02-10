@@ -41,7 +41,7 @@
 						DisplayMemberBinding="{Binding Title}" />
 					<GridViewColumn
 						Header="Progress"
-						Width="60"
+						Width="70"
 						DisplayMemberBinding="{Binding FormattedProgress}" />
 					<GridViewColumn
 						Header="Abandoned"
