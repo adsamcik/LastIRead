@@ -8,7 +8,7 @@ namespace LastIRead.Data.Instance {
 	/// <summary>
 	///     Generic readable implementation for most reading materials.
 	/// </summary>
-	internal class GenericReadable : BaseReadable, IWebReadable {
+	public class GenericReadable : BaseReadable, IWebReadable {
 		public override ObjectId? Id { get; set; }
 
 		public override string? LocalizedTitle { get; set; }

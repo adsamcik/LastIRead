@@ -5,7 +5,7 @@ namespace LastIRead.Data.Instance {
 	///     Generic implementation of progress.
 	///     Should represent most use cases.
 	/// </summary>
-	internal struct GenericProgress : IProgress {
+	public struct GenericProgress : IProgress {
 		public DateTime Date { get; }
 
 		// ReSharper disable once AutoPropertyCanBeMadeGetOnly.Local
