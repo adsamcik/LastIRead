@@ -82,6 +82,11 @@ namespace LastIRead {
 		[BsonIgnore]
 		public virtual IProgress LastProgress => History.LastOrDefault();
 
+		[Ignore]
+		[JsonIgnore]
+		[BsonIgnore]
+		public virtual string FormattedProgress => $"{Progress}/{MaxProgress}";
+
 		protected abstract IProgress CreateNewProgress(double progress);
 	}
 }

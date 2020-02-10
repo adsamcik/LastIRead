@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace LastIRead {
 	/// <summary>
@@ -9,6 +9,11 @@ namespace LastIRead {
 		///     Title of the reading material either localized or original.
 		/// </summary>
 		string Title { get; }
+
+		/// <summary>
+		///		Progress in a readable way. Default is Progress/MaxProgress.
+		/// </summary>
+		string FormattedProgress { get; }
 
 		/// <summary>
 		///     Returns last progress instance or default value if no progress is logged.
