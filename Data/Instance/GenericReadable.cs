@@ -9,7 +9,7 @@ namespace LastIRead.Data.Instance {
 	///     Generic readable implementation for most reading materials.
 	/// </summary>
 	internal class GenericReadable : BaseReadable, IWebReadable {
-		public override ObjectId Id { get; set; }
+		public override ObjectId? Id { get; set; }
 
 		public override string? LocalizedTitle { get; set; }
 
@@ -29,7 +29,7 @@ namespace LastIRead.Data.Instance {
 
 		public override double ProgressIncrement { get; set; }
 
-		public string WebAddress { get; set; }
+		public string? WebAddress { get; set; }
 
 		protected override IProgress CreateNewProgress(double progress) {
 			return new GenericProgress(DateTime.Today, progress);

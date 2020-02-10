@@ -1,23 +1,29 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Windows;
 using LastIRead.data.extensions;
+using LastIRead.Data.Instance;
 
 namespace LastIRead {
 	/// <summary>
 	///     Interaction logic for EditWindow.xaml
 	/// </summary>
 	public partial class EditWindow {
+		private IReadable Readable { get; }
+
 		public EditWindow(IReadable readable) {
-			Contract.Requires(readable != null);
+			if (readable == null) {
+				Close();
+				Readable = new GenericReadable();
+				return;
+			}
 
 			InitializeComponent();
 
 			Readable = readable;
 			InitializeFields(readable);
 		}
-
-		private IReadable Readable { get; }
 
 		private void InitializeFields(IReadable readable) {
 			var culture = CultureInfo.CurrentUICulture;

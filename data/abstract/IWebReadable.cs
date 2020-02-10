@@ -6,6 +6,6 @@ namespace LastIRead {
 		/// <summary>
 		///     Web Address
 		/// </summary>
-		string WebAddress { get; set; }
+		string? WebAddress { get; set; }
 	}
 }

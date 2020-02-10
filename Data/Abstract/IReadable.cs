@@ -6,7 +6,7 @@ namespace LastIRead {
 		/// <summary>
 		///     Database id
 		/// </summary>
-		ObjectId Id { get; set; }
+		ObjectId? Id { get; set; }
 
 		/// <summary>
 		///     Title of the reading material

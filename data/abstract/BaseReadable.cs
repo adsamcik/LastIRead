@@ -13,7 +13,7 @@ namespace LastIRead {
 	public abstract class BaseReadable : IReadable, IUiReadable {
 		[Ignore]
 		[JsonIgnore]
-		public abstract ObjectId Id { get; set; }
+		public abstract ObjectId? Id { get; set; }
 
 		[Optional]
 		public abstract string? LocalizedTitle { get; set; }

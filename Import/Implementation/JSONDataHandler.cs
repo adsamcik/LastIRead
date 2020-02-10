@@ -82,7 +82,12 @@ namespace LastIRead.Import.Implementation {
 
 			serialize.Converters.Add(new ProgressConverter());
 			serialize.Converters.Add(new ProgressArrayConverter());
-			return (List<GenericReadable>) serialize.Deserialize(reader, typeof(List<GenericReadable>));
+			var result = serialize.Deserialize(reader, typeof(List<GenericReadable>));
+			if (result != null) {
+				return (List<GenericReadable>) result;
+			} else {
+				return Enumerable.Empty<IReadable>();
+			}
 		}
 
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously

@@ -225,8 +225,13 @@ namespace LastIRead {
 			                .GetAssemblies()
 			                .SelectMany(x => x.GetTypes())
 			                .Where(x => type.IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
-			                .Select(x => (T) Activator.CreateInstance(x))
+			                .Select(CreateInstance<T>)
 			                .ToList();
+		}
+
+		private static T CreateInstance<T>(Type type) {
+			return (T) (Activator.CreateInstance(type) ??
+			            throw new NullReferenceException($"Failed to create instance of type {type.FullName}"));
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e) {
