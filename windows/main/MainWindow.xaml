@@ -14,8 +14,8 @@
 	MinHeight="200"
 	MinWidth="550"
 	KeyDown="Window_KeyDown">
-	<Grid>
-		<TextBox
+    <Grid>
+        <TextBox
 			Style="{StaticResource TextBoxRevealStyle}"
 			x:Name="SearchBox"
 			TextWrapping="Wrap"
@@ -23,7 +23,7 @@
 			TextChanged="SearchBox_TextChanged"
 			Height="32"
 			VerticalAlignment="Top" />
-		<ListView
+        <ListView
 			x:Name="ReadList"
 			Margin="10,50,10,54"
 			MouseDoubleClick="ReadList_MouseDoubleClick"
@@ -32,36 +32,36 @@
 			Foreground="{DynamicResource SystemBaseHighColorBrush}"
 			BorderBrush="{DynamicResource SystemAltMediumColorBrush}"
 			ItemContainerStyle="{DynamicResource ListViewContainerStyle}">
-			<ListView.View>
-				<GridView
+            <ListView.View>
+                <GridView
 					ColumnHeaderContainerStyle="{DynamicResource ListViewHeaderStyle}">
-					<GridViewColumn
+                    <GridViewColumn
 						Header="Name"
 						Width="200"
 						DisplayMemberBinding="{Binding Title}" />
-					<GridViewColumn
+                    <GridViewColumn
 						Header="Progress"
 						Width="60"
 						DisplayMemberBinding="{Binding Progress}" />
-					<GridViewColumn
+                    <GridViewColumn
 						Header="Abandoned"
 						Width="70"
 						DisplayMemberBinding="{Binding Abandoned}" />
-					<GridViewColumn
+                    <GridViewColumn
 						Header="Ongoing"
 						Width="60"
 						DisplayMemberBinding="{Binding Ongoing}" />
-					<GridViewColumn
+                    <GridViewColumn
 						Header="Last read"
 						Width="90"
 						DisplayMemberBinding="{Binding LastRead, StringFormat=d}" />
-					<GridViewColumn
+                    <GridViewColumn
 						Header="Increment"
 						x:Name="IncrementColumn"
 						Width="60">
-						<GridViewColumn.CellTemplate>
-							<DataTemplate>
-								<Button
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button
 									x:Name="IncrementButton"
 									Height="30"
 									Width="30"
@@ -69,14 +69,14 @@
 									Click="IncrementButton_Click"
 									HorizontalAlignment="Center"
 									Style="{StaticResource ButtonRevealStyle}" />
-							</DataTemplate>
-						</GridViewColumn.CellTemplate>
-					</GridViewColumn>
-				</GridView>
-			</ListView.View>
-		</ListView>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
-		<Button
+        <Button
 			Style="{StaticResource ButtonRevealStyle}"
 			x:Name="AddButton"
 			Content="Add"
@@ -86,7 +86,7 @@
 			Click="AddButton_Click"
 			Height="38"
 			VerticalAlignment="Bottom" />
-		<Button
+        <Button
 			Style="{StaticResource ButtonRevealStyle}"
 			x:Name="EditButton"
 			Content="Edit"
@@ -96,7 +96,7 @@
 			Width="100"
 			Height="38"
 			VerticalAlignment="Bottom" />
-		<Button
+        <Button
 			Style="{StaticResource ButtonRevealStyle}"
 			x:Name="RemoveButton"
 			Content="Remove"
@@ -107,7 +107,7 @@
 			Height="38"
 			VerticalAlignment="Bottom" />
 
-		<Button
+        <Button
 			Style="{StaticResource ButtonRevealStyle}"
 			x:Name="ImportButton"
 			Content="Import"
@@ -117,7 +117,7 @@
 			HorizontalAlignment="Left"
 			Width="100"
 			Click="ImportButton_Click" />
-		<Button
+        <Button
 			Style="{StaticResource ButtonRevealStyle}"
 			x:Name="ExportButton"
 			Content="Export"
@@ -127,19 +127,17 @@
 			HorizontalAlignment="Left"
 			Width="100"
 			Click="ExportButton_Click" />
-		<Button
+        <Button
 			Style="{StaticResource ButtonRevealStyle}"
-			HorizontalAlignment="Left"
-			Margin="558,10,0,0"
+			Margin="0,10,10,0"
 			VerticalAlignment="Top"
 			Height="32"
-			Width="32"
-			Click="Button_Click">
-			<ContentControl
+			Click="Button_Click" HorizontalAlignment="Right" Width="32">
+            <ContentControl
 				Width="18"
 				Height="18"
 				ContentTemplate="{StaticResource SettingsIcon}" />
-		</Button>
+        </Button>
 
-	</Grid>
+    </Grid>
 </Window>
