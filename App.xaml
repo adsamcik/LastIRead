@@ -11,7 +11,8 @@
 				<!--  FluentWPF Controls  -->
 				<ResourceDictionary
 					Source="pack://application:,,,/FluentWPF;component/Styles/Controls.xaml" />
-				<ResourceDictionary Source="resources/IconResourceDictionary.xaml"/>
+				<ResourceDictionary
+					Source="resources/IconResourceDictionary.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>
