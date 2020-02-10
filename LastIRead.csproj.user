@@ -10,6 +10,9 @@
     <Page Update="EditWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="resources\IconResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="resources\InputResourceDictionary.xaml">
       <SubType>Designer</SubType>
     </Page>
