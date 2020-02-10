@@ -9,7 +9,7 @@ namespace LastIRead.windows.settings {
 		public SettingsWindow() {
 			InitializeComponent();
 
-			Content.Content = new LicensePage();
+			MainFrame.Content = new LicensePage();
 		}
 	}
 }
