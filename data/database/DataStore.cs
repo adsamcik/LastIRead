@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using LastIRead.data.extensions;
@@ -51,25 +52,19 @@ namespace LastIRead.data.database {
 
 			if (!string.IsNullOrEmpty(filter)) {
 				result = result.Where(
-					readable => {
-						var localizedTitleStripped = StripString(readable.LocalizedTitle);
-						if (localizedTitleStripped.Contains(
-							strippedFilter,
-							StringComparison.InvariantCultureIgnoreCase
-						)) {
-							return true;
-						}
-
-						var originalTitleStripped = StripString(readable.OriginalTitle);
-						return originalTitleStripped.Contains(
-							originalTitleStripped,
-							StringComparison.InvariantCultureIgnoreCase
-						);
-					}
+					readable => Contains(readable.LocalizedTitle, strippedFilter) ||
+					            Contains(readable.OriginalTitle, strippedFilter)
 				);
 			}
 
 			return result.OrderBy(x => x.GetTitle()).ToArray();
+		}
+
+		private static bool Contains(string? title, string filter) {
+			if (title == null) return false;
+
+			var strippedTitle = StripString(title);
+			return strippedTitle.Contains(filter, StringComparison.InvariantCultureIgnoreCase);
 		}
 
 		public IEnumerable<IReadable> GetAll() {
