@@ -5,18 +5,18 @@ using Xunit;
 
 namespace Tests {
 	public class WindowLaunchTests {
-		[Fact]
+		[StaFact]
 		public void MainLaunchTest() {
 			new MainWindow().Show();
 		}
 
-		[Fact]
+		[StaFact]
 		public void EditLaunchTest() {
 			var item = new GenericReadable();
 			new EditWindow(item).Show();
 		}
 
-		[Fact]
+		[StaFact]
 		public void SettingsLaunchTest() {
 			new SettingsWindow().Show();
 		}
