@@ -11,9 +11,9 @@ namespace LastIRead.Data.Instance {
 	internal class GenericReadable : BaseReadable, IWebReadable {
 		public override ObjectId Id { get; set; }
 
-		public override string LocalizedTitle { get; set; }
+		public override string? LocalizedTitle { get; set; }
 
-		public override string OriginalTitle { get; set; }
+		public override string? OriginalTitle { get; set; }
 
 		public override double MaxProgress { get; set; }
 

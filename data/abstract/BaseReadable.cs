@@ -16,10 +16,10 @@ namespace LastIRead {
 		public abstract ObjectId Id { get; set; }
 
 		[Optional]
-		public abstract string LocalizedTitle { get; set; }
+		public abstract string? LocalizedTitle { get; set; }
 
 		[Optional]
-		public abstract string OriginalTitle { get; set; }
+		public abstract string? OriginalTitle { get; set; }
 
 		[Optional]
 		public abstract double MaxProgress { get; set; }

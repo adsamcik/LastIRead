@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using LiteDB;
 
 namespace LastIRead {
@@ -11,12 +11,12 @@ namespace LastIRead {
 		/// <summary>
 		///     Title of the reading material
 		/// </summary>
-		string LocalizedTitle { get; set; }
+		string? LocalizedTitle { get; set; }
 
 		/// <summary>
 		///     Title of the reading material in original language.
 		/// </summary>
-		string OriginalTitle { get; set; }
+		string? OriginalTitle { get; set; }
 
 		/// <summary>
 		///     Max progress indicates how long the reading material is.

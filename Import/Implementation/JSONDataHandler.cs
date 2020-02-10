@@ -29,13 +29,13 @@ namespace LastIRead.Import.Implementation {
 			public override object ReadJson(
 				JsonReader reader,
 				Type objectType,
-				object existingValue,
+				object? existingValue,
 				JsonSerializer serializer
 			) {
 				return serializer.Deserialize<GenericProgress>(reader);
 			}
 
-			public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) {
+			public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer) {
 				serializer.Serialize(writer, value);
 			}
 		}
@@ -54,7 +54,7 @@ namespace LastIRead.Import.Implementation {
 			public override object ReadJson(
 				JsonReader reader,
 				Type objectType,
-				object existingValue,
+				object? existingValue,
 				JsonSerializer serializer
 			) {
 				var array = JArray.Load(reader);
@@ -62,7 +62,7 @@ namespace LastIRead.Import.Implementation {
 				return array.Select(item => item.ToObject<IProgress>(serializer)).ToList();
 			}
 
-			public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) {
+			public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer) {
 				serializer.Serialize(writer, value);
 			}
 		}
