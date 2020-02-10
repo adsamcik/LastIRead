@@ -19,7 +19,7 @@
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary
-					Source="resources/InputResourceDictionary.xaml" />
+					Source="/resources/InputResourceDictionary.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Window.Resources>
