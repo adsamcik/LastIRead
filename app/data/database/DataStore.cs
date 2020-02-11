@@ -6,7 +6,7 @@ using LastIRead.data.extensions;
 using LiteDB;
 
 namespace LastIRead.data.database {
-	internal class DataStore : IAsyncDisposable, IDisposable {
+	public class DataStore : IAsyncDisposable, IDisposable {
 		private readonly ILiteCollection<IReadable> _collection;
 		private readonly LiteDatabase _database;
 
