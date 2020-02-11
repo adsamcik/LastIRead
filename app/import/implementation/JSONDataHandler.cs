@@ -85,9 +85,9 @@ namespace LastIRead.Import.Implementation {
 			var result = serialize.Deserialize(reader, typeof(List<GenericReadable>));
 			if (result != null) {
 				return (List<GenericReadable>) result;
-			} else {
-				return Enumerable.Empty<IReadable>();
 			}
+
+			return Enumerable.Empty<IReadable>();
 		}
 
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously

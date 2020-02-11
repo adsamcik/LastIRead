@@ -1,50 +1,30 @@
-﻿using System;
-using System.Linq;
-using LastIRead;
-using LastIRead.data.database;
+﻿using System.Linq;
 using LastIRead.Data.Instance;
+using Tests.fixtures;
 using Xunit;
 using Xunit.Priority;
 
 namespace Tests {
-	// ReSharper disable once ClassNeverInstantiated.Global
-	public class DataStoreFixture : IDisposable {
-		public readonly DataStore DataStore = new DataStore();
-
-		public readonly GenericReadable Readable = new GenericReadable {
-			LocalizedTitle = "Localized",
-			OriginalTitle = "Original",
-			WebAddress = "Web",
-			MaxProgress = 100,
-			ProgressIncrement = 0.1
-		};
-
-		public DataStoreFixture() {
-			Readable.LogProgress(50);
-			DataStore.Delete(DataStore.GetAll());
-		}
-
-		public void Dispose() {
-			DataStore.Dispose();
-		}
-	}
-
 	[TestCaseOrderer(PriorityOrderer.Name, PriorityOrderer.Assembly)]
 	public class DataStoreTests : IClassFixture<DataStoreFixture> {
-		private readonly DataStoreFixture _fixture;
-
 		public DataStoreTests(DataStoreFixture fixture) {
 			_fixture = fixture;
 		}
 
-		[Fact, Priority(-1)]
-		public void SaveTest() {
-			_fixture.DataStore.Insert(_fixture.Readable);
+		private readonly DataStoreFixture _fixture;
 
-			Assert.Single(_fixture.DataStore.GetAll());
+		[Fact]
+		[Priority(3)]
+		public void DeleteTest() {
+			var item = _fixture.DataStore.GetAll().First();
+
+			_fixture.DataStore.Delete(item);
+
+			Assert.Empty(_fixture.DataStore.GetAll());
 		}
 
-		[Fact, Priority(1)]
+		[Fact]
+		[Priority(1)]
 		public void ReadTest() {
 			var item = (GenericReadable) _fixture.DataStore.GetAll().First();
 
@@ -59,7 +39,16 @@ namespace Tests {
 			Assert.Equal(readable.History, item.History);
 		}
 
-		[Fact, Priority(2)]
+		[Fact]
+		[Priority(-1)]
+		public void SaveTest() {
+			_fixture.DataStore.Insert(_fixture.Readable);
+
+			Assert.Single(_fixture.DataStore.GetAll());
+		}
+
+		[Fact]
+		[Priority(2)]
 		public void UpdateTest() {
 			var item = _fixture.DataStore.GetAll().First();
 			item.LogProgress(50.0);
@@ -69,15 +58,6 @@ namespace Tests {
 			var item2 = _fixture.DataStore.GetAll().First();
 
 			Assert.Equal(item.Progress, item2.Progress);
-		}
-
-		[Fact, Priority(3)]
-		public void DeleteTest() {
-			var item = _fixture.DataStore.GetAll().First();
-
-			_fixture.DataStore.Delete(item);
-
-			Assert.Empty(_fixture.DataStore.GetAll());
 		}
 	}
 }

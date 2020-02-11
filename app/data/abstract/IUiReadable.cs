@@ -11,7 +11,7 @@ namespace LastIRead {
 		string Title { get; }
 
 		/// <summary>
-		///		Progress in a readable way. Default is Progress/MaxProgress.
+		///     Progress in a readable way. Default is Progress/MaxProgress.
 		/// </summary>
 		string FormattedProgress { get; }
 

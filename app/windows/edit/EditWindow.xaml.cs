@@ -8,8 +8,6 @@ namespace LastIRead {
 	///     Interaction logic for EditWindow.xaml
 	/// </summary>
 	public partial class EditWindow {
-		private IReadable Readable { get; }
-
 		public EditWindow(IReadable readable) {
 			if (readable == null) {
 				Close();
@@ -22,6 +20,8 @@ namespace LastIRead {
 			Readable = readable;
 			InitializeFields(readable);
 		}
+
+		private IReadable Readable { get; }
 
 		private void InitializeFields(IReadable readable) {
 			var culture = CultureInfo.CurrentUICulture;
