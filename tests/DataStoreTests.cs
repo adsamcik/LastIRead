@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using LastIRead;
 using LastIRead.data.database;
 using LastIRead.Data.Instance;
 using Xunit;
@@ -68,6 +69,15 @@ namespace Tests {
 			var item2 = _fixture.DataStore.GetAll().First();
 
 			Assert.Equal(item.Progress, item2.Progress);
+		}
+
+		[Fact, Priority(3)]
+		public void DeleteTest() {
+			var item = _fixture.DataStore.GetAll().First();
+
+			_fixture.DataStore.Delete(item);
+
+			Assert.Empty(_fixture.DataStore.GetAll());
 		}
 	}
 }
