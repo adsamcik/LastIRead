@@ -15,6 +15,8 @@ jobs:
         dotnet-version: 3.1.101
     - name: Build with dotnet
       run: dotnet build --configuration Release
+    - name: Run tests
+      run: dotnet test --no-build --configuration Release
     - uses: actions/upload-artifact@v1
       with:
         name: LastIRead-Build
