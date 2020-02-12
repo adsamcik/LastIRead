@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using LastIRead;
 using LastIRead.Data.Instance;
 using Tests.fixtures;
 using Xunit;
@@ -14,6 +16,21 @@ namespace Tests {
 		private readonly DataStoreFixture _fixture;
 
 		[Fact]
+		public void DeleteMultiple() {
+			const int count = 10;
+			for (var i = 0; i < count; i++) {
+				_fixture.DataStore.Insert(new GenericReadable());
+			}
+
+			var all = _fixture.DataStore.GetAll().ToList();
+
+			_fixture.DataStore.Delete(all);
+
+			Assert.Equal(count, all.Count);
+			Assert.Empty(_fixture.DataStore.GetAll());
+		}
+
+		[Fact]
 		[Priority(3)]
 		public void DeleteTest() {
 			var item = _fixture.DataStore.GetAll().First();
@@ -21,6 +38,47 @@ namespace Tests {
 			_fixture.DataStore.Delete(item);
 
 			Assert.Empty(_fixture.DataStore.GetAll());
+		}
+
+		[Fact]
+		public void GetSelected() {
+			var dataStore = _fixture.DataStore;
+
+			var validList = new List<IReadable> {
+				new GenericReadable {
+					OriginalTitle = "Great original title"
+				},
+				new GenericReadable {
+					LocalizedTitle = "Great localized title"
+				}
+			};
+
+			var invalidList = new List<IReadable> {
+				new GenericReadable {
+					OriginalTitle = "Great original story"
+				},
+				new GenericReadable {
+					LocalizedTitle = "Great localized story"
+				}
+			};
+
+			dataStore.Insert(validList);
+			dataStore.Insert(invalidList);
+
+			var selected = dataStore.GetSelected("  title  ").ToList();
+			var all = dataStore.GetAll().ToList();
+
+			dataStore.Delete(dataStore.GetAll());
+
+			Assert.Equal(validList.Count + invalidList.Count, all.Count);
+			Assert.Contains(
+				selected,
+				readable => validList.Any(
+					item => item.LocalizedTitle == readable.LocalizedTitle ||
+					        item.OriginalTitle == readable.OriginalTitle
+				)
+			);
+			Assert.Empty(dataStore.GetAll());
 		}
 
 		[Fact]
