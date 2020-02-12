@@ -48,7 +48,7 @@
 					x:Name="LocalizedTitleInput"
 					Margin="10,39,10,0"
 					TextWrapping="NoWrap"
-					VerticalAlignment="Top"/>
+					VerticalAlignment="Top" />
 
 				<Label
 					Grid.Column="0"
