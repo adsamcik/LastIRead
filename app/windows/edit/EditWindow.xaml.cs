@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
-using LastIRead.data.extensions;
+using System.Windows.Controls;
 using LastIRead.Data.Instance;
 
 namespace LastIRead {
@@ -28,7 +30,7 @@ namespace LastIRead {
 			LocalizedTitleInput.Text = readable.LocalizedTitle;
 			OriginalTitleInput.Text = readable.OriginalTitle;
 
-			Title = readable.GetTitle() ?? "New readable";
+			UpdateTitle();
 
 			LastChapterLabel.Content = $"Last {readable.Progress.ToString(culture.NumberFormat)}";
 			OngoingCheckbox.IsChecked = readable.Ongoing;
@@ -39,6 +41,24 @@ namespace LastIRead {
 			} else {
 				UrlInput.IsEnabled = false;
 			}
+		}
+
+		private void UpdateTitle() {
+			var titleValues = new List<string>();
+
+			if (!string.IsNullOrEmpty(LocalizedTitleInput.Text)) {
+				titleValues.Add(LocalizedTitleInput.Text);
+			}
+
+			if (!string.IsNullOrEmpty(OriginalTitleInput.Text)) {
+				titleValues.Add(OriginalTitleInput.Text);
+			}
+
+			if (!titleValues.Any()) {
+				titleValues.Add("New readable");
+			}
+
+			Title = string.Join(" - ", titleValues);
 		}
 
 		private void UpdateFromFields() {

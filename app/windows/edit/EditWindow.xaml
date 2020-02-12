@@ -48,6 +48,21 @@
 					x:Name="LocalizedTitleInput"
 					Margin="10,39,10,0"
 					TextWrapping="NoWrap"
+					VerticalAlignment="Top"/>
+
+				<Label
+					Grid.Column="0"
+					Style="{StaticResource Title}"
+					Content="Original title"
+					HorizontalAlignment="Left"
+					Margin="10,75,0,0"
+					VerticalAlignment="Top" />
+				<TextBox
+					Grid.Column="0"
+					Style="{StaticResource TextBoxRevealStyle}"
+					x:Name="OriginalTitleInput"
+					Margin="10,104,10,0"
+					TextWrapping="NoWrap"
 					VerticalAlignment="Top" />
 				<Label
 					Grid.Column="1"
@@ -117,20 +132,6 @@
 					Height="18"
 					VerticalAlignment="Top" />
 
-				<Label
-					Grid.Column="0"
-					Style="{StaticResource Title}"
-					Content="Original title"
-					HorizontalAlignment="Left"
-					Margin="10,75,0,0"
-					VerticalAlignment="Top" />
-				<TextBox
-					Grid.Column="0"
-					Style="{StaticResource TextBoxRevealStyle}"
-					x:Name="OriginalTitleInput"
-					Margin="10,104,10,0"
-					TextWrapping="NoWrap"
-					VerticalAlignment="Top" />
 				<Label
 					Grid.Column="0"
 					Style="{StaticResource Title}"
