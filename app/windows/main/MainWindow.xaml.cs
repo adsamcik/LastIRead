@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -21,6 +23,9 @@ namespace LastIRead {
 	/// </summary>
 	public partial class MainWindow {
 		private readonly DataStore _dataStore = new DataStore();
+		private ListSortDirection _lastDirection = ListSortDirection.Ascending;
+
+		private GridViewColumnHeader _lastHeaderClicked;
 
 		public MainWindow() {
 			InitializeCulture();
@@ -236,6 +241,58 @@ namespace LastIRead {
 
 		private void Button_Click(object sender, RoutedEventArgs e) {
 			new SettingsWindow().Show();
+		}
+
+		private void GridViewColumnHeaderClickedHandler(
+			object sender,
+			RoutedEventArgs e
+		) {
+			if (!(e.OriginalSource is GridViewColumnHeader headerClicked)) {
+				return;
+			}
+
+			if (headerClicked.Role == GridViewColumnHeaderRole.Padding) {
+				return;
+			}
+
+			ListSortDirection direction;
+			if (headerClicked != _lastHeaderClicked) {
+				direction = ListSortDirection.Ascending;
+			} else {
+				direction = _lastDirection == ListSortDirection.Ascending
+					? ListSortDirection.Descending
+					: ListSortDirection.Ascending;
+			}
+
+			var columnBinding = headerClicked.Column.DisplayMemberBinding as Binding;
+			var sortBy = columnBinding?.Path.Path ?? (string) headerClicked.Column.Header;
+
+			Sort(sortBy, direction);
+
+			if (direction == ListSortDirection.Ascending) {
+				headerClicked.Column.HeaderTemplate =
+					Resources["HeaderTemplateArrowUp"] as DataTemplate;
+			} else {
+				headerClicked.Column.HeaderTemplate =
+					Resources["HeaderTemplateArrowDown"] as DataTemplate;
+			}
+
+			// Remove arrow from previously sorted header
+			if (_lastHeaderClicked != null && _lastHeaderClicked != headerClicked) {
+				_lastHeaderClicked.Column.HeaderTemplate = null;
+			}
+
+			_lastHeaderClicked = headerClicked;
+			_lastDirection = direction;
+		}
+
+		private void Sort(string sortBy, ListSortDirection direction) {
+			var dataView = CollectionViewSource.GetDefaultView(ReadList.ItemsSource);
+
+			dataView.SortDescriptions.Clear();
+			var sd = new SortDescription(sortBy, direction);
+			dataView.SortDescriptions.Add(sd);
+			dataView.Refresh();
 		}
 	}
 }

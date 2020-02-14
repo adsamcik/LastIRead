@@ -27,6 +27,7 @@
 			x:Name="ReadList"
 			Margin="10,50,10,54"
 			MouseDoubleClick="ReadList_MouseDoubleClick"
+			GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler"
 			Background="{DynamicResource BackgroundBrush}"
 			BorderThickness="0"
 			Foreground="{DynamicResource SystemBaseHighColorBrush}"
@@ -57,7 +58,6 @@
 						DisplayMemberBinding="{Binding LastRead, StringFormat=d}" />
 					<GridViewColumn
 						Header="Increment"
-						x:Name="IncrementColumn"
 						Width="60">
 						<GridViewColumn.CellTemplate>
 							<DataTemplate>
