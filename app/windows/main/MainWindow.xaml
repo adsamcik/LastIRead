@@ -15,97 +15,43 @@
 	MinWidth="550"
 	KeyDown="Window_KeyDown">
 	<Grid>
+		<Frame Name="PageFrame" Margin="0 42.5 0 0"/>
+		
 		<TextBox
 			Style="{StaticResource TextBoxRevealStyle}"
 			x:Name="SearchBox"
 			TextWrapping="Wrap"
-			Margin="10,10,47,0"
-			TextChanged="SearchBox_TextChanged"
+			Margin="10,10,84,0"
 			Height="32"
 			VerticalAlignment="Top" />
-		<ListView
-			x:Name="ReadList"
-			Margin="10,50,10,54"
-			MouseDoubleClick="ReadList_MouseDoubleClick"
-			GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler"
-			Background="{DynamicResource BackgroundBrush}"
-			BorderThickness="0"
-			Foreground="{DynamicResource SystemBaseHighColorBrush}"
-			BorderBrush="{DynamicResource SystemAltMediumColorBrush}"
-			ItemContainerStyle="{DynamicResource ListViewContainerStyle}">
-			<ListView.View>
-				<GridView
-					ColumnHeaderContainerStyle="{DynamicResource ListViewHeaderStyle}">
-					<GridViewColumn
-						Header="Name"
-						Width="200"
-						DisplayMemberBinding="{Binding Title}" />
-					<GridViewColumn
-						Header="Progress"
-						Width="70"
-						DisplayMemberBinding="{Binding FormattedProgress}" />
-					<GridViewColumn
-						Header="Abandoned"
-						Width="70"
-						DisplayMemberBinding="{Binding Abandoned}" />
-					<GridViewColumn
-						Header="Ongoing"
-						Width="60"
-						DisplayMemberBinding="{Binding Ongoing}" />
-					<GridViewColumn
-						Header="Last read"
-						Width="90"
-						DisplayMemberBinding="{Binding LastRead, StringFormat=d}" />
-					<GridViewColumn
-						Header="Increment"
-						Width="60">
-						<GridViewColumn.CellTemplate>
-							<DataTemplate>
-								<Button
-									x:Name="IncrementButton"
-									Height="30"
-									Width="30"
-									Content="+1"
-									Click="IncrementButton_Click"
-									HorizontalAlignment="Center"
-									Style="{StaticResource ButtonRevealStyle}" />
-							</DataTemplate>
-						</GridViewColumn.CellTemplate>
-					</GridViewColumn>
-				</GridView>
-			</ListView.View>
-		</ListView>
 
 		<Button
 			Style="{StaticResource ButtonRevealStyle}"
-			x:Name="AddButton"
-			Content="Add"
+			Margin="0,10,10,0"
+			VerticalAlignment="Top"
+			Height="32"
+			Click="Button_Click"
 			HorizontalAlignment="Right"
-			Margin="0,0,10,7"
-			Width="100"
-			Click="AddButton_Click"
-			Height="38"
-			VerticalAlignment="Bottom" />
+			Width="32">
+			<ContentControl
+				Width="18"
+				Height="18"
+				ContentTemplate="{StaticResource SettingsIcon}" />
+		</Button>
 		<Button
 			Style="{StaticResource ButtonRevealStyle}"
-			x:Name="EditButton"
-			Content="Edit"
-			Margin="0,0,115,7"
-			Click="EditButton_Click"
+			Margin="0,10,47,0"
+			VerticalAlignment="Top"
+			Height="32"
+			Click="FilterButton_Click"
 			HorizontalAlignment="Right"
-			Width="100"
-			Height="38"
-			VerticalAlignment="Bottom" />
-		<Button
-			Style="{StaticResource ButtonRevealStyle}"
-			x:Name="RemoveButton"
-			Content="Remove"
-			Margin="0,0,220,7"
-			Click="RemoveButton_Click"
-			HorizontalAlignment="Right"
-			Width="100"
-			Height="38"
-			VerticalAlignment="Bottom" />
+			Width="32">
+			<ContentControl
+				Width="18"
+				Height="18"
+				ContentTemplate="{StaticResource FilterIcon}" />
+		</Button>
+
 
 		<Button
 			Style="{StaticResource ButtonRevealStyle}"
@@ -127,19 +73,5 @@
 			HorizontalAlignment="Left"
 			Width="100"
 			Click="ExportButton_Click" />
-		<Button
-			Style="{StaticResource ButtonRevealStyle}"
-			Margin="0,10,10,0"
-			VerticalAlignment="Top"
-			Height="32"
-			Click="Button_Click"
-			HorizontalAlignment="Right"
-			Width="32">
-			<ContentControl
-				Width="18"
-				Height="18"
-				ContentTemplate="{StaticResource SettingsIcon}" />
-		</Button>
-
 	</Grid>
 </Window>

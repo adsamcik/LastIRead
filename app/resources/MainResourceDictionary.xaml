@@ -284,17 +284,4 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-
-	<DataTemplate
-		x:Key="HeaderTemplateArrowDown">
-		<Border
-			BorderBrush="{DynamicResource SystemAltMediumColorBrush}"
-			Background="Transparent">
-			<TextBlock
-				Padding="50"
-				Text="{TemplateBinding Content}"
-				TextAlignment="Right"
-				Foreground="{DynamicResource SystemBaseMediumHighColorBrush}" />
-		</Border>
-	</DataTemplate>
 </ResourceDictionary>
