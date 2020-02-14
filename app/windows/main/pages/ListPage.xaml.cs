@@ -9,13 +9,13 @@ using LastIRead.data.database;
 using LastIRead.Data.Instance;
 
 namespace LastIRead.windows.main.pages {
-	public partial class ListPage : Page {
+	public partial class ListPage {
 		private readonly DataStore _dataStore;
 		private readonly TextBox _searchBox;
 
 		private ListSortDirection _lastDirection = ListSortDirection.Ascending;
 
-		private GridViewColumnHeader _lastHeaderClicked;
+		private GridViewColumnHeader? _lastHeaderClicked;
 
 		public ListPage(DataStore dataStore, TextBox searchBox) {
 			_dataStore = dataStore;
@@ -34,7 +34,7 @@ namespace LastIRead.windows.main.pages {
 			_searchBox.TextChanged -= SearchBox_TextChanged;
 		}
 
-		public void Refresh() {
+		private void Refresh() {
 			ReadList.ItemsSource = _dataStore.GetSelected(_searchBox.Text);
 		}
 
@@ -57,11 +57,6 @@ namespace LastIRead.windows.main.pages {
 
 		private void Insert(IReadable item) {
 			_dataStore.Insert(item);
-			Refresh();
-		}
-
-		private void Insert(IEnumerable<IReadable> items) {
-			_dataStore.Insert(items);
 			Refresh();
 		}
 
