@@ -2,6 +2,9 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Compile Update="windows\main\pages\FilterPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="windows\settings\pages\ConfigurationPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -20,6 +23,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="resources\MainResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="windows\main\pages\FilterPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="windows\settings\pages\ConfigurationPage.xaml">

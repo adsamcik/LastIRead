@@ -21,11 +21,14 @@ namespace LastIRead {
 	public partial class MainWindow {
 		private readonly DataStore _dataStore = new DataStore();
 
+		private Filter filter = 0;
+
 		public MainWindow() {
 			InitializeCulture();
 			InitializeComponent();
 			UpdateBrushes();
 			PageFrame.Content = new ListPage(_dataStore, SearchBox);
+			PageFrame.NavigationUIVisibility = System.Windows.Navigation.NavigationUIVisibility.Hidden;
 		}
 
 		protected override void OnClosed(EventArgs e) {
@@ -137,6 +140,20 @@ namespace LastIRead {
 			new SettingsWindow().Show();
 		}
 
-		private void FilterButton_Click(object sender, RoutedEventArgs e) { }
+
+		private bool isInFilterPage;
+		private FilterData filterData = new FilterData();
+
+		private void FilterButton_Click(object sender, RoutedEventArgs e) {
+			if (isInFilterPage) {
+				filterData.filter = ((FilterPage)PageFrame.Content).GetHideComboBox();
+				PageFrame.GoBack();
+				isInFilterPage = false;
+			} else {
+				PageFrame.Navigate(new FilterPage(filterData));
+				isInFilterPage = true;
+			}
+
+		}
 	}
 }
