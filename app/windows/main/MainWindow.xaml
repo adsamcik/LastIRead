@@ -15,8 +15,10 @@
 	MinWidth="550"
 	KeyDown="Window_KeyDown">
 	<Grid>
-		<Frame Name="PageFrame" Margin="0 42.5 0 0"/>
-		
+		<Frame
+			Name="PageFrame"
+			Margin="0 42.5 0 0" />
+
 		<TextBox
 			Style="{StaticResource TextBoxRevealStyle}"
 			x:Name="SearchBox"

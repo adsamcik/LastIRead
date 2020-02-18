@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Navigation;
 using LastIRead.data.database;
 using LastIRead.Extensions;
 using LastIRead.Import;
@@ -22,13 +23,16 @@ namespace LastIRead {
 		private readonly DataStore _dataStore = new DataStore();
 
 		private Filter filter = 0;
+		private FilterData filterData;
+
+		private bool isInFilterPage;
 
 		public MainWindow() {
 			InitializeCulture();
 			InitializeComponent();
 			UpdateBrushes();
 			PageFrame.Content = new ListPage(_dataStore, SearchBox);
-			PageFrame.NavigationUIVisibility = System.Windows.Navigation.NavigationUIVisibility.Hidden;
+			PageFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
 		}
 
 		protected override void OnClosed(EventArgs e) {
@@ -140,20 +144,15 @@ namespace LastIRead {
 			new SettingsWindow().Show();
 		}
 
-
-		private bool isInFilterPage;
-		private FilterData filterData = new FilterData();
-
 		private void FilterButton_Click(object sender, RoutedEventArgs e) {
 			if (isInFilterPage) {
-				filterData.filter = ((FilterPage)PageFrame.Content).GetHideComboBox();
+				filterData.filter = ((FilterPage) PageFrame.Content).GetHideComboBox();
 				PageFrame.GoBack();
 				isInFilterPage = false;
 			} else {
 				PageFrame.Navigate(new FilterPage(filterData));
 				isInFilterPage = true;
 			}
-
 		}
 	}
 }

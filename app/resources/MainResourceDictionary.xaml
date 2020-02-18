@@ -6,9 +6,9 @@
 	<Style
 		x:Key="TextBlockTitle"
 		TargetType="TextBlock">
-		<Setter 
+		<Setter
 			Property="Foreground"
-			Value="{DynamicResource SystemBaseHighColorBrush}"/>
+			Value="{DynamicResource SystemBaseHighColorBrush}" />
 	</Style>
 
 	<Style
