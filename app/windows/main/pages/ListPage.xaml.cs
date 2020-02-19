@@ -17,12 +17,19 @@ namespace LastIRead.windows.main.pages {
 
 		private GridViewColumnHeader? _lastHeaderClicked;
 
+		private FilterData _filterData;
+
 		public ListPage(DataStore dataStore, TextBox searchBox) {
 			_dataStore = dataStore;
 			_searchBox = searchBox;
 			InitializeComponent();
 			Loaded += Page_Loaded;
 			Unloaded += Page_Unloaded;
+		}
+
+		public void UpdateFilter(FilterData filterData) {
+			_filterData = filterData;
+			Refresh();
 		}
 
 		private void Page_Loaded(object sender, RoutedEventArgs e) {
@@ -35,7 +42,7 @@ namespace LastIRead.windows.main.pages {
 		}
 
 		private void Refresh() {
-			ReadList.ItemsSource = _dataStore.GetSelected(_searchBox.Text);
+			ReadList.ItemsSource = _dataStore.GetSelected(_searchBox.Text, _filterData);
 		}
 
 		private void SearchBox_TextChanged(object sender, TextChangedEventArgs e) {

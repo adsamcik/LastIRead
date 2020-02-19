@@ -22,16 +22,22 @@ namespace LastIRead {
 	public partial class MainWindow {
 		private readonly DataStore _dataStore = new DataStore();
 
-		private Filter filter = 0;
-		private FilterData filterData;
+		private FilterData _filterData = new FilterData {
+			Hide = Filter.Abandoned | Filter.Finished
+		};
 
-		private bool isInFilterPage;
+		private bool _isInFilterPage;
+
+		private readonly ListPage _listPage;
 
 		public MainWindow() {
 			InitializeCulture();
 			InitializeComponent();
 			UpdateBrushes();
-			PageFrame.Content = new ListPage(_dataStore, SearchBox);
+
+			_listPage = new ListPage(_dataStore, SearchBox);
+			_listPage.UpdateFilter(_filterData);
+			PageFrame.Content = _listPage;
 			PageFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
 		}
 
@@ -125,15 +131,13 @@ namespace LastIRead {
 			}
 		}
 
-		private static List<T> GetImplementors<T>() {
-			var type = typeof(T);
-			return AppDomain.CurrentDomain
-			                .GetAssemblies()
-			                .SelectMany(x => x.GetTypes())
-			                .Where(x => type.IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
-			                .Select(CreateInstance<T>)
-			                .ToList();
-		}
+		private static List<T> GetImplementors<T>() =>
+			AppDomain.CurrentDomain
+			         .GetAssemblies()
+			         .SelectMany(x => x.GetTypes())
+			         .Where(x => typeof(T).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
+			         .Select(CreateInstance<T>)
+			         .ToList();
 
 		private static T CreateInstance<T>(Type type) {
 			return (T) (Activator.CreateInstance(type) ??
@@ -145,13 +149,14 @@ namespace LastIRead {
 		}
 
 		private void FilterButton_Click(object sender, RoutedEventArgs e) {
-			if (isInFilterPage) {
-				filterData.filter = ((FilterPage) PageFrame.Content).GetHideComboBox();
+			if (_isInFilterPage) {
+				_filterData.Hide = ((FilterPage) PageFrame.Content).GetHideComboBox();
 				PageFrame.GoBack();
-				isInFilterPage = false;
+				_isInFilterPage = false;
+				_listPage.UpdateFilter(_filterData);
 			} else {
-				PageFrame.Navigate(new FilterPage(filterData));
-				isInFilterPage = true;
+				PageFrame.Navigate(new FilterPage(_filterData));
+				_isInFilterPage = true;
 			}
 		}
 	}

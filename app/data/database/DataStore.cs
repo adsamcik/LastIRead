@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LastIRead.data.extensions;
+using LastIRead.windows.main.pages;
 using LiteDB;
 
 namespace LastIRead.data.database {
@@ -45,7 +46,7 @@ namespace LastIRead.data.database {
 			_collection.Delete(readable.Id);
 		}
 
-		public IEnumerable<IReadable> GetSelected(string filter) {
+		public IEnumerable<IReadable> GetSelected(string filter, FilterData filterData) {
 			var strippedFilter = StripString(filter);
 			var result = _collection.FindAll();
 
@@ -54,6 +55,28 @@ namespace LastIRead.data.database {
 					readable => Contains(readable.LocalizedTitle, strippedFilter) ||
 					            Contains(readable.OriginalTitle, strippedFilter)
 				);
+			}
+
+			if (filterData.Hide.HasFlag(Filter.Reading)) {
+				result = result.Where(
+					readable => !readable.Abandoned && (readable.Ongoing || readable.Progress < readable.MaxProgress)
+				);
+			}
+
+			if (filterData.Hide.HasFlag(Filter.Abandoned)) {
+				result = result.Where(readable => !readable.Abandoned);
+			}
+
+			if (filterData.Hide.HasFlag(Filter.Ended)) {
+				result = result.Where(readable => readable.Ongoing);
+			}
+
+			if (filterData.Hide.HasFlag(Filter.Finished)) {
+				result = result.Where(readable => readable.Ongoing || readable.Progress < readable.MaxProgress);
+			}
+
+			if (filterData.Hide.HasFlag(Filter.Ongoing)) {
+				result = result.Where(readable => !readable.Ongoing);
 			}
 
 			return result.OrderBy(x => x.GetTitle()).ToArray();

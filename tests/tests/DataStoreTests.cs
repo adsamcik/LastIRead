@@ -2,6 +2,7 @@
 using System.Linq;
 using LastIRead;
 using LastIRead.Data.Instance;
+using LastIRead.windows.main.pages;
 using Tests.fixtures;
 using Xunit;
 using Xunit.Priority;
@@ -65,7 +66,7 @@ namespace Tests {
 			dataStore.Insert(validList);
 			dataStore.Insert(invalidList);
 
-			var selected = dataStore.GetSelected("  title  ").ToList();
+			var selected = dataStore.GetSelected("  title  ", new FilterData()).ToList();
 			var all = dataStore.GetAll().ToList();
 
 			dataStore.Delete(dataStore.GetAll());

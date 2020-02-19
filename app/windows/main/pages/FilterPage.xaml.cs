@@ -7,32 +7,30 @@ namespace LastIRead.windows.main.pages {
 	/// <summary>
 	///     Interaction logic for FilterPage.xaml
 	/// </summary>
-	public partial class FilterPage : Page {
-		public readonly FilterData filterData;
+	public partial class FilterPage {
+		private readonly FilterData _filterData;
 
-		private readonly string[] filterItems = {
+		private readonly string[] _filterItems = {
 			Filter.Reading.ToString(),
-			Filter.Dropped.ToString(),
+			Filter.Abandoned.ToString(),
 			Filter.Ongoing.ToString(),
+			Filter.Ended.ToString(),
 			Filter.Finished.ToString()
 		};
 
 		public FilterPage(FilterData filterData) {
 			InitializeComponent();
 
-			this.filterData = filterData;
+			_filterData = filterData;
 
-			HideComboBox.ItemsSource = filterItems;
+			HideComboBox.ItemsSource = _filterItems;
 			SetHideComboBox(filterData);
 		}
 
 		private void SetHideComboBox(FilterData filterData) {
-			var selectedList = new List<string>();
-			for (var i = 0; i < filterItems.Length; i++) {
-				if (filterData.filter.HasFlag(Enum.Parse<Filter>(filterItems[i]))) {
-					selectedList.Add(filterItems[i]);
-				}
-			}
+			var selectedList = _filterItems
+			                   .Where(item => filterData.Hide.HasFlag(Enum.Parse<Filter>(item)))
+			                   .ToList();
 
 			HideComboBox.SelectedItems = selectedList;
 		}
@@ -43,14 +41,15 @@ namespace LastIRead.windows.main.pages {
 	}
 
 	public struct FilterData {
-		public Filter filter;
+		public Filter Hide;
 	}
 
 	[Flags]
 	public enum Filter {
 		Reading = 1,
-		Dropped = 2,
+		Abandoned = 2,
 		Ongoing = 4,
-		Finished = 8
+		Ended = 8,
+		Finished = 16
 	}
 }
