@@ -1,15 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Controls;
 
 namespace LastIRead.windows.main.pages {
 	/// <summary>
 	///     Interaction logic for FilterPage.xaml
 	/// </summary>
 	public partial class FilterPage {
-		private readonly FilterData _filterData;
-
 		private readonly string[] _filterItems = {
 			Filter.Reading.ToString(),
 			Filter.Abandoned.ToString(),
@@ -20,8 +16,6 @@ namespace LastIRead.windows.main.pages {
 
 		public FilterPage(FilterData filterData) {
 			InitializeComponent();
-
-			_filterData = filterData;
 
 			HideComboBox.ItemsSource = _filterItems;
 			SetHideComboBox(filterData);
@@ -35,9 +29,14 @@ namespace LastIRead.windows.main.pages {
 			HideComboBox.SelectedItems = selectedList;
 		}
 
-		public Filter GetHideComboBox() {
+		private Filter GetHideComboBox() {
 			return (Filter) HideComboBox.SelectedItems.Cast<string>().Sum(x => (int) Enum.Parse<Filter>(x));
 		}
+
+		public FilterData FilterData =>
+			new FilterData {
+				Hide = GetHideComboBox()
+			};
 	}
 
 	public struct FilterData {

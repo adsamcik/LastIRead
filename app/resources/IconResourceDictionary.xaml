@@ -44,7 +44,6 @@
 	<DataTemplate
 		x:Key="FilterIcon">
 		<Viewbox
-			xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			Stretch="Uniform">
 			<Canvas
 				Width="24"
@@ -56,7 +55,6 @@
 				</Canvas.RenderTransform>
 				<Canvas.Resources />
 				<Polygon
-					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					Points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"
 					Name="polygon843"
 					FillRule="NonZero"

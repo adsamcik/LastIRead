@@ -150,7 +150,7 @@ namespace LastIRead {
 
 		private void FilterButton_Click(object sender, RoutedEventArgs e) {
 			if (_isInFilterPage) {
-				_filterData.Hide = ((FilterPage) PageFrame.Content).GetHideComboBox();
+				_filterData = ((FilterPage) PageFrame.Content).FilterData;
 				PageFrame.GoBack();
 				_isInFilterPage = false;
 				_listPage.UpdateFilter(_filterData);
