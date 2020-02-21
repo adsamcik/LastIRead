@@ -14,7 +14,7 @@ namespace Tests.fixtures {
 			ProgressIncrement = 0.1
 		};
 
-		public readonly DataStore DataStore = new DataStore(AppDatabase.CreateDatabase());
+		public readonly DataStore DataStore = new DataStore(AppDatabase.GetDatabase());
 
 		public DataStoreFixture() {
 			Bookmark.LogProgress(50);

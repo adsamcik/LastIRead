@@ -20,7 +20,7 @@ namespace LastIRead {
 	///     Interaction logic for MainWindow.xaml
 	/// </summary>
 	public partial class MainWindow {
-		private readonly DataStore _dataStore = new DataStore(AppDatabase.CreateDatabase());
+		private readonly DataStore _dataStore = new DataStore(AppDatabase.GetDatabase());
 
 		private readonly ListPage _listPage;
 
@@ -136,7 +136,9 @@ namespace LastIRead {
 
 		private void FilterButton_Click(object sender, RoutedEventArgs e) {
 			if (_isInFilterPage) {
-				_filterData = ((FilterPage) PageFrame.Content).FilterData;
+				var filterPage = (FilterPage) PageFrame.Content;
+				_filterData = filterPage.FilterData;
+				filterPage.Dispose();
 				PageFrame.GoBack();
 				_isInFilterPage = false;
 				_listPage.UpdateFilter(_filterData);

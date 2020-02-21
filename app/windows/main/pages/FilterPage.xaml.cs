@@ -1,11 +1,15 @@
 using System;
 using System.Linq;
+using LastIRead.data.database;
+using Sdl.MultiSelectComboBox.EventArgs;
 
 namespace LastIRead.windows.main.pages {
 	/// <summary>
 	///     Interaction logic for FilterPage.xaml
 	/// </summary>
-	public partial class FilterPage {
+	public partial class FilterPage : IDisposable {
+		private readonly Preferences _preferences = new Preferences(AppDatabase.GetDatabase());
+
 		private readonly string[] _filterItems = {
 			Filter.Reading.ToString(),
 			Filter.Abandoned.ToString(),
@@ -14,28 +18,48 @@ namespace LastIRead.windows.main.pages {
 			Filter.Finished.ToString()
 		};
 
+		private FilterData _filterData;
+
+		public FilterData FilterData => _filterData;
+
 		public FilterPage(FilterData filterData) {
+			_filterData = filterData;
+
 			InitializeComponent();
 
 			HideComboBox.ItemsSource = _filterItems;
 			SetHideComboBox(filterData);
+
+			HideComboBox.SelectedItemsChanged += OnHideSelectionChanged;
 		}
 
-		public FilterData FilterData =>
-			new FilterData {
-				Hide = GetHideComboBox()
-			};
+		private void OnHideSelectionChanged(object? obj, SelectedItemsChangedEventArgs args) {
+			foreach (string removed in args.Removed) {
+				if (Enum.TryParse<Filter>(removed, out var result)) {
+					_filterData.Hide &= ~result;
+				}
+			}
+
+			foreach (string removed in args.Added) {
+				if (Enum.TryParse<Filter>(removed, out var result)) {
+					_filterData.Hide |= result;
+				}
+			}
+
+			_preferences.UpdatePreference(Preferences.PrefListHide, _filterData.Hide);
+		}
 
 		private void SetHideComboBox(FilterData filterData) {
-			var selectedList = _filterItems
-			                   .Where(item => filterData.Hide.HasFlag(Enum.Parse<Filter>(item)))
-			                   .ToList();
+			var selectedList =
+				_filterItems
+					.Where(item => filterData.Hide.HasFlag(Enum.Parse<Filter>(item)))
+					.ToList();
 
 			HideComboBox.SelectedItems = selectedList;
 		}
 
-		private Filter GetHideComboBox() {
-			return (Filter) HideComboBox.SelectedItems.Cast<string>().Sum(x => (int) Enum.Parse<Filter>(x));
+		public void Dispose() {
+			AppDatabase.Dispose();
 		}
 	}
 
