@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LastIRead.data.extensions;
+using LastIRead.Data.Instance;
 using LastIRead.windows.main.pages;
 using LiteDB;
 
@@ -46,7 +46,7 @@ namespace LastIRead.data.database {
 			_collection.Delete(bookmark.Id);
 		}
 
-		public IEnumerable<IBookmark> GetSelected(string filter, FilterData filterData) {
+		public IEnumerable<IUserBookmark> GetSelected(string filter, FilterData filterData) {
 			var strippedFilter = StripString(filter);
 			var result = _collection.FindAll();
 
@@ -79,7 +79,10 @@ namespace LastIRead.data.database {
 				result = result.Where(readable => !readable.Ongoing);
 			}
 
-			return result.OrderBy(x => x.GetTitle()).ToArray();
+			return result
+			       .Select(x => new WrapperUserBookmark(x))
+			       .OrderBy(x => x.Title)
+			       .ToArray();
 		}
 
 		private static bool Contains(string? title, string filter) {

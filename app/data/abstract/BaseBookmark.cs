@@ -10,7 +10,7 @@ namespace LastIRead {
 	/// <summary>
 	///     Base readable implementation providing utility methods for UI.
 	/// </summary>
-	public abstract class BaseBookmark : IBookmark, IUserReadable {
+	public abstract class BaseBookmark : IBookmark, IUserBookmark {
 		[Ignore]
 		[JsonIgnore]
 		public abstract ObjectId? Id { get; set; }

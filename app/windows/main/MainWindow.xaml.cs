@@ -11,6 +11,7 @@ using System.Windows.Navigation;
 using LastIRead.data.database;
 using LastIRead.Extensions;
 using LastIRead.Import;
+using static LastIRead.tools.ReflectionTools;
 using LastIRead.windows.main.pages;
 using LastIRead.windows.settings;
 using Microsoft.Win32;
@@ -129,19 +130,6 @@ namespace LastIRead {
 			if (!char.IsControl(character) || e.Key == Key.Back) {
 				SearchBox.Focus();
 			}
-		}
-
-		private static List<T> GetImplementors<T>() =>
-			AppDomain.CurrentDomain
-			         .GetAssemblies()
-			         .SelectMany(x => x.GetTypes())
-			         .Where(x => typeof(T).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
-			         .Select(CreateInstance<T>)
-			         .ToList();
-
-		private static T CreateInstance<T>(Type type) {
-			return (T) (Activator.CreateInstance(type) ??
-			            throw new NullReferenceException($"Failed to create instance of type {type.FullName}"));
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e) {
