@@ -4,7 +4,7 @@ namespace LastIRead {
 	/// <summary>
 	///     Interface containing methods and properties required by UI.
 	/// </summary>
-	public interface IUserReadable {
+	public interface IUserBookmark : IBookmark {
 		/// <summary>
 		///     Title of the reading material either localized or original.
 		/// </summary>
@@ -18,7 +18,7 @@ namespace LastIRead {
 		/// <summary>
 		///     Returns last progress instance or default value if no progress is logged.
 		/// </summary>
-		public IProgress LastProgress { get; }
+		public IProgress? LastProgress { get; }
 
 		/// <summary>
 		///     Date of the first progress entry.

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -21,7 +20,7 @@ namespace LastIRead {
 	///     Interaction logic for MainWindow.xaml
 	/// </summary>
 	public partial class MainWindow {
-		private readonly DataStore _dataStore = new DataStore();
+		private readonly DataStore _dataStore = new DataStore(AppDatabase.CreateDatabase());
 
 		private FilterData _filterData = new FilterData {
 			Hide = Filter.Abandoned | Filter.Finished
@@ -112,8 +111,7 @@ namespace LastIRead {
 				return;
 			}
 
-			using var ds = new DataStore();
-			var list = ds.GetAll();
+			var list = _dataStore.GetAll();
 			var exporter = exporters[dialog.FilterIndex - 1];
 			exporter.Export(list, new FileInfo(dialog.FileName));
 		}

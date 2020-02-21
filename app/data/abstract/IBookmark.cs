@@ -1,13 +1,9 @@
 using System.Collections.Generic;
+using LastIRead.data.database;
 using LiteDB;
 
 namespace LastIRead {
-	public interface IBookmark {
-		/// <summary>
-		///     Database id
-		/// </summary>
-		ObjectId? Id { get; set; }
-
+	public interface IBookmark : IDatabaseItem {
 		/// <summary>
 		///     Title of the reading material
 		/// </summary>

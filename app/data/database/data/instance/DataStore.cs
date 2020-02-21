@@ -1,54 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using LastIRead.Data.Instance;
 using LastIRead.windows.main.pages;
 using LiteDB;
 
 namespace LastIRead.data.database {
-	public class DataStore : IAsyncDisposable, IDisposable {
-		private readonly ILiteCollection<IBookmark> _collection;
-		private readonly LiteDatabase _database;
-
-		public DataStore() {
-			_database = AppDatabase.CreateDatabase();
-			_collection = _database.GetBookmarkCollection();
-		}
-
-		public async ValueTask DisposeAsync() {
-			await Task.Run(Dispose);
-		}
-
-		public void Dispose() {
-			_database.Dispose();
-		}
-
-		public void Update(IBookmark bookmark) {
-			_collection.Update(bookmark);
-		}
-
-		public void Insert(IBookmark bookmark) {
-			_collection.Insert(bookmark);
-		}
-
-		public void Insert(IEnumerable<IBookmark> readables) {
-			_collection.Insert(readables);
-		}
-
-		public void Delete(IEnumerable<IBookmark> readables) {
-			foreach (var item in readables) {
-				Delete(item);
-			}
-		}
-
-		public void Delete(IBookmark bookmark) {
-			_collection.Delete(bookmark.Id);
-		}
+	public class DataStore : DatabaseCollection<IBookmark> {
+		public DataStore(LiteDatabase database) : base(database, database.GetBookmarkCollection()) { }
 
 		public IEnumerable<IUserBookmark> GetSelected(string filter, FilterData filterData) {
 			var strippedFilter = StripString(filter);
-			var result = _collection.FindAll();
+			var result = Collection.FindAll();
 
 			if (!string.IsNullOrEmpty(filter)) {
 				result = result.Where(
@@ -90,10 +53,6 @@ namespace LastIRead.data.database {
 
 			var strippedTitle = StripString(title);
 			return strippedTitle.Contains(filter, StringComparison.InvariantCultureIgnoreCase);
-		}
-
-		public IEnumerable<IBookmark> GetAll() {
-			return _collection.FindAll().ToArray();
 		}
 
 		private static string StripString(string text) {

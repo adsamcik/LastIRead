@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CsvHelper.Configuration.Attributes;
-using LastIRead.data.extensions;
 using LiteDB;
 using Newtonsoft.Json;
 
@@ -10,7 +9,7 @@ namespace LastIRead {
 	/// <summary>
 	///     Base readable implementation providing utility methods for UI.
 	/// </summary>
-	public abstract class BaseBookmark : IBookmark, IUserBookmark {
+	public abstract class BaseBookmark : IBookmark {
 		[Ignore]
 		[JsonIgnore]
 		public abstract ObjectId? Id { get; set; }
@@ -32,6 +31,8 @@ namespace LastIRead {
 
 		public abstract IList<IProgress> History { get; protected set; }
 		public abstract double ProgressIncrement { get; set; }
+
+		private IProgress? LastProgress => History.LastOrDefault();
 
 		[Optional]
 		[JsonIgnore]
@@ -55,37 +56,12 @@ namespace LastIRead {
 			}
 
 			var newProgress = CreateNewProgress(progress);
-			if (LastRead != newProgress.Date) {
+			if (LastProgress?.Date != newProgress.Date) {
 				History.Add(newProgress);
 			} else {
 				History[^1] = newProgress;
 			}
 		}
-
-		[Optional]
-		[JsonIgnore]
-		[BsonIgnore]
-		public virtual DateTime StartedReading => History.FirstOrDefault()?.Date ?? DateTime.MinValue;
-
-		[Ignore]
-		[JsonIgnore]
-		[BsonIgnore]
-		public virtual DateTime LastRead => LastProgress?.Date ?? DateTime.MinValue;
-
-		[Ignore]
-		[JsonIgnore]
-		[BsonIgnore]
-		public virtual string Title => this.GetTitle();
-
-		[Ignore]
-		[JsonIgnore]
-		[BsonIgnore]
-		public virtual IProgress LastProgress => History.LastOrDefault();
-
-		[Ignore]
-		[JsonIgnore]
-		[BsonIgnore]
-		public virtual string FormattedProgress => $"{Progress}/{MaxProgress}";
 
 		protected abstract IProgress CreateNewProgress(double progress);
 	}
