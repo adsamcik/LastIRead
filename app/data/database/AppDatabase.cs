@@ -11,7 +11,7 @@ namespace LastIRead {
 		private const string Path = "reading_data.db";
 
 		private static LiteDatabase _database;
-		private static int _getCounter = 0;
+		private static int _getCounter;
 		private static readonly object DatabaseLock = new object();
 
 		static AppDatabase() {
