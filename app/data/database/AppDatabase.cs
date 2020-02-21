@@ -22,7 +22,7 @@ namespace LastIRead {
 		}
 
 		/// <summary>
-		/// 	Gets collection for progress items.
+		///     Gets collection for progress items.
 		/// </summary>
 		/// <param name="database">Lite database instance</param>
 		/// <returns>Progress collection</returns>

@@ -10,10 +10,10 @@ using System.Windows.Navigation;
 using LastIRead.data.database;
 using LastIRead.Extensions;
 using LastIRead.Import;
-using static LastIRead.tools.ReflectionTools;
 using LastIRead.windows.main.pages;
 using LastIRead.windows.settings;
 using Microsoft.Win32;
+using static LastIRead.tools.ReflectionTools;
 
 namespace LastIRead {
 	/// <summary>
@@ -22,13 +22,13 @@ namespace LastIRead {
 	public partial class MainWindow {
 		private readonly DataStore _dataStore = new DataStore(AppDatabase.CreateDatabase());
 
+		private readonly ListPage _listPage;
+
 		private FilterData _filterData = new FilterData {
 			Hide = Filter.Abandoned | Filter.Finished
 		};
 
 		private bool _isInFilterPage;
-
-		private readonly ListPage _listPage;
 
 		public MainWindow() {
 			InitializeCulture();

@@ -13,11 +13,11 @@ namespace LastIRead.windows.main.pages {
 		private readonly DataStore _dataStore;
 		private readonly TextBox _searchBox;
 
+		private FilterData _filterData;
+
 		private ListSortDirection _lastDirection = ListSortDirection.Ascending;
 
 		private GridViewColumnHeader? _lastHeaderClicked;
-
-		private FilterData _filterData;
 
 		public ListPage(DataStore dataStore, TextBox searchBox) {
 			_dataStore = dataStore;

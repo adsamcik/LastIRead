@@ -10,6 +10,8 @@ namespace LastIRead {
 	///     Base readable implementation providing utility methods for UI.
 	/// </summary>
 	public abstract class BaseBookmark : IPersistentBookmark {
+		private IProgress? LastProgress => History.LastOrDefault();
+
 		[Ignore]
 		[JsonIgnore]
 		public abstract ObjectId? Id { get; set; }
@@ -31,8 +33,6 @@ namespace LastIRead {
 
 		public abstract IList<IProgress> History { get; protected set; }
 		public abstract double ProgressIncrement { get; set; }
-
-		private IProgress? LastProgress => History.LastOrDefault();
 
 		[Optional]
 		[JsonIgnore]

@@ -21,6 +21,11 @@ namespace LastIRead.windows.main.pages {
 			SetHideComboBox(filterData);
 		}
 
+		public FilterData FilterData =>
+			new FilterData {
+				Hide = GetHideComboBox()
+			};
+
 		private void SetHideComboBox(FilterData filterData) {
 			var selectedList = _filterItems
 			                   .Where(item => filterData.Hide.HasFlag(Enum.Parse<Filter>(item)))
@@ -32,11 +37,6 @@ namespace LastIRead.windows.main.pages {
 		private Filter GetHideComboBox() {
 			return (Filter) HideComboBox.SelectedItems.Cast<string>().Sum(x => (int) Enum.Parse<Filter>(x));
 		}
-
-		public FilterData FilterData =>
-			new FilterData {
-				Hide = GetHideComboBox()
-			};
 	}
 
 	public struct FilterData {

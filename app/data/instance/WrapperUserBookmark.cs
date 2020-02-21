@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LiteDB;
 
 namespace LastIRead.Data.Instance {
 	public class WrapperUserBookmark : IUserBookmark {
-		public IPersistentBookmark Bookmark { get; }
-
 		public WrapperUserBookmark(IPersistentBookmark bookmark) {
 			Bookmark = bookmark ?? throw new ArgumentNullException(nameof(bookmark));
 		}
+
+		public IPersistentBookmark Bookmark { get; }
 
 		public string Title => Bookmark.LocalizedTitle ??
 		                       Bookmark.OriginalTitle ??
@@ -57,8 +56,12 @@ namespace LastIRead.Data.Instance {
 			set => Bookmark.Progress = value;
 		}
 
-		public void IncrementProgress() => Bookmark.IncrementProgress();
+		public void IncrementProgress() {
+			Bookmark.IncrementProgress();
+		}
 
-		public void LogProgress(double progress) => Bookmark.LogProgress(progress);
+		public void LogProgress(double progress) {
+			Bookmark.LogProgress(progress);
+		}
 	}
 }

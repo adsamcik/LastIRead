@@ -2,13 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LastIRead.Data.Instance;
-using LastIRead.windows.main.pages;
 using LiteDB;
 
 namespace LastIRead.data.database {
 	/// <summary>
-	/// 	Generic implementation of database collection providing basic methods to work with collection.
+	///     Generic implementation of database collection providing basic methods to work with collection.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	public abstract class DatabaseCollection<T> : IAsyncDisposable, IDisposable where T : IDatabaseItem {
