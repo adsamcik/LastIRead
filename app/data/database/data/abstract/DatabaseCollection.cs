@@ -7,6 +7,10 @@ using LastIRead.windows.main.pages;
 using LiteDB;
 
 namespace LastIRead.data.database {
+	/// <summary>
+	/// 	Generic implementation of database collection providing basic methods to work with collection.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
 	public abstract class DatabaseCollection<T> : IAsyncDisposable, IDisposable where T : IDatabaseItem {
 		protected readonly ILiteCollection<T> Collection;
 		protected readonly LiteDatabase Database;

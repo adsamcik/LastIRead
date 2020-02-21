@@ -5,9 +5,9 @@ using LiteDB;
 
 namespace LastIRead.Data.Instance {
 	public class WrapperUserBookmark : IUserBookmark {
-		public IBookmark Bookmark { get; }
+		public IPersistentBookmark Bookmark { get; }
 
-		public WrapperUserBookmark(IBookmark bookmark) {
+		public WrapperUserBookmark(IPersistentBookmark bookmark) {
 			Bookmark = bookmark ?? throw new ArgumentNullException(nameof(bookmark));
 		}
 
@@ -19,11 +19,6 @@ namespace LastIRead.Data.Instance {
 		public IProgress? LastProgress => History.LastOrDefault();
 		public DateTime StartedReading => History.FirstOrDefault()?.Date ?? DateTime.MinValue;
 		public DateTime LastRead => LastProgress?.Date ?? DateTime.MinValue;
-
-		public ObjectId? Id {
-			get => Bookmark.Id;
-			set => Bookmark.Id = value;
-		}
 
 		public string? LocalizedTitle {
 			get => Bookmark.LocalizedTitle;

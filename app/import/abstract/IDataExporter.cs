@@ -15,8 +15,8 @@ namespace LastIRead.Import {
 		/// <summary>
 		///     Exports data from readables to a file.
 		/// </summary>
-		/// <param name="readables"></param>
+		/// <param name="bookmarks"></param>
 		/// <param name="file"></param>
-		Task Export(IEnumerable<IBookmark> readables, FileInfo file);
+		Task Export(IEnumerable<IPersistentBookmark> bookmarks, FileInfo file);
 	}
 }

@@ -1,11 +1,12 @@
 ﻿using System;
+using LastIRead;
 using LastIRead.data.database;
 using LastIRead.Data.Instance;
 
 namespace Tests.fixtures {
 	// ReSharper disable once ClassNeverInstantiated.Global
 	public class DataStoreFixture : IDisposable {
-		public readonly DataStore DataStore = new DataStore();
+		public readonly DataStore DataStore = new DataStore(AppDatabase.CreateDatabase());
 
 		public readonly GenericBookmark Bookmark = new GenericBookmark {
 			LocalizedTitle = "Localized",

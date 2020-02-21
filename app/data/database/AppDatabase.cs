@@ -26,8 +26,8 @@ namespace LastIRead {
 		/// </summary>
 		/// <param name="database">Lite database instance</param>
 		/// <returns>Progress collection</returns>
-		public static ILiteCollection<IBookmark> GetBookmarkCollection(this LiteDatabase database) {
-			return database.GetCollection<IBookmark>(BookmarkCollection);
+		public static ILiteCollection<IPersistentBookmark> GetBookmarkCollection(this LiteDatabase database) {
+			return database.GetCollection<IPersistentBookmark>(BookmarkCollection);
 		}
 
 		public static ILiteCollection<IPreference> GetPreferenceCollection(this LiteDatabase database) {

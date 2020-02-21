@@ -45,7 +45,7 @@ namespace Tests {
 		public void GetSelected() {
 			var dataStore = _fixture.DataStore;
 
-			var validList = new List<IBookmark> {
+			var validList = new List<IPersistentBookmark> {
 				new GenericBookmark {
 					OriginalTitle = "Great original title"
 				},
@@ -54,7 +54,7 @@ namespace Tests {
 				}
 			};
 
-			var invalidList = new List<IBookmark> {
+			var invalidList = new List<IPersistentBookmark> {
 				new GenericBookmark {
 					OriginalTitle = "Great original story"
 				},

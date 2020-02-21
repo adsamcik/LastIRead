@@ -4,6 +4,9 @@ using LastIRead.Data.Instance;
 using LiteDB;
 
 namespace LastIRead.data.database.conversions {
+	/// <summary>
+	/// 	Converts database from readables to bookmarks.
+	/// </summary>
 	public class ReadableProgressableConversion : IConversion {
 		public void Convert(LiteDatabase database) {
 			const string readableCollection = "readables";

@@ -16,7 +16,7 @@ namespace LastIRead.Import {
 		///     Converts file from given format to new format.
 		/// </summary>
 		/// <param name="file">File</param>
-		/// <returns>List of imported readables</returns>
-		Task<IEnumerable<IBookmark>> Import(FileInfo file);
+		/// <returns>List of imported bookmarks</returns>
+		Task<IEnumerable<IPersistentBookmark>> Import(FileInfo file);
 	}
 }

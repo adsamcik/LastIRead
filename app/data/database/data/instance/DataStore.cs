@@ -6,7 +6,7 @@ using LastIRead.windows.main.pages;
 using LiteDB;
 
 namespace LastIRead.data.database {
-	public class DataStore : DatabaseCollection<IBookmark> {
+	public class DataStore : DatabaseCollection<IPersistentBookmark> {
 		public DataStore(LiteDatabase database) : base(database, database.GetBookmarkCollection()) { }
 
 		public IEnumerable<IUserBookmark> GetSelected(string filter, FilterData filterData) {

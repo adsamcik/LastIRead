@@ -57,17 +57,17 @@ namespace LastIRead.windows.main.pages {
 			EditSelectedItem();
 		}
 
-		private void Update(IBookmark item) {
+		private void Update(IPersistentBookmark item) {
 			_dataStore.Update(item);
 			Refresh();
 		}
 
-		private void Insert(IBookmark item) {
+		private void Insert(IPersistentBookmark item) {
 			_dataStore.Insert(item);
 			Refresh();
 		}
 
-		private void Delete(IEnumerable<IBookmark> items) {
+		private void Delete(IEnumerable<IPersistentBookmark> items) {
 			_dataStore.Delete(items);
 			Refresh();
 		}
@@ -77,12 +77,12 @@ namespace LastIRead.windows.main.pages {
 				return;
 			}
 
-			var readable = (IBookmark) ReadList.SelectedItem;
+			var readable = (WrapperUserBookmark) ReadList.SelectedItem;
 			if (!EditItem(readable)) {
 				return;
 			}
 
-			Update(readable);
+			Update(readable.Bookmark);
 		}
 
 		private static bool EditItem(IBookmark bookmark) {
@@ -91,9 +91,9 @@ namespace LastIRead.windows.main.pages {
 
 		private void IncrementButton_Click(object sender, RoutedEventArgs e) {
 			e.Handled = true;
-			var data = (IBookmark) ((Button) sender).DataContext;
+			var data = (WrapperUserBookmark) ((Button) sender).DataContext;
 			data.IncrementProgress();
-			Update(data);
+			Update(data.Bookmark);
 		}
 
 		private void AddButton_Click(object sender, RoutedEventArgs e) {
@@ -138,7 +138,10 @@ namespace LastIRead.windows.main.pages {
 					break;
 			}
 
-			var selected = ReadList.SelectedItems.Cast<IBookmark>();
+			var selected = ReadList
+			               .SelectedItems
+			               .Cast<WrapperUserBookmark>()
+			               .Select(x => x.Bookmark);
 			Delete(selected);
 		}
 

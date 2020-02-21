@@ -3,7 +3,7 @@ using LastIRead.data.database;
 using LiteDB;
 
 namespace LastIRead {
-	public interface IBookmark : IDatabaseItem {
+	public interface IBookmark {
 		/// <summary>
 		///     Title of the reading material
 		/// </summary>
