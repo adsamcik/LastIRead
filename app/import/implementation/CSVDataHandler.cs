@@ -13,7 +13,7 @@ namespace LastIRead.Import {
 	public class CsvDataHandler : IDataImporter, IDataExporter {
 		public IEnumerable<string> ExportExtensions => ImportExtensions;
 
-		public async Task Export(IEnumerable<IReadable> readables, FileInfo file) {
+		public async Task Export(IEnumerable<IBookmark> readables, FileInfo file) {
 			await using var writer = new StreamWriter(file.FullName);
 			await using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
 			await csv.WriteRecordsAsync(readables).ConfigureAwait(false);
@@ -21,12 +21,12 @@ namespace LastIRead.Import {
 
 		public IEnumerable<string> ImportExtensions => new[] {"csv"};
 
-		public async Task<IEnumerable<IReadable>> Import(FileInfo file) {
+		public async Task<IEnumerable<IBookmark>> Import(FileInfo file) {
 			using var reader = new StreamReader(file.FullName);
 			using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
-			var records = csv.GetRecordsAsync<GenericReadable>();
+			var records = csv.GetRecordsAsync<GenericBookmark>();
 
-			return await records.Cast<IReadable>().ToListAsync();
+			return await records.Cast<IBookmark>().ToListAsync();
 		}
 	}
 }

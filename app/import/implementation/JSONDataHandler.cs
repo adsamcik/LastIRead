@@ -69,25 +69,25 @@ namespace LastIRead.Import.Implementation {
 
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 
-		public async Task Export(IEnumerable<IReadable> readables, FileInfo file) {
+		public async Task Export(IEnumerable<IBookmark> readables, FileInfo file) {
 			await using var writer = File.CreateText(file.FullName);
 
 			Serializer.Serialize(writer, readables);
 		}
 
-		public async Task<IEnumerable<IReadable>> Import(FileInfo file) {
+		public async Task<IEnumerable<IBookmark>> Import(FileInfo file) {
 			using var reader = new StreamReader(file.FullName);
 
 			var serialize = Serializer;
 
 			serialize.Converters.Add(new ProgressConverter());
 			serialize.Converters.Add(new ProgressArrayConverter());
-			var result = serialize.Deserialize(reader, typeof(List<GenericReadable>));
+			var result = serialize.Deserialize(reader, typeof(List<GenericBookmark>));
 			if (result != null) {
-				return (List<GenericReadable>) result;
+				return (List<GenericBookmark>) result;
 			}
 
-			return Enumerable.Empty<IReadable>();
+			return Enumerable.Empty<IBookmark>();
 		}
 
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously

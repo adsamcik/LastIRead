@@ -9,33 +9,33 @@ namespace LastIRead {
 	///     Interaction logic for EditWindow.xaml
 	/// </summary>
 	public partial class EditWindow {
-		public EditWindow(IReadable readable) {
-			if (readable == null) {
+		public EditWindow(IBookmark bookmark) {
+			if (bookmark == null) {
 				Close();
-				Readable = new GenericReadable();
+				Bookmark = new GenericBookmark();
 				return;
 			}
 
 			InitializeComponent();
 
-			Readable = readable;
-			InitializeFields(readable);
+			Bookmark = bookmark;
+			InitializeFields(bookmark);
 		}
 
-		private IReadable Readable { get; }
+		private IBookmark Bookmark { get; }
 
-		private void InitializeFields(IReadable readable) {
+		private void InitializeFields(IBookmark bookmark) {
 			var culture = CultureInfo.CurrentUICulture;
-			LocalizedTitleInput.Text = readable.LocalizedTitle;
-			OriginalTitleInput.Text = readable.OriginalTitle;
+			LocalizedTitleInput.Text = bookmark.LocalizedTitle;
+			OriginalTitleInput.Text = bookmark.OriginalTitle;
 
 			UpdateTitle();
 
-			LastChapterLabel.Content = $"Last {readable.Progress.ToString(culture.NumberFormat)}";
-			OngoingCheckbox.IsChecked = readable.Ongoing;
-			AbandonedCheckbox.IsChecked = readable.Abandoned;
-			MaxProgressInput.Text = readable.MaxProgress.ToString(culture.NumberFormat);
-			if (Readable is IWebReadable webReadable) {
+			LastChapterLabel.Content = $"Last {bookmark.Progress.ToString(culture.NumberFormat)}";
+			OngoingCheckbox.IsChecked = bookmark.Ongoing;
+			AbandonedCheckbox.IsChecked = bookmark.Abandoned;
+			MaxProgressInput.Text = bookmark.MaxProgress.ToString(culture.NumberFormat);
+			if (Bookmark is IWebBookmark webReadable) {
 				UrlInput.Text = webReadable.WebAddress;
 			} else {
 				UrlInput.IsEnabled = false;
@@ -61,19 +61,19 @@ namespace LastIRead {
 		}
 
 		private void UpdateFromFields() {
-			Readable.Ongoing = OngoingCheckbox.IsChecked == true;
-			Readable.Abandoned = AbandonedCheckbox.IsChecked == true;
+			Bookmark.Ongoing = OngoingCheckbox.IsChecked == true;
+			Bookmark.Abandoned = AbandonedCheckbox.IsChecked == true;
 
-			Readable.MaxProgress = MaxProgressInput.Value ?? 0;
+			Bookmark.MaxProgress = MaxProgressInput.Value ?? 0;
 
 			var progressValue = CurrentProgressInput.Value;
 			if (progressValue.HasValue) {
-				Readable.LogProgress(progressValue.Value);
+				Bookmark.LogProgress(progressValue.Value);
 			}
 
-			Readable.LocalizedTitle = LocalizedTitleInput.Text;
-			Readable.OriginalTitle = OriginalTitleInput.Text;
-			if (Readable is IWebReadable webReadable) {
+			Bookmark.LocalizedTitle = LocalizedTitleInput.Text;
+			Bookmark.OriginalTitle = OriginalTitleInput.Text;
+			if (Bookmark is IWebBookmark webReadable) {
 				webReadable.WebAddress = UrlInput.Text;
 			}
 		}

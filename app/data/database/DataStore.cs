@@ -8,12 +8,12 @@ using LiteDB;
 
 namespace LastIRead.data.database {
 	public class DataStore : IAsyncDisposable, IDisposable {
-		private readonly ILiteCollection<IReadable> _collection;
+		private readonly ILiteCollection<IBookmark> _collection;
 		private readonly LiteDatabase _database;
 
 		public DataStore() {
 			_database = AppDatabase.CreateDatabase();
-			_collection = _database.GetReadablesCollection();
+			_collection = _database.GetBookmarkCollection();
 		}
 
 		public async ValueTask DisposeAsync() {
@@ -24,29 +24,29 @@ namespace LastIRead.data.database {
 			_database.Dispose();
 		}
 
-		public void Update(IReadable readable) {
-			_collection.Update(readable);
+		public void Update(IBookmark bookmark) {
+			_collection.Update(bookmark);
 		}
 
-		public void Insert(IReadable readable) {
-			_collection.Insert(readable);
+		public void Insert(IBookmark bookmark) {
+			_collection.Insert(bookmark);
 		}
 
-		public void Insert(IEnumerable<IReadable> readables) {
+		public void Insert(IEnumerable<IBookmark> readables) {
 			_collection.Insert(readables);
 		}
 
-		public void Delete(IEnumerable<IReadable> readables) {
+		public void Delete(IEnumerable<IBookmark> readables) {
 			foreach (var item in readables) {
 				Delete(item);
 			}
 		}
 
-		public void Delete(IReadable readable) {
-			_collection.Delete(readable.Id);
+		public void Delete(IBookmark bookmark) {
+			_collection.Delete(bookmark.Id);
 		}
 
-		public IEnumerable<IReadable> GetSelected(string filter, FilterData filterData) {
+		public IEnumerable<IBookmark> GetSelected(string filter, FilterData filterData) {
 			var strippedFilter = StripString(filter);
 			var result = _collection.FindAll();
 
@@ -89,7 +89,7 @@ namespace LastIRead.data.database {
 			return strippedTitle.Contains(filter, StringComparison.InvariantCultureIgnoreCase);
 		}
 
-		public IEnumerable<IReadable> GetAll() {
+		public IEnumerable<IBookmark> GetAll() {
 			return _collection.FindAll().ToArray();
 		}
 

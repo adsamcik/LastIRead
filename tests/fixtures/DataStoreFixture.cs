@@ -7,7 +7,7 @@ namespace Tests.fixtures {
 	public class DataStoreFixture : IDisposable {
 		public readonly DataStore DataStore = new DataStore();
 
-		public readonly GenericReadable Readable = new GenericReadable {
+		public readonly GenericBookmark Bookmark = new GenericBookmark {
 			LocalizedTitle = "Localized",
 			OriginalTitle = "Original",
 			WebAddress = "Web",
@@ -16,7 +16,7 @@ namespace Tests.fixtures {
 		};
 
 		public DataStoreFixture() {
-			Readable.LogProgress(50);
+			Bookmark.LogProgress(50);
 			DataStore.Delete(DataStore.GetAll());
 		}
 

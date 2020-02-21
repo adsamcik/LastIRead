@@ -57,17 +57,17 @@ namespace LastIRead.windows.main.pages {
 			EditSelectedItem();
 		}
 
-		private void Update(IReadable item) {
+		private void Update(IBookmark item) {
 			_dataStore.Update(item);
 			Refresh();
 		}
 
-		private void Insert(IReadable item) {
+		private void Insert(IBookmark item) {
 			_dataStore.Insert(item);
 			Refresh();
 		}
 
-		private void Delete(IEnumerable<IReadable> items) {
+		private void Delete(IEnumerable<IBookmark> items) {
 			_dataStore.Delete(items);
 			Refresh();
 		}
@@ -77,7 +77,7 @@ namespace LastIRead.windows.main.pages {
 				return;
 			}
 
-			var readable = (IReadable) ReadList.SelectedItem;
+			var readable = (IBookmark) ReadList.SelectedItem;
 			if (!EditItem(readable)) {
 				return;
 			}
@@ -85,19 +85,19 @@ namespace LastIRead.windows.main.pages {
 			Update(readable);
 		}
 
-		private static bool EditItem(IReadable readable) {
-			return new EditWindow(readable).ShowDialog() == true;
+		private static bool EditItem(IBookmark bookmark) {
+			return new EditWindow(bookmark).ShowDialog() == true;
 		}
 
 		private void IncrementButton_Click(object sender, RoutedEventArgs e) {
 			e.Handled = true;
-			var data = (IReadable) ((Button) sender).DataContext;
+			var data = (IBookmark) ((Button) sender).DataContext;
 			data.IncrementProgress();
 			Update(data);
 		}
 
 		private void AddButton_Click(object sender, RoutedEventArgs e) {
-			var newReadable = new GenericReadable();
+			var newReadable = new GenericBookmark();
 			var result = EditItem(newReadable);
 			if (!result) {
 				return;
@@ -113,7 +113,7 @@ namespace LastIRead.windows.main.pages {
 				case 0:
 					return;
 				case 1: {
-					var data = (GenericReadable) ReadList.SelectedItem;
+					var data = (GenericBookmark) ReadList.SelectedItem;
 					result = MessageBox.Show(
 						$"Are you sure you want to delete {data.LocalizedTitle}?",
 						"Delete confirmation",
@@ -138,7 +138,7 @@ namespace LastIRead.windows.main.pages {
 					break;
 			}
 
-			var selected = ReadList.SelectedItems.Cast<IReadable>();
+			var selected = ReadList.SelectedItems.Cast<IBookmark>();
 			Delete(selected);
 		}
 

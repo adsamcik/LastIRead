@@ -20,7 +20,7 @@ namespace Tests {
 		public void DeleteMultiple() {
 			const int count = 10;
 			for (var i = 0; i < count; i++) {
-				_fixture.DataStore.Insert(new GenericReadable());
+				_fixture.DataStore.Insert(new GenericBookmark());
 			}
 
 			var all = _fixture.DataStore.GetAll().ToList();
@@ -45,20 +45,20 @@ namespace Tests {
 		public void GetSelected() {
 			var dataStore = _fixture.DataStore;
 
-			var validList = new List<IReadable> {
-				new GenericReadable {
+			var validList = new List<IBookmark> {
+				new GenericBookmark {
 					OriginalTitle = "Great original title"
 				},
-				new GenericReadable {
+				new GenericBookmark {
 					LocalizedTitle = "Great localized title"
 				}
 			};
 
-			var invalidList = new List<IReadable> {
-				new GenericReadable {
+			var invalidList = new List<IBookmark> {
+				new GenericBookmark {
 					OriginalTitle = "Great original story"
 				},
-				new GenericReadable {
+				new GenericBookmark {
 					LocalizedTitle = "Great localized story"
 				}
 			};
@@ -85,9 +85,9 @@ namespace Tests {
 		[Fact]
 		[Priority(1)]
 		public void ReadTest() {
-			var item = (GenericReadable) _fixture.DataStore.GetAll().First();
+			var item = (GenericBookmark) _fixture.DataStore.GetAll().First();
 
-			var readable = _fixture.Readable;
+			var readable = _fixture.Bookmark;
 			Assert.Equal(readable.LocalizedTitle, item.LocalizedTitle);
 			Assert.Equal(readable.OriginalTitle, item.OriginalTitle);
 			Assert.Equal(readable.Progress, item.Progress);
@@ -101,7 +101,7 @@ namespace Tests {
 		[Fact]
 		[Priority(-1)]
 		public void SaveTest() {
-			_fixture.DataStore.Insert(_fixture.Readable);
+			_fixture.DataStore.Insert(_fixture.Bookmark);
 
 			Assert.Single(_fixture.DataStore.GetAll());
 		}

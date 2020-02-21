@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using LiteDB;
 
 namespace LastIRead {
-	public interface IReadable {
+	public interface IBookmark {
 		/// <summary>
 		///     Database id
 		/// </summary>

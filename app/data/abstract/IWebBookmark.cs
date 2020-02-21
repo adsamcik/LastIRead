@@ -2,7 +2,7 @@ namespace LastIRead {
 	/// <summary>
 	///     Properties specific for web content.
 	/// </summary>
-	internal interface IWebReadable {
+	internal interface IWebBookmark {
 		/// <summary>
 		///     Web Address
 		/// </summary>

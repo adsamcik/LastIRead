@@ -4,7 +4,7 @@ namespace LastIRead {
 	/// <summary>
 	///     Interface containing methods and properties required by UI.
 	/// </summary>
-	public interface IUiReadable {
+	public interface IUserReadable {
 		/// <summary>
 		///     Title of the reading material either localized or original.
 		/// </summary>

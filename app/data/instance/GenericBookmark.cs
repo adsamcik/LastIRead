@@ -8,7 +8,7 @@ namespace LastIRead.Data.Instance {
 	/// <summary>
 	///     Generic readable implementation for most reading materials.
 	/// </summary>
-	public class GenericReadable : BaseReadable, IWebReadable {
+	public class GenericBookmark : BaseBookmark, IWebBookmark {
 		public override ObjectId? Id { get; set; }
 
 		public override string? LocalizedTitle { get; set; }
