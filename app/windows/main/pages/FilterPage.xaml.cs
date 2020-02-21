@@ -8,8 +8,6 @@ namespace LastIRead.windows.main.pages {
 	///     Interaction logic for FilterPage.xaml
 	/// </summary>
 	public partial class FilterPage : IDisposable {
-		private readonly Preferences _preferences = new Preferences(AppDatabase.GetDatabase());
-
 		private readonly string[] _filterItems = {
 			Filter.Reading.ToString(),
 			Filter.Abandoned.ToString(),
@@ -18,9 +16,9 @@ namespace LastIRead.windows.main.pages {
 			Filter.Finished.ToString()
 		};
 
-		private FilterData _filterData;
+		private readonly Preferences _preferences = new Preferences(AppDatabase.GetDatabase());
 
-		public FilterData FilterData => _filterData;
+		private FilterData _filterData;
 
 		public FilterPage(FilterData filterData) {
 			_filterData = filterData;
@@ -33,14 +31,20 @@ namespace LastIRead.windows.main.pages {
 			HideComboBox.SelectedItemsChanged += OnHideSelectionChanged;
 		}
 
+		public FilterData FilterData => _filterData;
+
+		public void Dispose() {
+			AppDatabase.Dispose();
+		}
+
 		private void OnHideSelectionChanged(object? obj, SelectedItemsChangedEventArgs args) {
-			foreach (string removed in args.Removed) {
+			foreach (string? removed in args.Removed) {
 				if (Enum.TryParse<Filter>(removed, out var result)) {
 					_filterData.Hide &= ~result;
 				}
 			}
 
-			foreach (string removed in args.Added) {
+			foreach (string? removed in args.Added) {
 				if (Enum.TryParse<Filter>(removed, out var result)) {
 					_filterData.Hide |= result;
 				}
@@ -56,10 +60,6 @@ namespace LastIRead.windows.main.pages {
 					.ToList();
 
 			HideComboBox.SelectedItems = selectedList;
-		}
-
-		public void Dispose() {
-			AppDatabase.Dispose();
 		}
 	}
 

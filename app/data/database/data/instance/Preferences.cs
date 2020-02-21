@@ -30,6 +30,8 @@ namespace LastIRead.data.database {
 
 		public object Value { get; set; }
 
-		public T GetValue<T>() => (T) Value;
+		public T GetValue<T>() {
+			return (T) Value;
+		}
 	}
 }
