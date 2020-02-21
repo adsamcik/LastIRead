@@ -1,3 +1,5 @@
+using LastIRead.data.database.conversions;
+using LastIRead.tools;
 using LiteDB;
 
 namespace LastIRead {
@@ -6,6 +8,14 @@ namespace LastIRead {
 		private const string PreferenceCollection = "preferences";
 
 		private const string Path = "reading_data.db";
+
+		static AppDatabase() {
+			using var database = CreateDatabase();
+
+			foreach (var conversion in ReflectionTools.GetImplementors<IConversion>()) {
+				conversion.Convert(database);
+			}
+		}
 
 		public static LiteDatabase CreateDatabase() {
 			return new LiteDatabase(Path);
