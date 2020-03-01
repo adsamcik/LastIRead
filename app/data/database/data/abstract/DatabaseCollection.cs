@@ -27,7 +27,7 @@ namespace LastIRead.data.database {
 		}
 
 		/// <summary>
-		/// 	Updates single item.
+		///     Updates single item.
 		/// </summary>
 		/// <param name="item">Item.</param>
 		public void Update(T item) {
@@ -35,7 +35,7 @@ namespace LastIRead.data.database {
 		}
 
 		/// <summary>
-		/// 	Updates all items in a collection.
+		///     Updates all items in a collection.
 		/// </summary>
 		/// <param name="itemEnumerable">Item collection (Enumerable).</param>
 		public void Update(IEnumerable<T> itemEnumerable) {
@@ -43,7 +43,7 @@ namespace LastIRead.data.database {
 		}
 
 		/// <summary>
-		/// 	Inserts single item.
+		///     Inserts single item.
 		/// </summary>
 		/// <param name="item">Item.</param>
 		public void Insert(T item) {
@@ -51,7 +51,7 @@ namespace LastIRead.data.database {
 		}
 
 		/// <summary>
-		/// 	Inserts item collection.
+		///     Inserts item collection.
 		/// </summary>
 		/// <param name="itemEnumerable">Item collection (Enumerable).</param>
 		public void Insert(IEnumerable<T> itemEnumerable) {
@@ -59,7 +59,7 @@ namespace LastIRead.data.database {
 		}
 
 		/// <summary>
-		/// 	Removes single item.
+		///     Removes single item.
 		/// </summary>
 		/// <param name="item">Item.</param>
 		public void Delete(T item) {
@@ -67,7 +67,7 @@ namespace LastIRead.data.database {
 		}
 
 		/// <summary>
-		/// 	Removes all items from a collection.
+		///     Removes all items from a collection.
 		/// </summary>
 		/// <param name="itemEnumerable">Item collection (Enumerable).</param>
 		public void Delete(IEnumerable<T> itemEnumerable) {
@@ -77,7 +77,7 @@ namespace LastIRead.data.database {
 		}
 
 		/// <summary>
-		/// 	Returns all items in a database.
+		///     Returns all items in a database.
 		/// </summary>
 		/// <returns>Item collection (Enumerable).</returns>
 		public IEnumerable<T> GetAll() {
@@ -85,7 +85,7 @@ namespace LastIRead.data.database {
 		}
 
 		/// <summary>
-		/// 	Upserts an item.
+		///     Upserts an item.
 		/// </summary>
 		/// <param name="item">Item.</param>
 		public void Upsert(T item) {
