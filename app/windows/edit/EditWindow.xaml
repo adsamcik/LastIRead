@@ -40,13 +40,13 @@
 					Style="{StaticResource Title}"
 					Content="Localized title"
 					HorizontalAlignment="Left"
-					Margin="10,10,0,0"
+					Margin="10,3,0,0"
 					VerticalAlignment="Top" />
 				<TextBox
 					Grid.Column="0"
 					Style="{StaticResource TextBoxRevealStyle}"
 					x:Name="LocalizedTitleInput"
-					Margin="10,39,10,0"
+					Margin="10,32,10,0"
 					TextWrapping="NoWrap"
 					VerticalAlignment="Top" />
 
@@ -55,13 +55,13 @@
 					Style="{StaticResource Title}"
 					Content="Original title"
 					HorizontalAlignment="Left"
-					Margin="10,75,0,0"
+					Margin="10,65,0,0"
 					VerticalAlignment="Top" />
 				<TextBox
 					Grid.Column="0"
 					Style="{StaticResource TextBoxRevealStyle}"
 					x:Name="OriginalTitleInput"
-					Margin="10,104,10,0"
+					Margin="10,94,10,0"
 					TextWrapping="NoWrap"
 					VerticalAlignment="Top" />
 				<Label
@@ -77,7 +77,7 @@
 					Style="{StaticResource TextBoxRevealStyle}"
 					x:Name="CurrentProgressInput"
 					HorizontalContentAlignment="Left"
-					Margin="10,37,10,0"
+					Margin="10,32,10,0"
 					TextWrapping="Wrap"
 					VerticalAlignment="Top"
 					CanValueBeNull="True" />
@@ -100,13 +100,13 @@
 					Style="{StaticResource Title}"
 					Content="Max progress"
 					HorizontalAlignment="Left"
-					Margin="10,75,0,0"
+					Margin="10,65,0,0"
 					VerticalAlignment="Top" />
 				<numeric:DoubleBox
 					Grid.Column="1"
 					Style="{StaticResource TextBoxRevealStyle}"
 					x:Name="MaxProgressInput"
-					Margin="10,104,10,0"
+					Margin="10,94,10,0"
 					TextWrapping="Wrap"
 					NumberStyles="Float"
 					CanValueBeNull="True"
@@ -119,13 +119,13 @@
 					Style="{StaticResource Title}"
 					Content="Increment value"
 					HorizontalAlignment="Left"
-					Margin="10,138,0,0"
+					Margin="10,127,0,0"
 					VerticalAlignment="Top" />
 				<numeric:DoubleBox
 					Grid.Column="1"
 					Style="{StaticResource TextBoxRevealStyle}"
 					x:Name="IncrementInput"
-					Margin="10,167,10,0"
+					Margin="10,156,10,0"
 					TextWrapping="Wrap"
 					VerticalAlignment="Top"
 					NumberStyles="Float"
@@ -138,7 +138,7 @@
 					x:Name="OngoingCheckbox"
 					Content="Ongoing"
 					HorizontalAlignment="Left"
-					Margin="10,230,0,0"
+					Margin="10,210,0,0"
 					VerticalAlignment="Top" />
 
 				<CheckBox
@@ -146,7 +146,7 @@
 					Foreground="{DynamicResource SystemBaseHighColorBrush}"
 					x:Name="AbandonedCheckbox"
 					Content="Abandoned"
-					Margin="10,256,0,0"
+					Margin="10,231,0,0"
 					HorizontalAlignment="Left"
 					Width="120"
 					Height="18"
@@ -157,13 +157,13 @@
 					Style="{StaticResource Title}"
 					Content="Web address"
 					HorizontalAlignment="Left"
-					Margin="10,0,0,0"
-					VerticalAlignment="Center" />
+					Margin="10,127,0,0"
+					VerticalAlignment="Top" />
 				<TextBox
 					Grid.Column="0"
 					Style="{StaticResource TextBoxRevealStyle}"
 					x:Name="UrlInput"
-					Margin="10,166,10,0"
+					Margin="10,156,10,0"
 					TextWrapping="NoWrap"
 					VerticalAlignment="Top" />
 			</Grid>
