@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace LastIRead.Import.Implementation {
 	/// <summary>
-	///     JSON data handler providing JSON import and export for IReadables.
+	///     JSON data handler providing JSON import and export for IBookmark.
 	/// </summary>
 	internal class JsonDataHandler : IDataImporter, IDataExporter {
 		private static JsonSerializer Serializer => new JsonSerializer();

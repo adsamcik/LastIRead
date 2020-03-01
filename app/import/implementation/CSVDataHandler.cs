@@ -8,7 +8,7 @@ using static System.Linq.AsyncEnumerable;
 
 namespace LastIRead.Import {
 	/// <summary>
-	///     CSV Data handler providing CSV import and export for IReadables.
+	///     CSV Data handler providing CSV import and export for IBookmark.
 	/// </summary>
 	public class CsvDataHandler : IDataImporter, IDataExporter {
 		public IEnumerable<string> ExportExtensions => ImportExtensions;
