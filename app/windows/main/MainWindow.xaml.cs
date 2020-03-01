@@ -96,6 +96,8 @@ namespace LastIRead {
 				);
 				Console.WriteLine(exception.StackTrace);
 			}
+
+			TryRefresh();
 		}
 
 		private void ExportButton_Click(object sender, RoutedEventArgs e) {
@@ -119,7 +121,9 @@ namespace LastIRead {
 		/// <summary>
 		///     Refreshes content if needed.
 		/// </summary>
-		private void TryRefresh() { }
+		private void TryRefresh() {
+			_listPage.Refresh();
+		}
 
 		private void Window_KeyDown(object sender, KeyEventArgs e) {
 			if (SearchBox.IsFocused) return;

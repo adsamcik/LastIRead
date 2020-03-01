@@ -41,7 +41,7 @@ namespace LastIRead.windows.main.pages {
 			_searchBox.TextChanged -= SearchBox_TextChanged;
 		}
 
-		private void Refresh() {
+		public void Refresh() {
 			ReadList.ItemsSource = _dataStore.GetSelected(_searchBox.Text, _filterData);
 		}
 
