@@ -113,7 +113,7 @@ namespace LastIRead.windows.main.pages {
 				case 0:
 					return;
 				case 1: {
-					var data = (GenericBookmark) ReadList.SelectedItem;
+					var data = (WrapperUserBookmark) ReadList.SelectedItem;
 					result = MessageBox.Show(
 						$"Are you sure you want to delete {data.LocalizedTitle}?",
 						"Delete confirmation",
