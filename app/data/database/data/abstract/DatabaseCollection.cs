@@ -30,6 +30,10 @@ namespace LastIRead.data.database {
 			Collection.Update(item);
 		}
 
+		public void Update(IEnumerable<T> itemEnumerable) {
+			Collection.Update(itemEnumerable);
+		}
+
 		public void Insert(T item) {
 			Collection.Insert(item);
 		}

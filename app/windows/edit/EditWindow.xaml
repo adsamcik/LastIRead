@@ -108,10 +108,30 @@
 					x:Name="MaxProgressInput"
 					Margin="10,104,10,0"
 					TextWrapping="Wrap"
+					NumberStyles="Float"
+					CanValueBeNull="True"
+					HorizontalContentAlignment="Left"
+					Height="33"
+					VerticalAlignment="Top" />
+
+				<Label
+					Grid.Column="1"
+					Style="{StaticResource Title}"
+					Content="Increment value"
+					HorizontalAlignment="Left"
+					Margin="10,138,0,0"
+					VerticalAlignment="Top" />
+				<numeric:DoubleBox
+					Grid.Column="1"
+					Style="{StaticResource TextBoxRevealStyle}"
+					x:Name="IncrementInput"
+					Margin="10,167,10,0"
+					TextWrapping="Wrap"
 					VerticalAlignment="Top"
 					NumberStyles="Float"
 					CanValueBeNull="True"
 					HorizontalContentAlignment="Left" />
+
 				<CheckBox
 					Grid.Column="0"
 					Foreground="{DynamicResource SystemBaseHighColorBrush}"
@@ -137,13 +157,13 @@
 					Style="{StaticResource Title}"
 					Content="Web address"
 					HorizontalAlignment="Left"
-					Margin="10,157,0,0"
-					VerticalAlignment="Top" />
+					Margin="10,0,0,0"
+					VerticalAlignment="Center" />
 				<TextBox
 					Grid.Column="0"
 					Style="{StaticResource TextBoxRevealStyle}"
 					x:Name="UrlInput"
-					Margin="10,186,10,0"
+					Margin="10,166,10,0"
 					TextWrapping="NoWrap"
 					VerticalAlignment="Top" />
 			</Grid>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using CsvHelper.Configuration.Attributes;
 using LiteDB;
@@ -27,7 +27,7 @@ namespace LastIRead.Data.Instance {
 		[JsonProperty]
 		public override IList<IProgress> History { get; protected set; } = new List<IProgress>();
 
-		public override double ProgressIncrement { get; set; }
+		public override double ProgressIncrement { get; set; } = 1.0;
 
 		public string? WebAddress { get; set; }
 

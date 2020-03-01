@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -55,6 +55,8 @@ namespace LastIRead.Data.Instance {
 			get => Bookmark.Progress;
 			set => Bookmark.Progress = value;
 		}
+
+		public string FormattedIncrement => $"{(ProgressIncrement > 0 ? '+' : '-')} {ProgressIncrement}";
 
 		public void IncrementProgress() {
 			Bookmark.IncrementProgress();

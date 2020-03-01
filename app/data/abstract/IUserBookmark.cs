@@ -16,6 +16,11 @@ namespace LastIRead {
 		string FormattedProgress { get; }
 
 		/// <summary>
+		///     Increment value in more readable way.
+		/// </summary>
+		string FormattedIncrement { get; }
+
+		/// <summary>
 		///     Returns last progress instance or default value if no progress is logged.
 		/// </summary>
 		public IProgress? LastProgress { get; }

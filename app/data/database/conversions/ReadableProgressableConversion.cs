@@ -9,13 +9,9 @@ namespace LastIRead.data.database.conversions {
 	/// </summary>
 	public class ReadableProgressableConversion : IConversion {
 		public void Convert(LiteDatabase database) {
-			const string readableCollection = "readables";
-			const string progressableCollection = "bookmarks";
-			if (!database.CollectionExists(readableCollection)) {
-				return;
-			}
+			const string bookmarksCollection = "bookmarks";
 
-			var collection = database.GetCollection(readableCollection);
+			var collection = database.GetCollection(bookmarksCollection);
 			var castList = collection.FindAll().ToArray();
 
 			foreach (var item in castList) {
@@ -23,7 +19,6 @@ namespace LastIRead.data.database.conversions {
 			}
 
 			collection.Update(castList);
-			database.RenameCollection(readableCollection, progressableCollection);
 		}
 	}
 }

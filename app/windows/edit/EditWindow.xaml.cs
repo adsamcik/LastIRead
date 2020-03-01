@@ -40,6 +40,10 @@ namespace LastIRead {
 			} else {
 				UrlInput.IsEnabled = false;
 			}
+
+			if (!double.IsNaN(bookmark.ProgressIncrement)) {
+				IncrementInput.Value = bookmark.ProgressIncrement;
+			}
 		}
 
 		private void UpdateTitle() {
@@ -76,6 +80,8 @@ namespace LastIRead {
 			if (Bookmark is IWebBookmark webReadable) {
 				webReadable.WebAddress = UrlInput.Text;
 			}
+
+			Bookmark.ProgressIncrement = IncrementInput.Value ?? 0.0;
 		}
 
 		private void OkButton_Click(object sender, RoutedEventArgs e) {

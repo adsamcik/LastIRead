@@ -43,7 +43,7 @@ namespace LastIRead {
 		}
 
 		public virtual void IncrementProgress() {
-			LogProgress(Progress + 1);
+			LogProgress(Progress + ProgressIncrement);
 		}
 
 		public virtual void LogProgress(double progress) {
