@@ -35,7 +35,7 @@ namespace LastIRead {
 			OngoingCheckbox.IsChecked = bookmark.Ongoing;
 			AbandonedCheckbox.IsChecked = bookmark.Abandoned;
 			MaxProgressInput.Text = bookmark.MaxProgress.ToString(culture.NumberFormat);
-			if (Bookmark is IWebBookmark webReadable) {
+			if (bookmark is IWebBookmark webReadable) {
 				UrlInput.Text = webReadable.WebAddress;
 			} else {
 				UrlInput.IsEnabled = false;
