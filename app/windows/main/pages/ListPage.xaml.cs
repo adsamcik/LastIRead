@@ -85,9 +85,13 @@ namespace LastIRead.windows.main.pages {
 			Update(readable.Bookmark);
 		}
 
-		private static bool EditItem(IBookmark bookmark) => new EditWindow(bookmark).ShowDialog() == true;
+		private static bool EditItem(IBookmark bookmark) {
+			return new EditWindow(bookmark).ShowDialog() == true;
+		}
 
-		private static bool EditItem(WrapperUserBookmark bookmark) => EditItem(bookmark.Bookmark);
+		private static bool EditItem(WrapperUserBookmark bookmark) {
+			return EditItem(bookmark.Bookmark);
+		}
 
 		private void IncrementButton_Click(object sender, RoutedEventArgs e) {
 			e.Handled = true;
