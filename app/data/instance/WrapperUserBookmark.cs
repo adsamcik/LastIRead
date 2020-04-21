@@ -17,7 +17,7 @@ namespace LastIRead.Data.Instance {
 		public string FormattedProgress => $"{Progress}/{MaxProgress}";
 		public IProgress? LastProgress => History.LastOrDefault();
 		public DateTime StartedReading => History.FirstOrDefault()?.Date ?? DateTime.MinValue;
-		public DateTime LastRead => LastProgress?.Date ?? DateTime.MinValue;
+		public DateTime LastProgressDate => LastProgress?.Date ?? DateTime.MinValue;
 
 		public string? LocalizedTitle {
 			get => Bookmark.LocalizedTitle;

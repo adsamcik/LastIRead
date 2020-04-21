@@ -35,8 +35,8 @@
 						Width="90"
 						DisplayMemberBinding="{Binding LastRead, StringFormat=d}" />
 					<GridViewColumn
-						Header="Increment"
-						Width="60">
+						Header="Actions"
+						Width="100">
 						<GridViewColumn.CellTemplate>
 							<DataTemplate>
 								<Button

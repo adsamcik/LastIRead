@@ -33,6 +33,6 @@ namespace LastIRead {
 		/// <summary>
 		///     Date of last progress change.
 		/// </summary>
-		public DateTime LastRead { get; }
+		public DateTime LastProgressDate { get; }
 	}
 }
