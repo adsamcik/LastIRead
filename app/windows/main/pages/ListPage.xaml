@@ -33,7 +33,7 @@
 					<GridViewColumn
 						Header="Last read"
 						Width="90"
-						DisplayMemberBinding="{Binding LastRead, StringFormat=d}" />
+						DisplayMemberBinding="{Binding LastProgressDate, StringFormat=d}" />
 					<GridViewColumn
 						Header="Actions"
 						Width="100">
