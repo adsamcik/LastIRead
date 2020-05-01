@@ -2,7 +2,9 @@
 
 # LastIRead
 
-Free open-source application for tracking your reading progress. 
+Free open-source application for tracking your reading progress.
+
+No longer in development and is being rewritten into Flutter. This change will make it much easier to make changes (especially UI is more versatile) in the future and also support multiple platforms. Windows will still be supported (preview version in flutter proved to be good enough for this project).
 
 ## Technical
 
