@@ -2,8 +2,6 @@
 
 Application was rewritten to Flutter and will be further developed in different repo [https://github.com/adsamcik/MarkMyProgress](https://github.com/adsamcik/MarkMyProgress). Reason for this change was primarily that WPF UI is way too inflexible. Migrating data from this app to the new one requires exporting to json and manually changing all the variable names to camelCase.
 
-[![CodeFactor](https://www.codefactor.io/repository/github/adsamcik/lastiread/badge?s=911484ec166467c2ab394153fcff79602540fb05)](https://www.codefactor.io/repository/github/adsamcik/lastiread)
-
 # LastIRead
 
 Free open-source application for tracking your reading progress.
